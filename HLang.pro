@@ -27,19 +27,12 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         commandline.cpp \
-    hargs.cpp \
-    hstdlib.cpp \
-    hobject.cpp \
-    hvariable.cpp \
-    hlang.cpp
+    hrunner.cpp
+
 
 HEADERS += \
         commandline.h \
-    hobject.h \
-    hargs.h \
-    hstdlib.h \
-    hvariable.h \
-    hlang.h
+    hrunner.h
 
 FORMS += \
         commandline.ui

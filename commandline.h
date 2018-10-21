@@ -2,7 +2,6 @@
 #define COMMANDLINE_H
 
 #include <QMainWindow>
-#include "hstdlib.h"
 namespace Ui {
 class commandline;
 }
@@ -20,6 +19,6 @@ private slots:
 
 private:
     Ui::commandline *ui;
-};
+ };
 
 #endif // COMMANDLINE_H
