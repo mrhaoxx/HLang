@@ -1,11 +1,14 @@
-#include "commandline.h"
+﻿#include "commandline.h"
 #include <QApplication>
-
+#include <QMessageBox>
+#include "HBuiltin.h"
+#include <QDebug>
+HLang* HMain = new HLang;
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	commandline w;
-	w.show();
-
+	HMain->import("builtin", new HBuiltin);
+	commandline c;
+	c.show();
 	return a.exec();
 }

@@ -1,24 +1,24 @@
 ﻿#ifndef COMMANDLINE_H
 #define COMMANDLINE_H
-
+#include "HLang.h"
 #include <QMainWindow>
 namespace Ui {
-class commandline;
+	class commandline;
 }
 
 class commandline : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit commandline(QWidget *parent = nullptr);
-    ~commandline();   
+	explicit commandline(QWidget *parent = nullptr);
+	~commandline();
 private slots:
 
-    void on_lineEdit_returnPressed();
+	void on_lineEdit_returnPressed();
 
 private:
-    Ui::commandline *ui;
- };
+	Ui::commandline *ui;
+};
 
 #endif // COMMANDLINE_H

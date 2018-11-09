@@ -1,46 +1,48 @@
 ﻿#include "commandline.h"
 #include "ui_commandline.h"
-
+#include <QDebug>
+#include "HBuiltin.h"
 commandline::commandline(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::commandline)
+	QMainWindow(parent),
+	ui(new Ui::commandline)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 }
 
 commandline::~commandline()
 {
-    delete ui;
+	delete ui;
 }
 
 void commandline::on_lineEdit_returnPressed()
 {
-//    ui->textBrowser->setText(ui->textBrowser->document()->toPlainText()+ui->lineEdit->text());
-//    if (ui->lineEdit->text().split(Separator).length()>1)
-//    {
-//        if (map[ui->lineEdit->text().split(Separator)[0]])
-//        {
-//            if (map[ui->lineEdit->text().split(Separator)[0]]->map.contains(ui->lineEdit->text().split(Separator)[1])){
-//                map[ui->lineEdit->text().split(Separator)[0]]->map[ui->lineEdit->text().split(Separator)[1]](HArgs(ui->lineEdit->text()));
-//                ui->textBrowser->append(Separator);
-//                ui->textBrowser->append(">>");
-//            }
-//            else
-//            {
-//                ui->textBrowser->append("Command Not Find");
-//                ui->textBrowser->append(">>");
-//            }
-//        }
-//        else
-//        {
-//            ui->textBrowser->append("Namespace Not Find");
-//            ui->textBrowser->append(">>");
-//        }
-//    }
-//    else
-//    {
-//        ui->textBrowser->append("Command len not right");
-//        ui->textBrowser->append(">>");
-//    }
-//    ui->lineEdit->clear();
+	HString _command = ui->lineEdit->text();
+	if (_command == "reload_builtin")
+		HMain->import("builtin", new HBuiltin);
+	if (_command == "reload")
+	{
+		delete HMain;
+		HMain = new HLang;
+		HMain->import("builtin", new HBuiltin);
+	}
+	ui->textBrowser->setText(ui->textBrowser->document()->toPlainText() + _command);
+	QStringList list = _command.split(" ");
+	if (list.length() > 1)
+	{
+		QString _class = list.at(0);
+		QString _func = list.at(1);
+		HOBJECTS __self;
+		QStringList _args = list.mid(2);
+		HOBJECTS __args = HOBJECTS(_args);
+		if ((HMain->accessclass(_class)) != nullptr)
+		{
+			ui->textBrowser->append(HMain->accessclass(_class)->exec(_func, __self, __args).toString());
+			ui->textBrowser->append("");
+		}
+		else
+			ui->textBrowser->append("Error");
+	}
+	ui->textBrowser->append(">>");
+	ui->textBrowser->moveCursor(QTextCursor::End);
+	ui->lineEdit->clear();
 }
