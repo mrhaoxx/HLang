@@ -35,19 +35,16 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source Files\Base">
+      <UniqueIdentifier>{d970f486-dca8-4fe0-9e72-437fe053da02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Base">
+      <UniqueIdentifier>{35e82772-257f-40aa-9e49-cc3feb9d96a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="commandline.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include=".\hlang_plugin_import.cpp">
       <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HLang.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HWindow.cpp">
       <Filter>Source Files</Filter>
@@ -61,16 +58,28 @@
     <ClCompile Include="HFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="commandline.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="HLang.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="HBool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="commandline.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="HWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="HPushButton.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="commandline.h">
+      <Filter>Header Files\Base</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -93,16 +102,19 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HLang.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HBuiltin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HLang.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="HObject.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="HBool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

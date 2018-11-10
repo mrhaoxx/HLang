@@ -64,4 +64,21 @@ MOC_DIR += ./GeneratedFiles/$(ConfigurationName)
 OBJECTS_DIR += debug
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
-include(HLang.pri)
+HEADERS += ./HBool.h \
+    ./HBuiltin.h \
+    ./HFunction.h \
+    ./HWindow.h \
+    ./HPushButton.h \
+    ./HLang.h \
+    ./HObject.h \
+    ./commandline.h
+SOURCES += ./HBool.cpp \
+    ./HBuiltin.cpp \
+    ./HFunction.cpp \
+    ./HPushButton.cpp \
+    ./HWindow.cpp \
+    ./commandline.cpp \
+    ./HLang.cpp \
+    ./main.cpp
+FORMS += ./commandline.ui \
+    ./HWindow.ui

@@ -16,17 +16,22 @@ commandline::~commandline()
 
 void commandline::on_lineEdit_returnPressed()
 {
-	HString _command = ui->lineEdit->text();
+	QString _command = ui->lineEdit->text();
 	if (_command == "reload_builtin")
-		HMain->import("builtin", new HBuiltin);
+		HMain->importclass("builtin", new HBuiltin);
 	if (_command == "reload")
 	{
 		delete HMain;
 		HMain = new HLang;
-		HMain->import("builtin", new HBuiltin);
+		HMain->importclass("builtin", new HBuiltin);
 	}
 	ui->textBrowser->setText(ui->textBrowser->document()->toPlainText() + _command);
-	QStringList list = _command.split(" ");
+	QStringList backvaluelist = _command.split("=");
+	QStringList list;
+	if (backvaluelist.length() == 1)
+		list = backvaluelist.at(0).split(" ");
+	else
+		list = backvaluelist.at(1).split(" ");
 	if (list.length() > 1)
 	{
 		QString _class = list.at(0);
@@ -36,7 +41,13 @@ void commandline::on_lineEdit_returnPressed()
 		HOBJECTS __args = HOBJECTS(_args);
 		if ((HMain->accessclass(_class)) != nullptr)
 		{
-			ui->textBrowser->append(HMain->accessclass(_class)->exec(_func, __self, __args).toString());
+			if (backvaluelist.length() < 2)
+				HMain->accessclass(_class)->exec(_func, __self, __args);
+			else
+			{
+				HMain->importclass(backvaluelist.at(0), HMain->accessclass(_class)->exec(_func, __self, __args));
+				ui->textBrowser->append("to " + backvaluelist.at(0));
+			}
 			ui->textBrowser->append("");
 		}
 		else

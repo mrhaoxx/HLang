@@ -1,6 +1,7 @@
 #include "HFunction.h"
 #include "HLang.h"
 #include <QFile>
+#include "HBool.h"
 
 HFunction::HFunction()
 {
@@ -16,14 +17,15 @@ HFunction::~HFunction()
 H_MemberFunction_def(add, HFunction)
 {
 	CheckArgs(5);
+	SetupArgs;
 	HCommand *c = new HCommand;
-	c->_class = __arglist.toStringList().at(0);
-	c->_func = __arglist.toStringList().at(1);
-	c->_self = __arglist.toStringList().at(2);
-	c->_backvalue_name = __arglist.toStringList().at(3);
-	c->_args = __arglist.toStringList().mid(4);
+	c->_class = GetArg(0);
+	c->_func = GetArg(1);
+	c->_self = GetArg(2);
+	c->_backvalue_name = GetArg(3);
+	c->_args = args.mid(4);
 	commands.push_back(c);
-	return HOBJECTS(true);
+	return new HBool(true);
 }
 H_MemberFunction_def(hexec, HFunction)
 {
@@ -35,17 +37,18 @@ H_MemberFunction_def(hexec, HFunction)
 			else;
 		else
 			if (HMain->accessclass(commands[i]->_class) != nullptr)
-				HMain->import(commands[i]->_backvalue_name, new HOBJECTS(HMain->accessclass(commands[i]->_class)->exec(commands[i]->_func, commands[i]->_self, commands[i]->_args)));
+				HMain->importclass(commands[i]->_backvalue_name, HMain->accessclass(commands[i]->_class)->exec(commands[i]->_func, commands[i]->_self, commands[i]->_args));
 	}
-	return HOBJECTS(true);
+	return new HBool(true);
 }
 H_MemberFunction_def(readfile, HFunction)
 {
 	CheckArgs(1);
-	QString file_w = __arglist.toStringList().at(0);
+	SetupArgs;
+	QString file_w = GetArg(0);
 	QFile file(file_w);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-		return HOBJECTS(false);
+		return new HBool(false);
 	while (!file.atEnd()) {
 		QByteArray line = file.readLine();
 		line.chop(1);
@@ -53,5 +56,5 @@ H_MemberFunction_def(readfile, HFunction)
 		QStringList list = str.split(" ");
 		this->add(HOBJECTS(), HOBJECTS(list));
 	}
-	return HOBJECTS(true);
+	return new HBool(true);
 }
