@@ -1,13 +1,13 @@
 #include "HFunction.h"
+#include "HBaseInterface.h"
 #include "HLang.h"
 #include <QFile>
-#include "HBool.h"
 
 HFunction::HFunction()
 {
 	DefineMemberFunction("add", &HFunction::add);
 	DefineMemberFunction("exec", &HFunction::hexec);
-	DefineMemberFunction("readfile", &HFunction::readfile);
+	DefineMemberFunction("loadfile", &HFunction::loadfile);
 }
 
 HFunction::~HFunction()
@@ -16,14 +16,10 @@ HFunction::~HFunction()
 
 H_MemberFunction_def(add, HFunction)
 {
-	CheckArgs(5);
+	CheckArgs(1);
 	SetupArgs;
 	HCommand *c = new HCommand;
-	c->_class = GetArg(0);
-	c->_func = GetArg(1);
-	c->_self = GetArg(2);
-	c->_backvalue_name = GetArg(3);
-	c->_args = args.mid(4);
+	*c = HLangHelper::processcommand(GetArg(0));
 	commands.push_back(c);
 	return new HBool(true);
 }
@@ -41,7 +37,7 @@ H_MemberFunction_def(hexec, HFunction)
 	}
 	return new HBool(true);
 }
-H_MemberFunction_def(readfile, HFunction)
+H_MemberFunction_def(loadfile, HFunction)
 {
 	CheckArgs(1);
 	SetupArgs;

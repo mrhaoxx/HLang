@@ -5,6 +5,7 @@
 HPushButton::HPushButton(QWidget *parent)
 	: QPushButton(parent)
 {
+	IsGuiClass;
 	DefineMemberFunction("setText", &HPushButton::hsetText);
 }
 
@@ -16,6 +17,13 @@ H_MemberFunction_def(hsetText, HPushButton)
 {
 	CheckArgs(1);
 	SetupArgs;
-	this->setText(*(QString*)HObjTo(HMain->accessclass(GetArg(0)), HLang*));
-	return new HBool(true);
+	if (HObjTo(HMain->accessclass(GetArg(0)), HString*) != nullptr)
+	{
+		this->setText(HObjTo(HMain->accessclass(GetArg(0)), HString*)->toQString());
+		return new HBool(true);
+	}
+	else
+	{
+		return new HBool(false);
+	}
 }

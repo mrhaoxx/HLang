@@ -10,7 +10,7 @@ public:
 	~HFunction();
 	H_MemberFunction_def(add, HFunction);
 	H_MemberFunction_def(hexec, HFunction);
-	H_MemberFunction_def(readfile, HFunction);
+	H_MemberFunction_def(loadfile, HFunction);
 
 private:
 	QVector<HCommand*> commands;

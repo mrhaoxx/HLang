@@ -1,4 +1,5 @@
-﻿#include "commandline.h"
+﻿#include "HObject.h"
+#include "commandline.h"
 #include <QApplication>
 #include <QMessageBox>
 #include "HBuiltin.h"

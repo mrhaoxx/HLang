@@ -41,22 +41,22 @@
     <Filter Include="Header Files\Base">
       <UniqueIdentifier>{35e82772-257f-40aa-9e49-cc3feb9d96a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\HGui">
+      <UniqueIdentifier>{e94e8a3d-db1c-47b0-b234-48b745111dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\HGui">
+      <UniqueIdentifier>{150322c0-4929-4ee9-aa8c-61045676db7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HBase">
+      <UniqueIdentifier>{20ebda23-ce21-4112-a2a9-f49fef271613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\HBase">
+      <UniqueIdentifier>{04b65da8-2a0c-44ff-8d72-5757a31ed1e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include=".\hlang_plugin_import.cpp">
       <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HBuiltin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HPushButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HFunction.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="commandline.cpp">
       <Filter>Source Files\Base</Filter>
@@ -68,18 +68,36 @@
       <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="HBool.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\HBase</Filter>
+    </ClCompile>
+    <ClCompile Include="HInt.cpp">
+      <Filter>Source Files\HBase</Filter>
+    </ClCompile>
+    <ClCompile Include="HBuiltin.cpp">
+      <Filter>Source Files\HBase</Filter>
+    </ClCompile>
+    <ClCompile Include="HFunction.cpp">
+      <Filter>Source Files\HBase</Filter>
+    </ClCompile>
+    <ClCompile Include="HString.cpp">
+      <Filter>Source Files\HBase</Filter>
+    </ClCompile>
+    <ClCompile Include="HPushButton.cpp">
+      <Filter>Source Files\HGui</Filter>
+    </ClCompile>
+    <ClCompile Include="HWindow.cpp">
+      <Filter>Source Files\HGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="HWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="HPushButton.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="commandline.h">
       <Filter>Header Files\Base</Filter>
+    </QtMoc>
+    <QtMoc Include="HWindow.h">
+      <Filter>Header Files\HGui</Filter>
+    </QtMoc>
+    <QtMoc Include="HPushButton.h">
+      <Filter>Header Files\HGui</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -102,12 +120,6 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HBuiltin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HLang.h">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
@@ -115,7 +127,22 @@
       <Filter>Header Files\Base</Filter>
     </ClInclude>
     <ClInclude Include="HBool.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\HBase</Filter>
+    </ClInclude>
+    <ClInclude Include="HFunction.h">
+      <Filter>Header Files\HBase</Filter>
+    </ClInclude>
+    <ClInclude Include="HInt.h">
+      <Filter>Header Files\HBase</Filter>
+    </ClInclude>
+    <ClInclude Include="HString.h">
+      <Filter>Header Files\HBase</Filter>
+    </ClInclude>
+    <ClInclude Include="HBuiltin.h">
+      <Filter>Header Files\HBase</Filter>
+    </ClInclude>
+    <ClInclude Include="HBaseInterface.h">
+      <Filter>Header Files\HBase</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

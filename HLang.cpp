@@ -6,13 +6,6 @@ bool HLang::importclass(QString __name, HObject* __class)
 	classes.insert(__name, __class);
 	return true;
 }
-bool HLang::importclass(QString __name, QWidget * __class)
-{
-	if (QGuiClasses.contains(__name))
-		return false;
-	QGuiClasses.insert(__name, __class);
-	return true;
-}
 HObject* HLang::accessclass(QString __name)
 {
 	if (classes.contains(__name))
@@ -20,19 +13,43 @@ HObject* HLang::accessclass(QString __name)
 	return nullptr;
 }
 
-QWidget * HLang::accessQGuiclass(QString __name)
-{
-	if (QGuiClasses.contains(__name))
-		return QGuiClasses[__name];
-	return nullptr;
-}
 void HLang::deleteclass(QString __name)
 {
 	if (classes.contains(__name))
 	{
 		delete classes[__name];
 		classes.remove(__name);
-		if (QGuiClasses.contains(__name))
-			QGuiClasses.remove(__name);
+	}
+}
+namespace HLangHelper {
+	HCommand processcommand(QString command) {
+		HCommand c;
+		if (command.contains("=")) {
+			c._backvalue_name = QString(command.split("=").at(0).trimmed());
+			command = command.split("=").at(1).trimmed();
+		}
+		if (command.contains("."))
+		{
+			c._class = QString(command.split(".").at(0).trimmed());
+			command = command.split(".").at(1).trimmed();
+		}
+		if (command.contains("("))
+		{
+			c._func = QString(command.split("(").at(0).trimmed());
+			command = command.split("(").at(1).trimmed();
+		}
+		if (command.contains(")"))
+		{
+			command = command.split(")").at(0).trimmed();
+		}
+		if (command.contains(","))
+		{
+			c._args = QStringList(command.split(","));
+		}
+		else
+		{
+			c._args = QStringList(command);
+		}
+		return c;
 	}
 }

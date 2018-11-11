@@ -2,6 +2,7 @@
 #include <QPushbutton>
 #include "HLang.h"
 #include "HBool.h"
+#include "HString.h"
 HWindow::HWindow(QWidget *parent)
 	: QWidget(parent)
 {
@@ -20,7 +21,7 @@ H_MemberFunction_def(hsetTitle, HWindow)
 {
 	CheckArgs(1);
 	SetupArgs;
-	this->setWindowTitle(*(QString*)HObjTo(HMain->accessclass(GetArg(0)), HLang*));
+	this->setWindowTitle(HObjTo(HMain->accessclass(GetArg(0)), HString*)->toQString());
 	return new HBool(true);
 }
 
@@ -28,19 +29,21 @@ H_MemberFunction_def(hadd, HWindow)
 {
 	CheckArgs(1);
 	SetupArgs;
-	if (HMain->accessQGuiclass(GetArg(0)) == nullptr)
+	if (HMain->accessclass(GetArg(0))->QGuiClassHandle == nullptr)
 		return new HBool(false);
-	ui.main->addWidget(HMain->accessQGuiclass(GetArg(0)));
+	ui.main->addWidget(HMain->accessclass(GetArg(0))->QGuiClassHandle);
 	return new HBool(true);
 }
 
 H_MemberFunction_def(hshow, HWindow)
 {
+	CheckArgs(0);
 	this->show();
 	return new HBool(true);
 }
 H_MemberFunction_def(hhide, HWindow)
 {
+	CheckArgs(0);
 	this->hide();
 	return new HBool(true);
 }

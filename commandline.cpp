@@ -26,33 +26,20 @@ void commandline::on_lineEdit_returnPressed()
 		HMain->importclass("builtin", new HBuiltin);
 	}
 	ui->textBrowser->setText(ui->textBrowser->document()->toPlainText() + _command);
-	QStringList backvaluelist = _command.split("=");
-	QStringList list;
-	if (backvaluelist.length() == 1)
-		list = backvaluelist.at(0).split(" ");
-	else
-		list = backvaluelist.at(1).split(" ");
-	if (list.length() > 1)
+	HCommand c = HLangHelper::processcommand(ui->lineEdit->text());
+	if ((HMain->accessclass(c._class)) != nullptr)
 	{
-		QString _class = list.at(0);
-		QString _func = list.at(1);
-		HOBJECTS __self;
-		QStringList _args = list.mid(2);
-		HOBJECTS __args = HOBJECTS(_args);
-		if ((HMain->accessclass(_class)) != nullptr)
-		{
-			if (backvaluelist.length() < 2)
-				HMain->accessclass(_class)->exec(_func, __self, __args);
-			else
-			{
-				HMain->importclass(backvaluelist.at(0), HMain->accessclass(_class)->exec(_func, __self, __args));
-				ui->textBrowser->append("to " + backvaluelist.at(0));
-			}
-			ui->textBrowser->append("");
-		}
+		if (c._backvalue_name.isEmpty())
+			HMain->accessclass(c._class)->exec(c._func, c._self, c._args);
 		else
-			ui->textBrowser->append("Error");
+		{
+			HMain->importclass(c._backvalue_name, HMain->accessclass(c._class)->exec(c._func, c._self, c._args));
+			ui->textBrowser->append("to " + c._backvalue_name);
+		}
+		ui->textBrowser->append("");
 	}
+	else
+		ui->textBrowser->append("Error");
 	ui->textBrowser->append(">>");
 	ui->textBrowser->moveCursor(QTextCursor::End);
 	ui->lineEdit->clear();

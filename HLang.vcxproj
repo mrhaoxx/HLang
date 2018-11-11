@@ -188,8 +188,10 @@
     <ClCompile Include="HBool.cpp" />
     <ClCompile Include="HBuiltin.cpp" />
     <ClCompile Include="HFunction.cpp" />
+    <ClCompile Include="HInt.cpp" />
     <ClCompile Include="HLang.cpp" />
     <ClCompile Include="HPushButton.cpp" />
+    <ClCompile Include="HString.cpp" />
     <ClCompile Include="HWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -218,6 +220,7 @@
     <ClInclude Include="HBool.h" />
     <ClInclude Include="HBuiltin.h" />
     <ClInclude Include="HFunction.h" />
+    <ClInclude Include="HInt.h" />
     <ClInclude Include="HLang.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\.;.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;.\debug;$(QTDIR)\mkspecs\win32-msvc</IncludePath>
       <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_WINDOWS;UNICODE;_UNICODE;WIN32;WIN64;_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_DEPRECATED_WARNINGS;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;GL_APICALL=;EGLAPI=</Define>
@@ -242,6 +245,8 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\.;.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;.\release;$(QTDIR)\mkspecs\win32-msvc</IncludePath>
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">_WINDOWS;UNICODE;_UNICODE;WIN32;WIN64;_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;GL_APICALL=;EGLAPI=;NDEBUG</Define>
     </QtMoc>
+    <ClInclude Include="HString.h" />
+    <ClInclude Include="HBaseInterface.h" />
     <ClInclude Include="ui_commandline.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 #include "HBool.h"
-#include <QDebug>
+#include "HBaseInterface.h"
 H_MemberFunction_def(set, HBool)
 {
 	CheckArgs(1);

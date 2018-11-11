@@ -2,39 +2,23 @@
 #include "HLang.h"
 #include "HWindow.h"
 #include "HPushButton.h"
-#include "HFunction.h"
-#include "HBool.h"
+#include "HBaseInterface.h"
 H_MemberFunction_def(newclass, HBuiltin)
 {
-	CheckArgs(2);
+	CheckArgs(1);
 	SetupArgs;
 	if (GetArg(0) == "HWindow")
-	{
-		HWindow *_class = new HWindow;
-		if (HMain->importclass(GetArg(1), (HObject*)(_class)))
-			return new HBool(true);
-		delete _class;
-	}
+		return (HObject*)new HWindow;
 	else if (GetArg(0) == "HPushButton")
-	{
-		HPushButton *_class = new HPushButton(nullptr);
-		if (HMain->importclass(GetArg(1), (HObject*)_class))
-		{
-			HMain->importclass(GetArg(1), (QWidget*)_class);
-			return new HBool(true);
-		}
-		delete _class;
-	}
+		return (HObject*)new HPushButton(nullptr);
 	else if (GetArg(0) == "HFunction")
-	{
-		HFunction *_class = new HFunction;
-		if (HMain->importclass(GetArg(1), (HObject*)_class))
-		{
-			return new HBool(true);
-		}
-		delete _class;
-	}
-
+		return new HFunction;
+	else if (GetArg(0) == "HBool")
+		return new HBool(false);
+	else if (GetArg(0) == "HInt")
+		return new HInt();
+	else if (GetArg(0) == "HString")
+		return new HString(new QString(""));
 	return new HBool(false);
 }
 H_MemberFunction_def(deleteclass, HBuiltin)
