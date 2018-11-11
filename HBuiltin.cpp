@@ -31,6 +31,8 @@ H_MemberFunction_def(newclass, HBuiltin)
 		return new HInt();
 	else if (GetArg(0) == "HString")
 		return new HString(new QString(""));
+	else if (GetArg(0) == "HIf")
+		return new HIf();
 	return new HBool(false);
 }
 H_MemberFunction_def(deleteclass, HBuiltin)

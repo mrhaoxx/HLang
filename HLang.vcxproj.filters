@@ -53,6 +53,18 @@
     <Filter Include="Header Files\HBase">
       <UniqueIdentifier>{04b65da8-2a0c-44ff-8d72-5757a31ed1e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\HBase\HLogic">
+      <UniqueIdentifier>{c83ab0fb-bd1c-48f9-a7c4-ac81ae7b6d44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HBase\HLogic">
+      <UniqueIdentifier>{9cf6a8b0-9848-48b5-a1c3-08d44a4ebef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HBase\HData">
+      <UniqueIdentifier>{7317c7f6-6ac5-418a-aa99-7f49c9a909b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\HBase\HData">
+      <UniqueIdentifier>{82b1eeeb-41fb-4a11-ad27-9fc718fa1ffa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include=".\hlang_plugin_import.cpp">
@@ -67,19 +79,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
-    <ClCompile Include="HBool.cpp">
-      <Filter>Source Files\HBase</Filter>
-    </ClCompile>
-    <ClCompile Include="HInt.cpp">
-      <Filter>Source Files\HBase</Filter>
-    </ClCompile>
     <ClCompile Include="HBuiltin.cpp">
-      <Filter>Source Files\HBase</Filter>
-    </ClCompile>
-    <ClCompile Include="HFunction.cpp">
-      <Filter>Source Files\HBase</Filter>
-    </ClCompile>
-    <ClCompile Include="HString.cpp">
       <Filter>Source Files\HBase</Filter>
     </ClCompile>
     <ClCompile Include="HPushButton.cpp">
@@ -87,6 +87,21 @@
     </ClCompile>
     <ClCompile Include="HWindow.cpp">
       <Filter>Source Files\HGui</Filter>
+    </ClCompile>
+    <ClCompile Include="HInt.cpp">
+      <Filter>Source Files\HBase\HData</Filter>
+    </ClCompile>
+    <ClCompile Include="HBool.cpp">
+      <Filter>Source Files\HBase\HData</Filter>
+    </ClCompile>
+    <ClCompile Include="HString.cpp">
+      <Filter>Source Files\HBase\HData</Filter>
+    </ClCompile>
+    <ClCompile Include="HIf.cpp">
+      <Filter>Source Files\HBase\HLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="HFunction.cpp">
+      <Filter>Source Files\HBase\HLogic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,23 +141,26 @@
     <ClInclude Include="HObject.h">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
-    <ClInclude Include="HBool.h">
-      <Filter>Header Files\HBase</Filter>
-    </ClInclude>
-    <ClInclude Include="HFunction.h">
-      <Filter>Header Files\HBase</Filter>
-    </ClInclude>
-    <ClInclude Include="HInt.h">
-      <Filter>Header Files\HBase</Filter>
-    </ClInclude>
-    <ClInclude Include="HString.h">
-      <Filter>Header Files\HBase</Filter>
-    </ClInclude>
     <ClInclude Include="HBuiltin.h">
       <Filter>Header Files\HBase</Filter>
     </ClInclude>
     <ClInclude Include="HBaseInterface.h">
       <Filter>Header Files\HBase</Filter>
+    </ClInclude>
+    <ClInclude Include="HBool.h">
+      <Filter>Header Files\HBase\HData</Filter>
+    </ClInclude>
+    <ClInclude Include="HInt.h">
+      <Filter>Header Files\HBase\HData</Filter>
+    </ClInclude>
+    <ClInclude Include="HString.h">
+      <Filter>Header Files\HBase\HData</Filter>
+    </ClInclude>
+    <ClInclude Include="HIf.h">
+      <Filter>Header Files\HBase\HLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="HFunction.h">
+      <Filter>Header Files\HBase\HLogic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
