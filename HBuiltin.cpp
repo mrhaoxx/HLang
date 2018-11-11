@@ -57,6 +57,20 @@ H_MemberFunction_def(hsleep, HBuiltin)
 	ALsleep(usecs);
 	return new HBool(true);
 }
+H_MemberFunction_def(hsystem, HBuiltin)
+{
+	CheckArgs(1);
+	SetupArgs;
+	if (HObjTo(HMain->accessclass(GetArg(0)), HString*) != nullptr)
+	{
+		system(HObjTo(HMain->accessclass(GetArg(0)), HString*)->toQString().toStdString().c_str());
+		return new HBool(true);
+	}
+	else
+	{
+		return new HBool(false);
+	}
+}
 #ifdef H_DEBUG
 H_MemberFunction_def(hcout, HBuiltin)
 {
