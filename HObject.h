@@ -37,9 +37,9 @@ public:
 };
 
 struct HCommand {
-	QString _class;
-	QString _func;
-	QString _self;
-	QStringList _args;
-	QString _backvalue_name;
+	QString *_class = nullptr;
+	QString *_func = nullptr;
+	QString *_self = nullptr;
+	QStringList *_args = nullptr;
+	QString *_backvalue_name = nullptr;
 };

@@ -22,33 +22,35 @@ void HLang::deleteclass(QString __name)
 	}
 }
 namespace HLangHelper {
-	HCommand processcommand(QString command) {
-		HCommand c;
-		if (command.contains("=")) {
-			c._backvalue_name = QString(command.split("=").at(0).trimmed());
-			command = command.split("=").at(1).trimmed();
-		}
+	HCommand* processcommand(QString command) {
+		HCommand *c = new HCommand;
 		if (command.contains("."))
 		{
-			c._class = QString(command.split(".").at(0).trimmed());
-			command = command.split(".").at(1).trimmed();
+			c->_class = new QString(command.split(".")[0]);
+			command = command.split(".").mid(1).join(".");
+			if (c->_class->contains("=")) {
+				c->_backvalue_name = new QString(c->_class->split("=").at(0).trimmed());
+				c->_class = new QString(c->_class->split("=").at(1).trimmed());
+			}
 		}
 		if (command.contains("("))
 		{
-			c._func = QString(command.split("(").at(0).trimmed());
-			command = command.split("(").at(1).trimmed();
+			c->_func = new QString(command.split("(")[0]);
+			command = command.split("(").mid(1).join("(");
 		}
 		if (command.contains(")"))
 		{
-			command = command.split(")").at(0).trimmed();
+			QStringList _t = command.split(")");
+			_t.removeLast();
+			command = _t.join(")");
 		}
 		if (command.contains(","))
 		{
-			c._args = QStringList(command.split(","));
+			c->_args = new QStringList(command.split(","));
 		}
 		else
 		{
-			c._args = QStringList(command);
+			c->_args = new QStringList(command);
 		}
 		return c;
 	}

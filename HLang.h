@@ -13,6 +13,6 @@ private:
 	HClassMap classes;
 };
 namespace HLangHelper {
-	HCommand processcommand(QString command);
+	HCommand *processcommand(QString command);
 }
 extern HLang* HMain;
