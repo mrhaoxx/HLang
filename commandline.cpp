@@ -31,25 +31,7 @@ void commandline::on_lineEdit_returnPressed()
 		HMain->importclass("builtin", new HBuiltin);
 	}
 	ui->textBrowser->setText(ui->textBrowser->document()->toPlainText() + _command);
-	HCommand *c = HLangHelper::processcommand(ui->lineEdit->text());
-	if (c->_self == nullptr)
-		c->_self = new QString();
-	if (c->_class == nullptr)
-		c->_class = new QString();
-	if (c->_func == nullptr)
-		c->_func = new QString();
-	if (c->_args == nullptr)
-		c->_args = new QStringList();
-	if ((HMain->accessclass(*(c->_class))) != nullptr)
-	{
-		if (c->_backvalue_name == nullptr)
-			HMain->accessclass(*(c->_class))->exec(*(c->_func), *(c->_self), *(c->_args));
-		else
-		{
-			HMain->importclass(*(c->_backvalue_name), HMain->accessclass(*(c->_class))->exec(*(c->_func), *(c->_self), *(c->_args)));
-		}
-	}
-	else
+	if (!HLangHelper::exec(_command))
 		ui->textBrowser->append("Error");
 	ui->textBrowser->append(">>");
 	ui->textBrowser->moveCursor(QTextCursor::End);

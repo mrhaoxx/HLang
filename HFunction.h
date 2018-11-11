@@ -13,5 +13,5 @@ public:
 	H_MemberFunction_def(loadfile, HFunction);
 
 private:
-	QVector<HCommand*> commands;
+	QVector<QString*> commands;
 };

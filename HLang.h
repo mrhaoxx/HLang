@@ -14,5 +14,6 @@ private:
 };
 namespace HLangHelper {
 	HCommand *processcommand(QString command);
+	bool exec(QString command);
 }
 extern HLang* HMain;

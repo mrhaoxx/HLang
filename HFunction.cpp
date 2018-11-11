@@ -12,34 +12,28 @@ HFunction::HFunction()
 
 HFunction::~HFunction()
 {
+	for (int i = 0; i < commands.length(); i++)
+	{
+		delete commands[i];
+	}
 }
 
 H_MemberFunction_def(add, HFunction)
 {
 	CheckArgs(1);
 	SetupArgs;
-	commands.push_back(HLangHelper::processcommand(GetArg(0)));
-	return new HBool(true);
+	if (HObjTo(HMain->accessclass(GetArg(0)), HString*) != nullptr)
+	{
+		commands.push_back(new QString(HObjTo(HMain->accessclass(GetArg(0)), HString*)->toQString()));
+		return new HBool(true);
+	}
+	return new HBool(false);
 }
 H_MemberFunction_def(hexec, HFunction)
 {
 	for (int i = 0; i < commands.length(); i++)
 	{
-		if (commands[i]->_self == nullptr)
-			commands[i]->_self = new QString();
-		if (commands[i]->_class == nullptr)
-			commands[i]->_class = new QString();
-		if (commands[i]->_func == nullptr)
-			commands[i]->_func = new QString();
-		if (commands[i]->_args == nullptr)
-			commands[i]->_args = new QStringList();
-		if (commands[i]->_backvalue_name == nullptr)
-			if (HMain->accessclass(*commands[i]->_class) != nullptr)
-				HMain->accessclass(*commands[i]->_class)->exec(*commands[i]->_func, *commands[i]->_self, *commands[i]->_args);
-			else;
-		else
-			if (HMain->accessclass(*commands[i]->_class) != nullptr)
-				HMain->importclass(*commands[i]->_backvalue_name, HMain->accessclass(*commands[i]->_class)->exec(*commands[i]->_func, *commands[i]->_self, *commands[i]->_args));
+		HLangHelper::exec(*commands[i]);
 	}
 	return new HBool(true);
 }
@@ -56,7 +50,7 @@ H_MemberFunction_def(loadfile, HFunction)
 		line.chop(1);
 		QString str(line);
 		if (!str.isEmpty() && !(str.at(0) == "#"))
-			commands.push_back(HLangHelper::processcommand(str));
+			commands.push_back(new QString(str));
 	}
 	return new HBool(true);
 }
