@@ -10,7 +10,7 @@ public:
 		data = par;
 		DefineMemberFunction("set", &HBool::set);
 	}
-	bool get() { return data; }
+	bool value() { return data; }
 	H_MemberFunction_def(set, HBool);
 private:
 	bool data;

@@ -14,6 +14,11 @@ commandline::~commandline()
 	delete ui;
 }
 
+void commandline::add(QString str)
+{
+	ui->textBrowser->append(str);
+}
+
 void commandline::on_lineEdit_returnPressed()
 {
 	QString _command = ui->lineEdit->text();

@@ -13,6 +13,7 @@ class commandline : public QMainWindow
 public:
 	explicit commandline(QWidget *parent = nullptr);
 	~commandline();
+	void add(QString str);
 private slots:
 
 	void on_lineEdit_returnPressed();
@@ -20,5 +21,4 @@ private slots:
 private:
 	Ui::commandline *ui;
 };
-
 #endif // COMMANDLINE_H

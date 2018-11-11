@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 	HMain->importclass("builtin", new HBuiltin);
-	commandline c;
-	c.show();
+	commandline *cui = new commandline;
+	cui->show();
 	return a.exec();
 }
