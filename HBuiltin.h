@@ -1,5 +1,6 @@
 #pragma once
 #include "HObject.h"
+#include "HLang.h"
 class HBuiltin :
 	public HObject
 {
@@ -11,4 +12,5 @@ public:
 	HObject* sleep(HArgs args);
 	HObject* system(HArgs args);
 	HObject* msg(HArgs args);
+	HLang* HDef = HMain;
 };

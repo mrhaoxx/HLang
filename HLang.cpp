@@ -1,11 +1,21 @@
 #include "HLang.h"
 #include "HString.h"
 #include "commandline.h"
+
+HLang::~HLang()
+{
+	for (int i = 0; i < registeredclasses.length(); i++)
+	{
+		deleteclass(registeredclasses[i]);
+	}
+}
+
 bool HLang::importclass(QString __name, HObject* __class)
 {
 	if (classes.contains(__name))
 		return false;
 	classes.insert(__name, __class);
+	registeredclasses.push_front(__name);
 	return true;
 }
 HObject* HLang::accessclass(QString __name)

@@ -8,12 +8,14 @@
 class HLang
 {
 public:
+	~HLang();
 	bool importclass(QString __name, HObject* __class);
 	HObject* accessclass(QString __name);
 	void deleteclass(QString __name);
 	int tmpused = 0;
 
 private:
+	QVector<QString> registeredclasses;
 	HClassMap classes;
 };
 extern HLang* HMain;

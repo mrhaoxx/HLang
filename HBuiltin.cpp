@@ -48,7 +48,7 @@ HObject* HBuiltin::deleteclass(HArgs args)
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HString>() == nullptr)
 		return new HRet(nullptr, false, WhyBuiltinDeleteFailed);
-	HMain->deleteclass(HObjectHelper(args[0]).to<HString>()->toQString());
+	HDef->deleteclass(HObjectHelper(args[0]).to<HString>()->toQString());
 	return new HRet(true);
 }
 HObject* HBuiltin::sleep(HArgs args)

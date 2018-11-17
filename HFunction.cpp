@@ -10,7 +10,9 @@ HFunction::HFunction()
 	DefineMemberFunction("loadfile", &HFunction::loadfile);
 	DefineMemberFunction("toString", &HFunction::toString);
 	DefineMemberFunction("link", &HFunction::link);
-	def->importclass("builtin", new HBuiltin);
+	HBuiltin *but = new HBuiltin;
+	but->HDef = def;
+	def->importclass("builtin", but);
 }
 
 HFunction::~HFunction()
