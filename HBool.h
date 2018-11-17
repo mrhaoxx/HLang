@@ -5,13 +5,10 @@ class HBool :
 {
 	H_OBJECT(HBool);
 public:
-	HBool(bool par = false)
-	{
-		data = par;
-		DefineMemberFunction("set", &HBool::set);
-	}
-	bool value() { return data; }
-	H_MemberFunction_def(set, HBool);
+	HBool(bool par = false);
+	~HBool();
+	bool value();
+	HObject* set(std::vector<HObject*> args);
 private:
 	bool data;
 };

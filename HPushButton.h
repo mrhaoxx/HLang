@@ -10,8 +10,8 @@ class HPushButton : private QPushButton, public HObject
 public:
 	HPushButton(QWidget *parent);
 	~HPushButton();
-	H_MemberFunction_def(hsetText, HPushButton);
-	H_MemberFunction_def(setClick, HPushButton);
+	HObject* hsetText(std::vector<HObject*> args);
+	HObject* setClick(std::vector<HObject*> args);
 private:
 	HFunction *whenClicked = nullptr;
 };

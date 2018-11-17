@@ -15,11 +15,10 @@ QString HString::toQString()
 	return *(QString*)this;
 }
 
-H_MemberFunction_def(set, HString)
+HObject* HString::set(std::vector<HObject*> args)
 {
 	CheckArgs(1);
-	SetupArgs;
 	this->clear();
-	this->append(GetArg(0));
+	this->append(HObjectHelper(args[0]).to<HString>());
 	return new HInt(this->length());
 }

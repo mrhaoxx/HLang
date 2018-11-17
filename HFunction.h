@@ -8,9 +8,9 @@ class HFunction :
 public:
 	HFunction();
 	~HFunction();
-	H_MemberFunction_def(add, HFunction);
-	H_MemberFunction_def(hexec, HFunction);
-	H_MemberFunction_def(loadfile, HFunction);
+	HObject* add(std::vector<HObject*> args);
+	HObject* hexec(std::vector<HObject*> args);
+	HObject* loadfile(std::vector<HObject*> args);
 
 private:
 	QVector<QString*> commands;

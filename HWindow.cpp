@@ -1,6 +1,6 @@
 #include "HWindow.h"
 #include <QPushbutton>
-#include "HLang.h"
+#include "HBaseInterface.h"
 HWindow::HWindow(QWidget *parent)
 	: QWidget(parent)
 {
@@ -15,31 +15,29 @@ HWindow::~HWindow()
 {
 }
 
-H_MemberFunction_def(hsetTitle, HWindow)
+HObject* HWindow::hsetTitle(std::vector<HObject*> args)
 {
 	CheckArgs(1);
-	SetupArgs;
-	this->setWindowTitle(HLangHelper(HMain->accessclass(GetArg(0))).to<HString>()->toQString());
+	this->setWindowTitle(HObjectHelper(args[0]).to<HString>()->toQString());
 	return new HBool(true);
 }
 
-H_MemberFunction_def(hadd, HWindow)
+HObject* HWindow::hadd(std::vector<HObject*> args)
 {
 	CheckArgs(1);
-	SetupArgs;
-	if (HMain->accessclass(GetArg(0))->QGuiClassHandle == nullptr)
+	if (args[0]->QGuiClassHandle == nullptr)
 		return new HBool(false);
-	ui.main->addWidget(HMain->accessclass(GetArg(0))->QGuiClassHandle);
+	ui.main->addWidget(args[0]->QGuiClassHandle);
 	return new HBool(true);
 }
 
-H_MemberFunction_def(hshow, HWindow)
+HObject* HWindow::hshow(std::vector<HObject*> args)
 {
 	CheckArgs(0);
 	this->show();
 	return new HBool(true);
 }
-H_MemberFunction_def(hhide, HWindow)
+HObject* HWindow::hhide(std::vector<HObject*> args)
 {
 	CheckArgs(0);
 	this->hide();

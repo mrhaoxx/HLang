@@ -8,10 +8,11 @@ class HIf :
 	H_OBJECT(HIf);
 public:
 	HIf();
-	H_MemberFunction_def(which, HIf);
-	H_MemberFunction_def(htrue, HIf);
-	H_MemberFunction_def(hfalse, HIf);
-	H_MemberFunction_def(hexec, HIf);
+	HObject* which(std::vector<HObject*> args);
+	HObject* htrue(std::vector<HObject*> args);
+	HObject* hfalse(std::vector<HObject*> args);
+	HObject* hexec(std::vector<HObject*> args);
+
 private:
 	HFunction* iftrue;
 	HFunction* iffalse;

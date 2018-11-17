@@ -5,8 +5,8 @@ class HString : public QString, public HObject
 {
 	H_OBJECT(HString);
 public:
-	HString(QString *parent = nullptr);
+	HString(QString *parent = new QString(""));
 	~HString();
 	QString toQString();
-	H_MemberFunction_def(set, HString);
+	HObject* set(std::vector<HObject*> args);
 };

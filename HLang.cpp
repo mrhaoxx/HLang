@@ -23,23 +23,6 @@ void HLang::deleteclass(QString __name)
 	}
 }
 
-HLangHelper::HLangHelper(HObject* obj)
-{
-	iscoverable = true;
-	this->obj = obj;
-}
-
-HLangHelper::HLangHelper(HObject* obj[])
-{
-	for (int i = 0; obj[i] != nullptr; i++)
-		args.push_back(obj[i]);
-}
-
-int HLangHelper::length()
-{
-	return args.length();
-}
-
 HCommand* HLangHelper::processcommand(QString command) {
 	QStringList t;
 	if (command.count("\"") == 2)
@@ -103,13 +86,18 @@ bool HLangHelper::exec(QString command)
 		c->_func = new QString();
 	if (c->_args == nullptr)
 		c->_args = new QStringList();
+	std::vector<HObject*> vec;
+	for (int i = 0; i < c->_args->length(); i++)
+		if (HMain->accessclass(c->_args->at(i)) != nullptr)
+			vec.push_back(HMain->accessclass(c->_args->at(i)));
+
 	if ((HMain->accessclass(*(c->_class))) != nullptr)
 	{
 		if (c->_backvalue_name == nullptr)
-			HMain->accessclass(*(c->_class))->exec(*(c->_func), *(c->_self), *(c->_args));
+			HMain->accessclass(*(c->_class))->exec(*(c->_func), vec);
 		else
 		{
-			HMain->importclass(*(c->_backvalue_name), HMain->accessclass(*(c->_class))->exec(*(c->_func), *(c->_self), *(c->_args)));
+			HMain->importclass(*(c->_backvalue_name), HMain->accessclass(*(c->_class))->exec(*(c->_func), vec));
 		}
 	}
 	else

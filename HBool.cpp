@@ -1,12 +1,26 @@
 #include "HBool.h"
 #include "HBaseInterface.h"
-H_MemberFunction_def(set, HBool)
+
+inline HBool::HBool(bool par)
+{
+	data = par;
+	DefineMemberFunction("set", &HBool::set);
+}
+
+HBool::~HBool()
+{
+}
+
+bool HBool::value()
+{
+	return data;
+}
+HObject* HBool::set(std::vector<HObject*> args)
 {
 	CheckArgs(1);
-	SetupArgs;
-	if (GetArg(0) == "true")
+	if (HObjectHelper(args[0]).to<HString>()->toQString() == "true")
 		data = true;
-	else if (GetArg(0) == "false")
+	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "false")
 		data = false;
 	return new HBool(true);
 }

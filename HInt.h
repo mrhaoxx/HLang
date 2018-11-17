@@ -8,9 +8,9 @@ public:
 	HInt(int i = 0);
 	~HInt();
 	int* value();
-	H_MemberFunction_def(set, HInt);
-	H_MemberFunction_def(getAndplusplus, HInt);
-	H_MemberFunction_def(toString, HInt);
+	HObject* set(std::vector<HObject*> args);
+	HObject* getAndplusplus(std::vector<HObject*> args);
+	HObject* toString(std::vector<HObject*> args);
 private:
 	int *data;
 };

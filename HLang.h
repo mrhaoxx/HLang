@@ -14,24 +14,8 @@ public:
 private:
 	HClassMap classes;
 };
-class HLangHelper {
-public:
-	HLangHelper(HObject* obj);
-	HLangHelper(HObject* obj[]);
-	int length();
-	static HCommand *processcommand(QString command);
-	static bool exec(QString command);
-	template<typename _Target>
-	_Target* to()
-	{
-		if (iscoverable)
-			return dynamic_cast<_Target*>(obj);
-		else
-			return nullptr;
-	}
-private:
-	HObject* obj;
-	QVector<HObject*> args;
-	bool iscoverable = false;
-};
+namespace HLangHelper {
+	HCommand* processcommand(QString command);
+	bool exec(QString command);
+}
 extern HLang* HMain;

@@ -7,47 +7,42 @@ HIf::HIf()
 	DefineMemberFunction("setfalse", &HIf::hfalse);
 	DefineMemberFunction("exec", &HIf::hexec);
 }
-
-H_MemberFunction_def(which, HIf)
+HObject* HIf::which(std::vector<HObject*> args)
 {
 	CheckArgs(1);
-	SetupArgs;
-	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HBool>() != nullptr)
-		this->ifwhich = HLangHelper(HMain->accessclass(GetArg(0))).to<HBool>();
+	if (HObjectHelper(args[0]).to<HBool>() != nullptr)
+		this->ifwhich = HObjectHelper(args[0]).to<HBool>();
 	else
 		return new HBool(false);
 	return new HBool(true);
 }
 
-H_MemberFunction_def(htrue, HIf)
+HObject* HIf::htrue(std::vector<HObject*> args)
 {
 	CheckArgs(1);
-	SetupArgs;
-	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HFunction>() != nullptr)
-		this->iftrue = HLangHelper(HMain->accessclass(GetArg(0))).to<HFunction>();
+	if (HObjectHelper(args[0]).to<HFunction>() != nullptr)
+		this->iftrue = HObjectHelper(args[0]).to<HFunction>();
 	else
 		return new HBool(false);
 	return new HBool(true);
 }
 
-H_MemberFunction_def(hfalse, HIf)
+HObject* HIf::hfalse(std::vector<HObject*> args)
 {
 	CheckArgs(1);
-	SetupArgs;
-	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HFunction>() != nullptr)
-		this->iffalse = HLangHelper(HMain->accessclass(GetArg(0))).to<HFunction>();
+	if (HObjectHelper(args[0]).to<HFunction>() != nullptr)
+		this->iffalse = HObjectHelper(args[0]).to<HFunction>();
 	else
 		return new HBool(false);
 	return new HBool(true);
 }
 
-H_MemberFunction_def(hexec, HIf)
+HObject* HIf::hexec(std::vector<HObject*> args)
 {
 	CheckArgs(0);
-	SetupArgs;
 	if (ifwhich->value())
-		iftrue->hexec(HOBJECTS(), HOBJECTS());
+		iftrue->hexec(args);
 	else
-		iffalse->hexec(HOBJECTS(), HOBJECTS());
+		iffalse->hexec(args);
 	return new HBool(true);
 }

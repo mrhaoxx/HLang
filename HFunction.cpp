@@ -17,18 +17,17 @@ HFunction::~HFunction()
 	}
 }
 
-H_MemberFunction_def(add, HFunction)
+HObject* HFunction::add(std::vector<HObject*> args)
 {
 	CheckArgs(1);
-	SetupArgs;
-	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HString>() != nullptr)
+	if (HObjectHelper(args[0]).to<HString>() != nullptr)
 	{
-		commands.push_back(new QString(HLangHelper(HMain->accessclass(GetArg(0))).to<HString>()->toQString()));
+		commands.push_back(new QString(HObjectHelper(args[0]).to<HString>()->toQString()));
 		return new HBool(true);
 	}
 	return new HBool(false);
 }
-H_MemberFunction_def(hexec, HFunction)
+HObject* HFunction::hexec(std::vector<HObject*> args)
 {
 	for (int i = 0; i < commands.length(); i++)
 	{
@@ -36,11 +35,10 @@ H_MemberFunction_def(hexec, HFunction)
 	}
 	return new HBool(true);
 }
-H_MemberFunction_def(loadfile, HFunction)
+HObject* HFunction::loadfile(std::vector<HObject*> args)
 {
 	CheckArgs(1);
-	SetupArgs;
-	QString file_w = GetArg(0);
+	QString file_w = HObjectHelper(args[0]).to<HString>()->toQString();
 	QFile file(file_w);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 		return new HBool(false);

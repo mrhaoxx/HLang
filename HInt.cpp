@@ -18,21 +18,20 @@ int* HInt::value()
 	return new int(*data);
 }
 
-HInt::H_MemberFunction_def(set, HInt)
+HObject* HInt::set(std::vector<HObject*> args)
 {
 	CheckArgs(1);
-	SetupArgs;
-	int i = GetArg(0).toInt();
+	int i = HObjectHelper(args[0]).to<HString>()->toQString().toInt();
 	*data = i;
 	return new HBool(true);
 }
 
-H_MemberFunction_def(toString, HInt)
+HObject* HInt::toString(std::vector<HObject*> args)
 {
 	return new HString(&QString::number(*data));
 }
 
-H_MemberFunction_def(getAndplusplus, HInt)
+HObject* HInt::getAndplusplus(std::vector<HObject*> args)
 {
 	*data = *data + 1;
 	return new HInt(*data);
