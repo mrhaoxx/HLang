@@ -1,9 +1,9 @@
 #pragma once
 #include "HObject.h"
-//#include "QTcpSocket"
+#include <QTcpSocket>
 class HTcpSocket :
-	public HObject
-	//	public QTcpSocket
+	public HObject,
+	public QTcpSocket
 {
 public:
 	HTcpSocket();

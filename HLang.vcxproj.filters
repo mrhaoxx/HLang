@@ -62,9 +62,6 @@
     <Filter Include="Header Files\HBase\HData">
       <UniqueIdentifier>{82b1eeeb-41fb-4a11-ad27-9fc718fa1ffa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\HBase\Base">
-      <UniqueIdentifier>{35e82772-257f-40aa-9e49-cc3feb9d96a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\HBase\HNetwork">
       <UniqueIdentifier>{9455c3f5-6414-4615-8914-2dccaec666bd}</UniqueIdentifier>
     </Filter>
@@ -75,6 +72,9 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
       <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Header Files\Base">
+      <UniqueIdentifier>{35e82772-257f-40aa-9e49-cc3feb9d96a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -120,7 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="commandline.h">
-      <Filter>Header Files\HBase\Base</Filter>
+      <Filter>Header Files\Base</Filter>
     </QtMoc>
     <QtMoc Include="HWindow.h">
       <Filter>Header Files\HGui</Filter>
@@ -150,10 +150,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HLang.h">
-      <Filter>Header Files\HBase\Base</Filter>
+      <Filter>Header Files\Base</Filter>
     </ClInclude>
     <ClInclude Include="HObject.h">
-      <Filter>Header Files\HBase\Base</Filter>
+      <Filter>Header Files\Base</Filter>
     </ClInclude>
     <ClInclude Include="HBuiltin.h">
       <Filter>Header Files\HBase</Filter>
