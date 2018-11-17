@@ -3,6 +3,8 @@
 #include "HPushButton.h"
 #include "HBaseInterface.h"
 #include "HLang.h"
+#include "HFunction.h"
+#include "HIf.h"
 #include <QMessageBox>
 #ifdef WIN32
 #include "windows.h"
@@ -25,7 +27,7 @@ HBuiltin::HBuiltin()
 	DefineMemberFunction("msg", &HBuiltin::msg);
 }
 
-HObject* HBuiltin::newclass(std::vector<HObject*> args)
+HObject* HBuiltin::newclass(HArgs args)
 {
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "Window")
@@ -44,7 +46,7 @@ HObject* HBuiltin::newclass(std::vector<HObject*> args)
 		return new HIf;
 	return new HBool(false);
 }
-HObject* HBuiltin::deleteclass(std::vector<HObject*> args)
+HObject* HBuiltin::deleteclass(HArgs args)
 {
 	CheckArgs(1);
 	if (args[0] == nullptr)
@@ -52,7 +54,7 @@ HObject* HBuiltin::deleteclass(std::vector<HObject*> args)
 	HMain->deleteclass(HObjectHelper(args[0]).to<HString>()->toQString());
 	return new HBool(true);
 }
-HObject* HBuiltin::sleep(std::vector<HObject*> args)
+HObject* HBuiltin::sleep(HArgs args)
 {
 	CheckArgs(1);
 	int usecs;
@@ -63,7 +65,7 @@ HObject* HBuiltin::sleep(std::vector<HObject*> args)
 	ALsleep(usecs);
 	return new HBool(true);
 }
-HObject* HBuiltin::system(std::vector<HObject*> args)
+HObject* HBuiltin::system(HArgs args)
 {
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HString>() != nullptr)
@@ -76,7 +78,7 @@ HObject* HBuiltin::system(std::vector<HObject*> args)
 		return new HBool(false);
 	}
 }
-HObject* HBuiltin::msg(std::vector<HObject*> args)
+HObject* HBuiltin::msg(HArgs args)
 {
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HInt>() != nullptr)

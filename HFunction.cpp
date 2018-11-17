@@ -7,6 +7,7 @@ HFunction::HFunction()
 	DefineMemberFunction("add", &HFunction::add);
 	DefineMemberFunction("exec", &HFunction::hexec);
 	DefineMemberFunction("loadfile", &HFunction::loadfile);
+	DefineMemberFunction("toString", &HFunction::toString);
 }
 
 HFunction::~HFunction()
@@ -15,9 +16,10 @@ HFunction::~HFunction()
 	{
 		delete commands[i];
 	}
+	delete def;
 }
 
-HObject* HFunction::add(std::vector<HObject*> args)
+HObject* HFunction::add(HArgs args)
 {
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HString>() != nullptr)
@@ -27,15 +29,15 @@ HObject* HFunction::add(std::vector<HObject*> args)
 	}
 	return new HBool(false);
 }
-HObject* HFunction::hexec(std::vector<HObject*> args)
+HObject* HFunction::hexec(HArgs args)
 {
 	for (int i = 0; i < commands.length(); i++)
 	{
-		HLangHelper::exec(*commands[i]);
+		HLangHelper::exec(*commands[i], def);
 	}
 	return new HBool(true);
 }
-HObject* HFunction::loadfile(std::vector<HObject*> args)
+HObject* HFunction::loadfile(HArgs args)
 {
 	CheckArgs(1);
 	QString file_w = HObjectHelper(args[0]).to<HString>()->toQString();
@@ -44,10 +46,25 @@ HObject* HFunction::loadfile(std::vector<HObject*> args)
 		return new HBool(false);
 	while (!file.atEnd()) {
 		QByteArray line = file.readLine();
-		line.chop(1);
+		if (QString(line).at(QString(line).length()) == "\n")
+			line.chop(1);
 		QString str(line);
 		if (!str.isEmpty() && !(str.at(0) == "#"))
 			commands.push_back(new QString(str));
 	}
 	return new HBool(true);
+}
+
+HObject* HFunction::toString(HArgs args)
+{
+	CheckArgs(0);
+	QString cs;
+	for (int i = 0; i < commands.length(); i++)
+		cs.append(*commands[i] + "\r\n");
+	return new HString(new QString(cs));
+}
+
+HObject* HFunction::loadString(HArgs args)
+{
+	return new HBool(false);
 }

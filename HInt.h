@@ -8,9 +8,9 @@ public:
 	HInt(int i = 0);
 	~HInt();
 	int* value();
-	HObject* set(std::vector<HObject*> args);
-	HObject* getAndplusplus(std::vector<HObject*> args);
-	HObject* toString(std::vector<HObject*> args);
+	HObject* set(HArgs args);
+	HObject* getAndplusplus(HArgs args);
+	HObject* toString(HArgs args);
 private:
 	int *data;
 };

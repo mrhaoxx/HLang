@@ -8,7 +8,7 @@ HPushButton::HPushButton(QWidget *parent)
 	DefineMemberFunction("setClicked", &HPushButton::setClick);
 	connect(this, &HPushButton::clicked, this, [&] {
 		if (whenClicked != nullptr)
-			whenClicked->hexec(std::vector<HObject*>());
+			whenClicked->hexec(HArgs());
 	});
 }
 
@@ -16,7 +16,7 @@ HPushButton::~HPushButton()
 {
 }
 
-HObject* HPushButton::setClick(std::vector<HObject*> args)
+HObject* HPushButton::setClick(HArgs args)
 {
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HFunction>() != nullptr)
@@ -30,7 +30,7 @@ HObject* HPushButton::setClick(std::vector<HObject*> args)
 	}
 }
 
-HObject* HPushButton::hsetText(std::vector<HObject*> args)
+HObject* HPushButton::hsetText(HArgs args)
 {
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HString>() != nullptr)

@@ -8,5 +8,5 @@ public:
 	HString(QString *parent = new QString(""));
 	~HString();
 	QString toQString();
-	HObject* set(std::vector<HObject*> args);
+	HObject* set(HArgs args);
 };

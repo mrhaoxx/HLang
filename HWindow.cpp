@@ -15,14 +15,14 @@ HWindow::~HWindow()
 {
 }
 
-HObject* HWindow::hsetTitle(std::vector<HObject*> args)
+HObject* HWindow::hsetTitle(HArgs args)
 {
 	CheckArgs(1);
 	this->setWindowTitle(HObjectHelper(args[0]).to<HString>()->toQString());
 	return new HBool(true);
 }
 
-HObject* HWindow::hadd(std::vector<HObject*> args)
+HObject* HWindow::hadd(HArgs args)
 {
 	CheckArgs(1);
 	if (args[0]->QGuiClassHandle == nullptr)
@@ -31,13 +31,13 @@ HObject* HWindow::hadd(std::vector<HObject*> args)
 	return new HBool(true);
 }
 
-HObject* HWindow::hshow(std::vector<HObject*> args)
+HObject* HWindow::hshow(HArgs args)
 {
 	CheckArgs(0);
 	this->show();
 	return new HBool(true);
 }
-HObject* HWindow::hhide(std::vector<HObject*> args)
+HObject* HWindow::hhide(HArgs args)
 {
 	CheckArgs(0);
 	this->hide();

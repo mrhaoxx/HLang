@@ -8,10 +8,10 @@ class HIf :
 	H_OBJECT(HIf);
 public:
 	HIf();
-	HObject* which(std::vector<HObject*> args);
-	HObject* htrue(std::vector<HObject*> args);
-	HObject* hfalse(std::vector<HObject*> args);
-	HObject* hexec(std::vector<HObject*> args);
+	HObject* which(HArgs args);
+	HObject* htrue(HArgs args);
+	HObject* hfalse(HArgs args);
+	HObject* hexec(HArgs args);
 
 private:
 	HFunction* iftrue;

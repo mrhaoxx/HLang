@@ -15,7 +15,7 @@ bool HBool::value()
 {
 	return data;
 }
-HObject* HBool::set(std::vector<HObject*> args)
+HObject* HBool::set(HArgs args)
 {
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "true")

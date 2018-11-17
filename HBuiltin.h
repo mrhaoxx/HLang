@@ -7,9 +7,9 @@ class HBuiltin :
 	H_OBJECT(HBuiltin)
 public:
 	HBuiltin();
-	HObject* newclass(std::vector<HObject*> args);
-	HObject* deleteclass(std::vector<HObject*> args);
-	HObject* sleep(std::vector<HObject*> args);
-	HObject* system(std::vector<HObject*> args);
-	HObject* msg(std::vector<HObject*> args);
+	HObject* newclass(HArgs args);
+	HObject* deleteclass(HArgs args);
+	HObject* sleep(HArgs args);
+	HObject* system(HArgs args);
+	HObject* msg(HArgs args);
 };

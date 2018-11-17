@@ -8,7 +8,7 @@ public:
 	HBool(bool par = false);
 	~HBool();
 	bool value();
-	HObject* set(std::vector<HObject*> args);
+	HObject* set(HArgs args);
 private:
 	bool data;
 };

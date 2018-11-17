@@ -10,10 +10,10 @@ class HWindow : public QWidget, public HObject
 public:
 	HWindow(QWidget *parent = Q_NULLPTR);
 	~HWindow();
-	HObject* hshow(std::vector<HObject*> args);
-	HObject* hhide(std::vector<HObject*> args);
-	HObject* hadd(std::vector<HObject*> args);
-	HObject* hsetTitle(std::vector<HObject*> args);
+	HObject* hshow(HArgs args);
+	HObject* hhide(HArgs args);
+	HObject* hadd(HArgs args);
+	HObject* hsetTitle(HArgs args);
 private:
 	Ui::HWindow ui;
 };

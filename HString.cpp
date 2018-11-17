@@ -15,7 +15,7 @@ QString HString::toQString()
 	return *(QString*)this;
 }
 
-HObject* HString::set(std::vector<HObject*> args)
+HObject* HString::set(HArgs args)
 {
 	CheckArgs(1);
 	this->clear();

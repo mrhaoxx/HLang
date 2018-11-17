@@ -23,12 +23,12 @@ void HLang::deleteclass(QString __name)
 	}
 }
 
-HCommand* HLangHelper::processcommand(QString command) {
+HCommand* HLangHelper::processcommand(QString command, HLang *def) {
 	QStringList t;
 	if (command.count("\"") == 2)
 	{
 		t = command.split("\"");
-		HMain->importclass("tmp-processing" + command.at(0).toLatin1() + command.at(command.length()).toLatin1(), new HString(new QString(t[1])));
+		def->importclass("tmp-processing" + command.at(0).toLatin1() + command.at(command.length()).toLatin1(), new HString(new QString(t[1])));
 		t[1] == "tmp-processing" + command.at(0).toLatin1() + command.at(command.length()).toLatin1();
 		command = t.join("");
 	}
@@ -40,6 +40,14 @@ HCommand* HLangHelper::processcommand(QString command) {
 		if (c->_class->contains("=")) {
 			c->_backvalue_name = new QString(c->_class->split("=").at(0).trimmed());
 			c->_class = new QString(c->_class->split("=").at(1).trimmed());
+		}
+	}
+	else
+	{
+		c->_class = new QString("builtin");
+		if (command.contains("=")) {
+			c->_backvalue_name = new QString(command.split("=").at(0).trimmed());
+			command = QString(command.split("=").mid(1).join("=").trimmed());
 		}
 	}
 	if (command.contains("("))
@@ -63,50 +71,50 @@ HCommand* HLangHelper::processcommand(QString command) {
 	}
 	return c;
 }
-bool HLangHelper::exec(QString command)
+bool HLangHelper::exec(QString command, HLang *def)
 {
 	int tr = 0;
 	std::vector<int> usedtr;
 	QStringList t = command.split("\"");
 	while (t.length() >= 2)
 	{
-		while (!HMain->importclass("tmp-processing-" + QString::number(tr), new HString(new QString(t[1]))))
+		while (!def->importclass("tmp-processing-" + QString::number(tr), new HString(new QString(t[1]))))
 			tr++;
 		usedtr.push_back(tr);
 		t[1] = "tmp-processing-" + QString::number(tr);
 		command = t.join("");
 		t = command.split("\"");
 	}
-	HCommand *c = HLangHelper::processcommand(command);
+	HCommand *c = HLangHelper::processcommand(command, def);
 	if (c->_self == nullptr)
 		c->_self = new QString();
 	if (c->_class == nullptr)
-		c->_class = new QString();
+		c->_class = new QString("builtin");
 	if (c->_func == nullptr)
 		c->_func = new QString();
 	if (c->_args == nullptr)
 		c->_args = new QStringList();
-	std::vector<HObject*> vec;
+	HArgs vec;
 	for (int i = 0; i < c->_args->length(); i++)
-		if (HMain->accessclass(c->_args->at(i)) != nullptr)
-			vec.push_back(HMain->accessclass(c->_args->at(i)));
+		if (def->accessclass(c->_args->at(i)) != nullptr)
+			vec.push_back(def->accessclass(c->_args->at(i)));
 
-	if ((HMain->accessclass(*(c->_class))) != nullptr)
+	if ((def->accessclass(*(c->_class))) != nullptr)
 	{
 		if (c->_backvalue_name == nullptr)
-			HMain->accessclass(*(c->_class))->exec(*(c->_func), vec);
+			def->accessclass(*(c->_class))->exec(*(c->_func), vec);
 		else
 		{
-			HMain->importclass(*(c->_backvalue_name), HMain->accessclass(*(c->_class))->exec(*(c->_func), vec));
+			def->importclass(*(c->_backvalue_name), def->accessclass(*(c->_class))->exec(*(c->_func), vec));
 		}
 	}
 	else
 	{
 		for (int i = 0; i < usedtr.size(); i++)
-			HMain->deleteclass("tmp-processing-" + QString::number(usedtr[i]));
+			def->deleteclass("tmp-processing-" + QString::number(usedtr[i]));
 		return false;
 	}
 	for (int i = 0; i < usedtr.size(); i++)
-		HMain->deleteclass("tmp-processing-" + QString::number(usedtr[i]));
+		def->deleteclass("tmp-processing-" + QString::number(usedtr[i]));
 	return true;
 }

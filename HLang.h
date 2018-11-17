@@ -14,8 +14,8 @@ public:
 private:
 	HClassMap classes;
 };
-namespace HLangHelper {
-	HCommand* processcommand(QString command);
-	bool exec(QString command);
-}
 extern HLang* HMain;
+namespace HLangHelper {
+	HCommand* processcommand(QString command, HLang *def = HMain);
+	bool exec(QString command, HLang *def = HMain);
+}

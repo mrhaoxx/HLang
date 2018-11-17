@@ -3,6 +3,7 @@
 #include <QPushButton>
 #include "HObject.h"
 #include "HBaseInterface.h"
+#include "HFunction.h"
 class HPushButton : private QPushButton, public HObject
 {
 	Q_OBJECT;
@@ -10,8 +11,8 @@ class HPushButton : private QPushButton, public HObject
 public:
 	HPushButton(QWidget *parent);
 	~HPushButton();
-	HObject* hsetText(std::vector<HObject*> args);
-	HObject* setClick(std::vector<HObject*> args);
+	HObject* hsetText(HArgs args);
+	HObject* setClick(HArgs args);
 private:
 	HFunction *whenClicked = nullptr;
 };

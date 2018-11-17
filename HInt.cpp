@@ -18,7 +18,7 @@ int* HInt::value()
 	return new int(*data);
 }
 
-HObject* HInt::set(std::vector<HObject*> args)
+HObject* HInt::set(HArgs args)
 {
 	CheckArgs(1);
 	int i = HObjectHelper(args[0]).to<HString>()->toQString().toInt();
@@ -26,12 +26,12 @@ HObject* HInt::set(std::vector<HObject*> args)
 	return new HBool(true);
 }
 
-HObject* HInt::toString(std::vector<HObject*> args)
+HObject* HInt::toString(HArgs args)
 {
 	return new HString(&QString::number(*data));
 }
 
-HObject* HInt::getAndplusplus(std::vector<HObject*> args)
+HObject* HInt::getAndplusplus(HArgs args)
 {
 	*data = *data + 1;
 	return new HInt(*data);

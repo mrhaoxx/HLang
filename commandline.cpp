@@ -31,7 +31,7 @@ void commandline::on_lineEdit_returnPressed()
 		HMain->importclass("builtin", new HBuiltin);
 	}
 	ui->textBrowser->setText(ui->textBrowser->document()->toPlainText() + _command);
-	if (!HLangHelper::exec(_command))
+	if (!HLangHelper::exec(_command, HMain))
 		ui->textBrowser->append("Error");
 	ui->textBrowser->append(">>");
 	ui->textBrowser->moveCursor(QTextCursor::End);

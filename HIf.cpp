@@ -7,7 +7,7 @@ HIf::HIf()
 	DefineMemberFunction("setfalse", &HIf::hfalse);
 	DefineMemberFunction("exec", &HIf::hexec);
 }
-HObject* HIf::which(std::vector<HObject*> args)
+HObject* HIf::which(HArgs args)
 {
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HBool>() != nullptr)
@@ -17,7 +17,7 @@ HObject* HIf::which(std::vector<HObject*> args)
 	return new HBool(true);
 }
 
-HObject* HIf::htrue(std::vector<HObject*> args)
+HObject* HIf::htrue(HArgs args)
 {
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HFunction>() != nullptr)
@@ -27,7 +27,7 @@ HObject* HIf::htrue(std::vector<HObject*> args)
 	return new HBool(true);
 }
 
-HObject* HIf::hfalse(std::vector<HObject*> args)
+HObject* HIf::hfalse(HArgs args)
 {
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HFunction>() != nullptr)
@@ -37,7 +37,7 @@ HObject* HIf::hfalse(std::vector<HObject*> args)
 	return new HBool(true);
 }
 
-HObject* HIf::hexec(std::vector<HObject*> args)
+HObject* HIf::hexec(HArgs args)
 {
 	CheckArgs(0);
 	if (ifwhich->value())
