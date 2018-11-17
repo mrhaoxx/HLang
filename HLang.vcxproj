@@ -193,6 +193,7 @@
     <ClCompile Include="HLang.cpp" />
     <ClCompile Include="HPushButton.cpp" />
     <ClCompile Include="HString.cpp" />
+    <ClCompile Include="HTcpSocket.cpp" />
     <ClCompile Include="HWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -249,12 +250,16 @@
     </QtMoc>
     <ClInclude Include="HString.h" />
     <ClInclude Include="HBaseInterface.h" />
+    <ClInclude Include="HTcpSocket.h" />
     <ClInclude Include="ui_commandline.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="commandline.ui">
     </QtUic>
     <QtUic Include="HWindow.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="hlang_zh.ts" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
