@@ -23,7 +23,7 @@
 #define WhyHPushButtonSetTextFailed needHString
 #define WhyHWindowSetTitleFailed needHString
 #define WhyHWindowAddWeightFailed needQWeight
-
+#define WhyFunctionLinkFailed needHString
 #define HClassMap QMap<QString, HObject*>
 #define HMemberFunctionMap_def(_class) QMap<QString,HObject*(##_class::*)(HArgs args)>
 #define HArgs std::vector<HObject*>

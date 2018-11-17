@@ -1,6 +1,7 @@
 #include "HFunction.h"
 #include "HLang.h"
 #include <QFile>
+#include "HBuiltin.h"
 
 HFunction::HFunction()
 {
@@ -8,6 +9,8 @@ HFunction::HFunction()
 	DefineMemberFunction("exec", &HFunction::hexec);
 	DefineMemberFunction("loadfile", &HFunction::loadfile);
 	DefineMemberFunction("toString", &HFunction::toString);
+	DefineMemberFunction("link", &HFunction::link);
+	def->importclass("builtin", new HBuiltin);
 }
 
 HFunction::~HFunction()
@@ -31,6 +34,7 @@ HObject* HFunction::add(HArgs args)
 }
 HObject* HFunction::hexec(HArgs args)
 {
+	CheckArgs(0);
 	for (int i = 0; i < commands.length(); i++)
 	{
 		HLangHelper::exec(*commands[i], def);
@@ -45,10 +49,8 @@ HObject* HFunction::loadfile(HArgs args)
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 		return new HRet(nullptr, false, WhyFunctionLoadFileFailed);
 	while (!file.atEnd()) {
-		QByteArray line = file.readLine();
-		if (QString(line).at(QString(line).length()) == "\n")
-			line.chop(1);
-		QString str(line);
+		QString str = file.readLine();
+		str.simplified();
 		if (!str.isEmpty() && !(str.at(0) == "#"))
 			commands.push_back(new QString(str));
 	}
@@ -62,4 +64,12 @@ HObject* HFunction::toString(HArgs args)
 	for (int i = 0; i < commands.length(); i++)
 		cs.append(*commands[i] + "\r\n");
 	return new HRet(new HString(new QString(cs)));
+}
+HObject* HFunction::link(HArgs args)
+{
+	CheckArgs(2);
+	if (HObjectHelper(args[0]).to<HString>() == nullptr)
+		return new HRet(nullptr, false, WhyFunctionLinkFailed);
+	def->importclass(HObjectHelper(args[0]).to<HString>()->toQString(), args[1]);
+	return new HRet(true);
 }

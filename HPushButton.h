@@ -12,7 +12,9 @@ public:
 	HPushButton(QWidget *parent);
 	~HPushButton();
 	HObject* hsetText(HArgs args);
+	HObject* setClickedArgs(HArgs args);
 	HObject* setClicked(HArgs args);
 private:
 	HFunction *whenClicked = nullptr;
+	HArgs *whenClickedArgs = nullptr;
 };

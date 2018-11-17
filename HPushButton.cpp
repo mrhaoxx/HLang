@@ -6,9 +6,10 @@ HPushButton::HPushButton(QWidget *parent)
 	IsGuiClass;
 	DefineMemberFunction("setText", &HPushButton::hsetText);
 	DefineMemberFunction("setClicked", &HPushButton::setClicked);
+	DefineMemberFunction("setClickedArgs", &HPushButton::setClickedArgs);
 	connect(this, &HPushButton::clicked, this, [&] {
 		if (whenClicked != nullptr)
-			whenClicked->hexec(HArgs());
+			whenClicked->hexec((whenClickedArgs == nullptr) ? HArgs() : *whenClickedArgs);
 	});
 }
 
@@ -42,4 +43,9 @@ HObject* HPushButton::hsetText(HArgs args)
 	{
 		return new HRet(nullptr, false, WhyHPushButtonSetTextFailed);
 	}
+}
+HObject* HPushButton::setClickedArgs(HArgs args)
+{
+	this->whenClickedArgs = new HArgs(args);
+	return new HRet(true);
 }

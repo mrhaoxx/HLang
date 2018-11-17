@@ -11,11 +11,13 @@ public:
 	bool importclass(QString __name, HObject* __class);
 	HObject* accessclass(QString __name);
 	void deleteclass(QString __name);
+	int tmpused = 0;
+
 private:
 	HClassMap classes;
 };
 extern HLang* HMain;
 namespace HLangHelper {
-	HCommand* processcommand(QString command, HLang *def = HMain);
+	HCommand* processcommand(QString command);
 	bool exec(QString command, HLang *def = HMain, commandline *cm = nullptr);
 }

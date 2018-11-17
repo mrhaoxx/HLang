@@ -23,16 +23,8 @@ void HLang::deleteclass(QString __name)
 		classes.remove(__name);
 	}
 }
-
-HCommand* HLangHelper::processcommand(QString command, HLang *def) {
+HCommand* HLangHelper::processcommand(QString command) {
 	QStringList t;
-	if (command.count("\"") == 2)
-	{
-		t = command.split("\"");
-		def->importclass("tmp-processing" + command.at(0).toLatin1() + command.at(command.length()).toLatin1(), new HString(new QString(t[1])));
-		t[1] == "tmp-processing" + command.at(0).toLatin1() + command.at(command.length()).toLatin1();
-		command = t.join("");
-	}
 	HCommand *c = new HCommand;
 	if (command.contains("."))
 	{
@@ -72,21 +64,29 @@ HCommand* HLangHelper::processcommand(QString command, HLang *def) {
 	}
 	return c;
 }
-bool HLangHelper::exec(QString command, HLang *def, commandline *cm)
+bool HLangHelper::exec(QString cd, HLang *def, commandline *cm)
 {
-	int tr = 0;
-	std::vector<int> usedtr;
+	QString command = cd;
 	QStringList t = command.split("\"");
-	while (t.length() >= 2)
+	command.clear();
+	if (t.length() >= 2)
 	{
-		while (!def->importclass("tmp-processing-" + QString::number(tr), new HString(new QString(t[1]))))
-			tr++;
-		usedtr.push_back(tr);
-		t[1] = "tmp-processing-" + QString::number(tr);
+		QString tmp;
+		for (int i = 1; i < t.length() - 1; i++)
+			tmp.append(t[i] + ((i != (t.length() - 2)) ? "\"" : ""));
+		for (int i = 1; i < t.length() - 1; i++)
+			t.removeAt(1);
+		while (!def->importclass("tmp-processing-" + QString::number(def->tmpused), new HString(new QString(tmp))))
+			def->tmpused++;
+		if (t.length() != 3)
+			t.insert(1, "tmp-processing-" + QString::number(def->tmpused));
+		else
+			t[1] = "tmp-processing-" + QString::number(def->tmpused);
 		command = t.join("");
-		t = command.split("\"");
 	}
-	HCommand *c = HLangHelper::processcommand(command, def);
+	else
+		command = t.join("\"");
+	HCommand *c = HLangHelper::processcommand(command);
 	if (c->_self == nullptr)
 		c->_self = new QString();
 	if (c->_class == nullptr)
@@ -109,12 +109,12 @@ bool HLangHelper::exec(QString command, HLang *def, commandline *cm)
 				if (cm != nullptr)
 					cm->add("[Failed] " + ret->getReason());
 				else
-					qDebug() << "[Failed] " + ret->getReason();
+					qDebug() << def << "[Failed]{" + cd + "} " + ret->getReason();
 			else
 				if (cm != nullptr)
 					cm->add("[OK]");
 				else
-					qDebug() << "[OK]";
+					qDebug() << def << "[OK]{" + cd + "}";
 		}
 		else
 		{
@@ -125,22 +125,18 @@ bool HLangHelper::exec(QString command, HLang *def, commandline *cm)
 				if (cm != nullptr)
 					cm->add("[OK]");
 				else
-					qDebug() << "[OK]";
+					qDebug() << def << "[OK]{" + cd + "}";
 			}
 			else
 				if (cm != nullptr)
 					cm->add("[Failed] " + ret->getReason());
 				else
-					qDebug() << "[Failed] " + ret->getReason();
+					qDebug() << def << "[Failed]{" + cd + "} " + ret->getReason();
 		}
 	}
 	else
 	{
-		for (int i = 0; i < usedtr.size(); i++)
-			def->deleteclass("tmp-processing-" + QString::number(usedtr[i]));
 		return false;
 	}
-	for (int i = 0; i < usedtr.size(); i++)
-		def->deleteclass("tmp-processing-" + QString::number(usedtr[i]));
 	return true;
 }
