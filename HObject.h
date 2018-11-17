@@ -33,11 +33,11 @@ HMemberFunctionMap_def(_name) memberfuncs; \
 public: HObject* exec(QString __name,HArgs args) { \
 if (memberfuncs.contains(__name))\
 return (this->*memberfuncs[__name])(args); \
-return new HRet(nullptr, false, "MemberFunction Not Find"); \
+return new HRet(nullptr, false, "Class-"#_name" MemberFunction Not Find"); \
 }
 #define DefineMemberFunction(__name,__function_address) memberfuncs.insert(__name,__function_address)
 #define IsGuiClass 	this->QGuiClassHandle = (QWidget*)this;
-#define CheckArgs(__needvalues) 	if (args.size() < ##__needvalues) return new HRet(nullptr,false,"Args too few or much");
+#define CheckArgs(__needvalues) 	if (args.size() != ##__needvalues) return new HRet(nullptr,false,"Args too few or much:[Yours."+QString::number(args.size())+"]-[need."#__needvalues+"]");
 class HObject
 {
 public:

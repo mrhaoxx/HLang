@@ -1,5 +1,6 @@
 #include "HLang.h"
 #include "HString.h"
+#include "commandline.h"
 bool HLang::importclass(QString __name, HObject* __class)
 {
 	if (classes.contains(__name))
@@ -71,7 +72,7 @@ HCommand* HLangHelper::processcommand(QString command, HLang *def) {
 	}
 	return c;
 }
-bool HLangHelper::exec(QString command, HLang *def)
+bool HLangHelper::exec(QString command, HLang *def, commandline *cm)
 {
 	int tr = 0;
 	std::vector<int> usedtr;
@@ -105,7 +106,15 @@ bool HLangHelper::exec(QString command, HLang *def)
 		{
 			ret = HObjectHelper(def->accessclass(*(c->_class))->exec(*(c->_func), vec)).to<HRet>();
 			if (!ret->getSuccess())
-				qDebug() << ret->getReason();
+				if (cm != nullptr)
+					cm->add("[Failed] " + ret->getReason());
+				else
+					qDebug() << "[Failed] " + ret->getReason();
+			else
+				if (cm != nullptr)
+					cm->add("[OK]");
+				else
+					qDebug() << "[OK]";
 		}
 		else
 		{
@@ -113,9 +122,16 @@ bool HLangHelper::exec(QString command, HLang *def)
 			if (ret->getSuccess())
 			{
 				def->importclass(*(c->_backvalue_name), ret->getObject());
+				if (cm != nullptr)
+					cm->add("[OK]");
+				else
+					qDebug() << "[OK]";
 			}
 			else
-				qDebug() << ret->getReason();
+				if (cm != nullptr)
+					cm->add("[Failed] " + ret->getReason());
+				else
+					qDebug() << "[Failed] " + ret->getReason();
 		}
 	}
 	else

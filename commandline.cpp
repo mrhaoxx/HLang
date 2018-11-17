@@ -2,6 +2,7 @@
 #include "ui_commandline.h"
 #include <QDebug>
 #include "HBuiltin.h"
+#include <functional>
 commandline::commandline(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::commandline)
@@ -31,8 +32,7 @@ void commandline::on_lineEdit_returnPressed()
 		HMain->importclass("builtin", new HBuiltin);
 	}
 	ui->textBrowser->setText(ui->textBrowser->document()->toPlainText() + _command);
-	if (!HLangHelper::exec(_command, HMain))
-		ui->textBrowser->append("Error");
+	HLangHelper::exec(_command, HMain, this);
 	ui->textBrowser->append(">>");
 	ui->textBrowser->moveCursor(QTextCursor::End);
 	ui->lineEdit->clear();

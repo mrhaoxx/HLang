@@ -17,5 +17,5 @@ private:
 extern HLang* HMain;
 namespace HLangHelper {
 	HCommand* processcommand(QString command, HLang *def = HMain);
-	bool exec(QString command, HLang *def = HMain);
+	bool exec(QString command, HLang *def = HMain, commandline *cm = nullptr);
 }
