@@ -133,6 +133,7 @@ bool HLangHelper::exec(QString cd, HLang *def, commandline *cm)
 				else
 					qDebug() << def << "[Failed]{" + cd + "} " + ret->getReason();
 		}
+		delete ret;
 	}
 	else
 	{
