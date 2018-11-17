@@ -20,5 +20,5 @@ HObject* HString::set(HArgs args)
 	CheckArgs(1);
 	this->clear();
 	this->append(HObjectHelper(args[0]).to<HString>());
-	return new HInt(this->length());
+	return new HRet(new HInt(this->length()));
 }

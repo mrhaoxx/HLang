@@ -98,14 +98,24 @@ bool HLangHelper::exec(QString command, HLang *def)
 	for (int i = 0; i < c->_args->length(); i++)
 		if (def->accessclass(c->_args->at(i)) != nullptr)
 			vec.push_back(def->accessclass(c->_args->at(i)));
-
 	if ((def->accessclass(*(c->_class))) != nullptr)
 	{
+		HRet *ret;
 		if (c->_backvalue_name == nullptr)
-			def->accessclass(*(c->_class))->exec(*(c->_func), vec);
+		{
+			ret = HObjectHelper(def->accessclass(*(c->_class))->exec(*(c->_func), vec)).to<HRet>();
+			if (!ret->getSuccess())
+				qDebug() << ret->getReason();
+		}
 		else
 		{
-			def->importclass(*(c->_backvalue_name), def->accessclass(*(c->_class))->exec(*(c->_func), vec));
+			ret = HObjectHelper(def->accessclass(*(c->_class))->exec(*(c->_func), vec)).to<HRet>();
+			if (ret->getSuccess())
+			{
+				def->importclass(*(c->_backvalue_name), ret->getObject());
+			}
+			else
+				qDebug() << ret->getReason();
 		}
 	}
 	else

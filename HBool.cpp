@@ -1,7 +1,7 @@
 #include "HBool.h"
 #include "HBaseInterface.h"
 
-inline HBool::HBool(bool par)
+HBool::HBool(bool par)
 {
 	data = par;
 	DefineMemberFunction("set", &HBool::set);
@@ -22,5 +22,5 @@ HObject* HBool::set(HArgs args)
 		data = true;
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "false")
 		data = false;
-	return new HBool(true);
+	return new HRet(true);
 }

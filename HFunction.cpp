@@ -25,9 +25,9 @@ HObject* HFunction::add(HArgs args)
 	if (HObjectHelper(args[0]).to<HString>() != nullptr)
 	{
 		commands.push_back(new QString(HObjectHelper(args[0]).to<HString>()->toQString()));
-		return new HBool(true);
+		return new HRet(true);
 	}
-	return new HBool(false);
+	return new HRet(nullptr, false, WhyFunctionAddFailed);
 }
 HObject* HFunction::hexec(HArgs args)
 {
@@ -35,7 +35,7 @@ HObject* HFunction::hexec(HArgs args)
 	{
 		HLangHelper::exec(*commands[i], def);
 	}
-	return new HBool(true);
+	return new HRet(true);
 }
 HObject* HFunction::loadfile(HArgs args)
 {
@@ -43,7 +43,7 @@ HObject* HFunction::loadfile(HArgs args)
 	QString file_w = HObjectHelper(args[0]).to<HString>()->toQString();
 	QFile file(file_w);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-		return new HBool(false);
+		return new HRet(nullptr, false, WhyFunctionLoadFileFailed);
 	while (!file.atEnd()) {
 		QByteArray line = file.readLine();
 		if (QString(line).at(QString(line).length()) == "\n")
@@ -52,7 +52,7 @@ HObject* HFunction::loadfile(HArgs args)
 		if (!str.isEmpty() && !(str.at(0) == "#"))
 			commands.push_back(new QString(str));
 	}
-	return new HBool(true);
+	return new HRet(true);
 }
 
 HObject* HFunction::toString(HArgs args)
@@ -61,10 +61,5 @@ HObject* HFunction::toString(HArgs args)
 	QString cs;
 	for (int i = 0; i < commands.length(); i++)
 		cs.append(*commands[i] + "\r\n");
-	return new HString(new QString(cs));
-}
-
-HObject* HFunction::loadString(HArgs args)
-{
-	return new HBool(false);
+	return new HRet(new HString(new QString(cs)));
 }

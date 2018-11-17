@@ -5,6 +5,25 @@
 #include <QStringList>
 #include <functional>
 #include <QWidget>
+#define needHString "Only Accept HString"
+#define needHBool "Only Accept HBool"
+#define needHFunction "Only Accept HFunction"
+#define needQWeight "Only Accept QGuiClass"
+#define WhyBuiltinNewFailed "Class Not Find"
+#define WhyBuiltinDeleteFailed needHString
+#define WhyBuiltinSystemFailed needHString
+#define	WhyBuiltinMsgFailed "Class not Support"
+#define WhyFunctionAddFailed needHString
+#define WhyFunctionLoadFileFailed "File not find or can't read"
+#define WhyIfSetWhichFailed needHBool
+#define WhyIfSetTrueFailed needHFunction
+#define WhyIfSetFalseFailed needHFunction
+#define WhyIfExecFailed "True or False Result not setup"
+#define WhyHPushButtonSetClickedFailed needHFunction
+#define WhyHPushButtonSetTextFailed needHString
+#define WhyHWindowSetTitleFailed needHString
+#define WhyHWindowAddWeightFailed needQWeight
+
 #define HClassMap QMap<QString, HObject*>
 #define HMemberFunctionMap_def(_class) QMap<QString,HObject*(##_class::*)(HArgs args)>
 #define HArgs std::vector<HObject*>
@@ -14,11 +33,11 @@ HMemberFunctionMap_def(_name) memberfuncs; \
 public: HObject* exec(QString __name,HArgs args) { \
 if (memberfuncs.contains(__name))\
 return (this->*memberfuncs[__name])(args); \
-return new HObject; \
+return new HRet(nullptr, false, "MemberFunction Not Find"); \
 }
 #define DefineMemberFunction(__name,__function_address) memberfuncs.insert(__name,__function_address)
 #define IsGuiClass 	this->QGuiClassHandle = (QWidget*)this;
-#define CheckArgs(__needvalues) 	if (args.size() < ##__needvalues) return new HBool(false);
+#define CheckArgs(__needvalues) 	if (args.size() < ##__needvalues) return new HRet(nullptr,false,"Args too few or much");
 class HObject
 {
 public:
@@ -55,11 +74,15 @@ private:
 class HRet :public HObject
 {
 public:
-	HRet(bool isSuccess = false, HObject* ret = nullptr, QString reason = "")
+	HRet(HObject* ret = nullptr, bool isSuccess = true, QString reason = "")
 	{
 		this->isSuccess = isSuccess;
 		this->ret = ret;
 		this->reason = reason;
+	}
+	HRet(bool isSuccess)
+	{
+		this->isSuccess = isSuccess;
 	}
 	bool getSuccess() {
 		return isSuccess;
@@ -72,6 +95,6 @@ public:
 	}
 private:
 	bool isSuccess = false;
-	HObject* ret;
+	HObject* ret = nullptr;
 	QString reason;
 };

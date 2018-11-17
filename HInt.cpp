@@ -23,16 +23,16 @@ HObject* HInt::set(HArgs args)
 	CheckArgs(1);
 	int i = HObjectHelper(args[0]).to<HString>()->toQString().toInt();
 	*data = i;
-	return new HBool(true);
+	return new HRet(true);
 }
 
 HObject* HInt::toString(HArgs args)
 {
-	return new HString(&QString::number(*data));
+	return new HRet(new HString(&QString::number(*data)));
 }
 
 HObject* HInt::getAndplusplus(HArgs args)
 {
 	*data = *data + 1;
-	return new HInt(*data);
+	return new HRet(new HInt(*data));
 }

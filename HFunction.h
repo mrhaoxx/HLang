@@ -13,7 +13,6 @@ public:
 	HObject* hexec(HArgs args);
 	HObject* loadfile(HArgs args);
 	HObject* toString(HArgs args);
-	HObject* loadString(HArgs args);
 private:
 	HLang *def = new HLang;
 	QVector<QString*> commands;

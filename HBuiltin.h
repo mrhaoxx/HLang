@@ -1,6 +1,5 @@
 #pragma once
 #include "HObject.h"
-
 class HBuiltin :
 	public HObject
 {

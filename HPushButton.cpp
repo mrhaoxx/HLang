@@ -5,7 +5,7 @@ HPushButton::HPushButton(QWidget *parent)
 {
 	IsGuiClass;
 	DefineMemberFunction("setText", &HPushButton::hsetText);
-	DefineMemberFunction("setClicked", &HPushButton::setClick);
+	DefineMemberFunction("setClicked", &HPushButton::setClicked);
 	connect(this, &HPushButton::clicked, this, [&] {
 		if (whenClicked != nullptr)
 			whenClicked->hexec(HArgs());
@@ -16,17 +16,17 @@ HPushButton::~HPushButton()
 {
 }
 
-HObject* HPushButton::setClick(HArgs args)
+HObject* HPushButton::setClicked(HArgs args)
 {
 	CheckArgs(1);
 	if (HObjectHelper(args[0]).to<HFunction>() != nullptr)
 	{
 		whenClicked = HObjectHelper(args[0]).to<HFunction>();
-		return new HBool(true);
+		return new HRet(true);
 	}
 	else
 	{
-		return new HBool(false);
+		return new HRet(nullptr, false, WhyHPushButtonSetClickedFailed);
 	}
 }
 
@@ -36,10 +36,10 @@ HObject* HPushButton::hsetText(HArgs args)
 	if (HObjectHelper(args[0]).to<HString>() != nullptr)
 	{
 		this->setText(HObjectHelper(args[0]).to<HString>()->toQString());
-		return new HBool(true);
+		return new HRet(true);
 	}
 	else
 	{
-		return new HBool(false);
+		return new HRet(nullptr, false, WhyHPushButtonSetTextFailed);
 	}
 }

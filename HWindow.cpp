@@ -18,28 +18,30 @@ HWindow::~HWindow()
 HObject* HWindow::hsetTitle(HArgs args)
 {
 	CheckArgs(1);
+	if (HObjectHelper(args[0]).to<HString>()->toQString() == nullptr)
+		return new HRet(nullptr, false, WhyHWindowSetTitleFailed);
 	this->setWindowTitle(HObjectHelper(args[0]).to<HString>()->toQString());
-	return new HBool(true);
+	return new HRet(true);
 }
 
 HObject* HWindow::hadd(HArgs args)
 {
 	CheckArgs(1);
 	if (args[0]->QGuiClassHandle == nullptr)
-		return new HBool(false);
+		return new HRet(nullptr, false, WhyHWindowAddWeightFailed);
 	ui.main->addWidget(args[0]->QGuiClassHandle);
-	return new HBool(true);
+	return new HRet(true);
 }
 
 HObject* HWindow::hshow(HArgs args)
 {
 	CheckArgs(0);
 	this->show();
-	return new HBool(true);
+	return new HRet(true);
 }
 HObject* HWindow::hhide(HArgs args)
 {
 	CheckArgs(0);
 	this->hide();
-	return new HBool(true);
+	return new HRet(true);
 }
