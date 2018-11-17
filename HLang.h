@@ -3,6 +3,8 @@
 #include "HObject.h"
 #include <QWidget>
 #include <QString>
+#include <QVector>
+#include "HBaseInterface.h"
 class HLang
 {
 public:
@@ -12,8 +14,24 @@ public:
 private:
 	HClassMap classes;
 };
-namespace HLangHelper {
-	HCommand *processcommand(QString command);
-	bool exec(QString command);
-}
+class HLangHelper {
+public:
+	HLangHelper(HObject* obj);
+	HLangHelper(HObject* obj[]);
+	int length();
+	static HCommand *processcommand(QString command);
+	static bool exec(QString command);
+	template<typename _Target>
+	_Target* to()
+	{
+		if (iscoverable)
+			return dynamic_cast<_Target*>(obj);
+		else
+			return nullptr;
+	}
+private:
+	HObject* obj;
+	QVector<HObject*> args;
+	bool iscoverable = false;
+};
 extern HLang* HMain;

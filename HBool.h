@@ -5,7 +5,7 @@ class HBool :
 {
 	H_OBJECT(HBool);
 public:
-	HBool(bool par)
+	HBool(bool par = false)
 	{
 		data = par;
 		DefineMemberFunction("set", &HBool::set);

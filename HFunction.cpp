@@ -1,5 +1,4 @@
 #include "HFunction.h"
-#include "HBaseInterface.h"
 #include "HLang.h"
 #include <QFile>
 
@@ -22,9 +21,9 @@ H_MemberFunction_def(add, HFunction)
 {
 	CheckArgs(1);
 	SetupArgs;
-	if (HObjTo(HMain->accessclass(GetArg(0)), HString*) != nullptr)
+	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HString>() != nullptr)
 	{
-		commands.push_back(new QString(HObjTo(HMain->accessclass(GetArg(0)), HString*)->toQString()));
+		commands.push_back(new QString(HLangHelper(HMain->accessclass(GetArg(0))).to<HString>()->toQString()));
 		return new HBool(true);
 	}
 	return new HBool(false);

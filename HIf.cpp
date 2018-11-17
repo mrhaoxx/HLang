@@ -12,8 +12,8 @@ H_MemberFunction_def(which, HIf)
 {
 	CheckArgs(1);
 	SetupArgs;
-	if (HObjTo(HMain->accessclass(GetArg(0)), HBool*) != nullptr)
-		this->ifwhich = HObjTo(HMain->accessclass(GetArg(0)), HBool*);
+	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HBool>() != nullptr)
+		this->ifwhich = HLangHelper(HMain->accessclass(GetArg(0))).to<HBool>();
 	else
 		return new HBool(false);
 	return new HBool(true);
@@ -23,8 +23,8 @@ H_MemberFunction_def(htrue, HIf)
 {
 	CheckArgs(1);
 	SetupArgs;
-	if (HObjTo(HMain->accessclass(GetArg(0)), HFunction*) != nullptr)
-		this->iftrue = HObjTo(HMain->accessclass(GetArg(0)), HFunction*);
+	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HFunction>() != nullptr)
+		this->iftrue = HLangHelper(HMain->accessclass(GetArg(0))).to<HFunction>();
 	else
 		return new HBool(false);
 	return new HBool(true);
@@ -34,8 +34,8 @@ H_MemberFunction_def(hfalse, HIf)
 {
 	CheckArgs(1);
 	SetupArgs;
-	if (HObjTo(HMain->accessclass(GetArg(0)), HFunction*) != nullptr)
-		this->iffalse = HObjTo(HMain->accessclass(GetArg(0)), HFunction*);
+	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HFunction>() != nullptr)
+		this->iffalse = HLangHelper(HMain->accessclass(GetArg(0))).to<HFunction>();
 	else
 		return new HBool(false);
 	return new HBool(true);

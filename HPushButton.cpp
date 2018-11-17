@@ -22,9 +22,9 @@ H_MemberFunction_def(setClick, HPushButton)
 {
 	CheckArgs(1);
 	SetupArgs;
-	if (HObjTo(HMain->accessclass(GetArg(0)), HFunction*) != nullptr)
+	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HFunction>() != nullptr)
 	{
-		whenClicked = HObjTo(HMain->accessclass(GetArg(0)), HFunction*);
+		whenClicked = HLangHelper(HMain->accessclass(GetArg(0))).to<HFunction>();
 		return new HBool(true);
 	}
 	else
@@ -37,9 +37,9 @@ H_MemberFunction_def(hsetText, HPushButton)
 {
 	CheckArgs(1);
 	SetupArgs;
-	if (HObjTo(HMain->accessclass(GetArg(0)), HString*) != nullptr)
+	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HString>() != nullptr)
 	{
-		this->setText(HObjTo(HMain->accessclass(GetArg(0)), HString*)->toQString());
+		this->setText(HLangHelper(HMain->accessclass(GetArg(0))).to<HString>()->toQString());
 		return new HBool(true);
 	}
 	else

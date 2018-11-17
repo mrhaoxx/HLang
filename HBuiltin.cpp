@@ -3,6 +3,7 @@
 #include "HWindow.h"
 #include "HPushButton.h"
 #include "HBaseInterface.h"
+#include <QMessageBox>
 #ifdef WIN32
 #include "windows.h"
 #define ALsleep Sleep
@@ -19,20 +20,20 @@ H_MemberFunction_def(newclass, HBuiltin)
 {
 	CheckArgs(1);
 	SetupArgs;
-	if (GetArg(0) == "HWindow")
+	if (GetArg(0) == "Window")
 		return (HObject*)new HWindow;
-	else if (GetArg(0) == "HPushButton")
+	else if (GetArg(0) == "PushButton")
 		return (HObject*)new HPushButton(nullptr);
-	else if (GetArg(0) == "HFunction")
+	else if (GetArg(0) == "function")
 		return new HFunction;
-	else if (GetArg(0) == "HBool")
-		return new HBool(false);
-	else if (GetArg(0) == "HInt")
-		return new HInt();
-	else if (GetArg(0) == "HString")
-		return new HString(new QString(""));
-	else if (GetArg(0) == "HIf")
-		return new HIf();
+	else if (GetArg(0) == "bool")
+		return new HBool;
+	else if (GetArg(0) == "int")
+		return new HInt;
+	else if (GetArg(0) == "string")
+		return new HString;
+	else if (GetArg(0) == "if")
+		return new HIf;
 	return new HBool(false);
 }
 H_MemberFunction_def(deleteclass, HBuiltin)
@@ -50,8 +51,8 @@ H_MemberFunction_def(hsleep, HBuiltin)
 	CheckArgs(1);
 	SetupArgs;
 	int usecs;
-	if (HObjTo(HMain->accessclass(GetArg(0)), HInt*) != nullptr)
-		usecs = *HObjTo(HMain->accessclass(GetArg(0)), HInt*)->value();
+	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HInt>() != nullptr)
+		usecs = *HLangHelper(HMain->accessclass(GetArg(0))).to<HInt>()->value();
 	else
 		usecs = GetArg(0).toInt();
 	ALsleep(usecs);
@@ -61,9 +62,9 @@ H_MemberFunction_def(hsystem, HBuiltin)
 {
 	CheckArgs(1);
 	SetupArgs;
-	if (HObjTo(HMain->accessclass(GetArg(0)), HString*) != nullptr)
+	if (HLangHelper(HMain->accessclass(GetArg(0))).to<HString>() != nullptr)
 	{
-		system(HObjTo(HMain->accessclass(GetArg(0)), HString*)->toQString().toStdString().c_str());
+		system(HLangHelper(HMain->accessclass(GetArg(0))).to<HString>()->toQString().toStdString().c_str());
 		return new HBool(true);
 	}
 	else
@@ -71,18 +72,16 @@ H_MemberFunction_def(hsystem, HBuiltin)
 		return new HBool(false);
 	}
 }
-#ifdef H_DEBUG
-H_MemberFunction_def(hcout, HBuiltin)
+H_MemberFunction_def(msg, HBuiltin)
 {
 	CheckArgs(1);
 	SetupArgs;
 	HObject* obj = HMain->accessclass(GetArg(0));
-	if (HObjTo(obj, HInt*) != nullptr)
-		qDebug() << *(HObjTo(obj, HInt*)->value());
-	else if (HObjTo(obj, HBool*) != nullptr)
-		qDebug() << HObjTo(obj, HBool*)->value();
-	else if (HObjTo(obj, HString*) != nullptr)
-		qDebug() << HObjTo(obj, HString*)->toQString();
+	if (HLangHelper(obj).to<HInt>() != nullptr)
+		QMessageBox::information(nullptr, "Message", QString::number(*HLangHelper(obj).to<HInt>()->value()));
+	else if (HLangHelper(obj).to<HBool>() != nullptr)
+		QMessageBox::information(nullptr, "Message", (HLangHelper(obj).to<HBool>()->value()) ? QString("true") : QString("false"));
+	else if (HLangHelper(obj).to<HString>() != nullptr)
+		QMessageBox::information(nullptr, "Message", HLangHelper(obj).to<HString>()->toQString());
 	return new HBool(true);
 }
-#endif

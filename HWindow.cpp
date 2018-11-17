@@ -1,8 +1,6 @@
 #include "HWindow.h"
 #include <QPushbutton>
 #include "HLang.h"
-#include "HBool.h"
-#include "HString.h"
 HWindow::HWindow(QWidget *parent)
 	: QWidget(parent)
 {
@@ -21,7 +19,7 @@ H_MemberFunction_def(hsetTitle, HWindow)
 {
 	CheckArgs(1);
 	SetupArgs;
-	this->setWindowTitle(HObjTo(HMain->accessclass(GetArg(0)), HString*)->toQString());
+	this->setWindowTitle(HLangHelper(HMain->accessclass(GetArg(0))).to<HString>()->toQString());
 	return new HBool(true);
 }
 
