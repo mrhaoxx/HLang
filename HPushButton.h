@@ -14,6 +14,8 @@ public:
 	HObject* hsetText(HArgs args);
 	HObject* setClickedArgs(HArgs args);
 	HObject* setClicked(HArgs args);
+	HObject* unsetClicked(HArgs args);
+	HObject* unsetClickedArgs(HArgs args);
 private:
 	HFunction *whenClicked = nullptr;
 	HArgs *whenClickedArgs = nullptr;

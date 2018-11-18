@@ -29,6 +29,7 @@ HObject* HBuiltin::newclass(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
+	std::string str = "123";
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "Window")
 		return new HRet((HObject*)new HWindow);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "PushButton")

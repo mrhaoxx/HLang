@@ -7,6 +7,9 @@ HPushButton::HPushButton(QWidget *parent)
 	DefineMemberFunction("setText", &HPushButton::hsetText);
 	DefineMemberFunction("setClicked", &HPushButton::setClicked);
 	DefineMemberFunction("setClickedArgs", &HPushButton::setClickedArgs);
+	DefineMemberFunction("unsetClicked", &HPushButton::unsetClicked);
+	DefineMemberFunction("unsetClickedArgs", &HPushButton::unsetClickedArgs);
+
 	connect(this, &HPushButton::clicked, this, [&] {
 		if (whenClicked != nullptr)
 			whenClicked->hexec((whenClickedArgs == nullptr) ? HArgs() : *whenClickedArgs);
@@ -24,7 +27,18 @@ HObject* HPushButton::setClicked(HArgs args)
 	whenClicked = HObjectHelper(args[0]).to<HFunction>();
 	return new HRet(true);
 }
-
+HObject* HPushButton::unsetClicked(HArgs args)
+{
+	CheckArgs(0);
+	whenClicked = nullptr;
+	return new HRet(true);
+}
+HObject* HPushButton::unsetClickedArgs(HArgs args)
+{
+	CheckArgs(0);
+	whenClickedArgs = nullptr;
+	return new HRet(true);
+}
 HObject* HPushButton::hsetText(HArgs args)
 {
 	CheckArgs(1);

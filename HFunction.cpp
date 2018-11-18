@@ -9,7 +9,7 @@ HFunction::HFunction()
 	DefineMemberFunction("exec", &HFunction::hexec);
 	DefineMemberFunction("loadfile", &HFunction::loadfile);
 	DefineMemberFunction("toString", &HFunction::toString);
-	DefineMemberFunction("link", &HFunction::link);
+	DefineMemberFunction("addArgs", &HFunction::addArgs);
 	HBuiltin *but = new HBuiltin;
 	but->HDef = def;
 	def->importclass("builtin", but);
@@ -35,15 +35,7 @@ HObject* HFunction::add(HArgs args)
 	}
 	return new HRet(nullptr, false, WhyFunctionAddFailed);
 }
-HObject* HFunction::hexec(HArgs args)
-{
-	CheckArgs(0);
-	for (int i = 0; i < commands.length(); i++)
-	{
-		HLangHelper::exec(*commands[i], def);
-	}
-	return new HRet(true);
-}
+
 HObject* HFunction::loadfile(HArgs args)
 {
 	CheckArgs(1);
@@ -68,11 +60,22 @@ HObject* HFunction::toString(HArgs args)
 		cs.append(*commands[i] + "\r\n");
 	return new HRet(new HString(new QString(cs)));
 }
-HObject* HFunction::link(HArgs args)
+HObject* HFunction::addArgs(HArgs args)
 {
-	CheckArgs(2);
-	if (HObjectHelper(args[0]).to<HString>() == nullptr)
-		return new HRet(nullptr, false, WhyFunctionLinkFailed);
-	def->importclass(HObjectHelper(args[0]).to<HString>()->toQString(), args[1]);
+	CheckArgs(1);
+	CheckArgsType(0, HString);
+	argsname.push_back(new QString(HObjectHelper(args[0]).to<HString>()->toQString()));
+	return new HRet(true);
+}
+
+HObject* HFunction::hexec(HArgs args)
+{
+	CheckArgs(argsname.size());
+	for (int i = 0; i < argsname.size(); i++)
+		def->importclass(*argsname[i], args[i]);
+	for (int i = 0; i < commands.length(); i++)
+	{
+		HLangHelper::exec(*commands[i], def);
+	}
 	return new HRet(true);
 }

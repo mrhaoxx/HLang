@@ -4,8 +4,9 @@ HInt::HInt(int i)
 {
 	data = new int(i);
 	DefineMemberFunction("++", &HInt::getAndplusplus);
-	DefineMemberFunction("set", &HInt::set);
+	DefineMemberFunction("fromString", &HInt::setStr);
 	DefineMemberFunction("toString", &HInt::toString);
+	DefineMemberFunction("set", &HInt::setInt);
 }
 
 HInt::~HInt()
@@ -18,7 +19,7 @@ int* HInt::value()
 	return new int(*data);
 }
 
-HObject* HInt::set(HArgs args)
+HObject* HInt::setStr(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
@@ -26,7 +27,14 @@ HObject* HInt::set(HArgs args)
 	*data = i;
 	return new HRet(true);
 }
-
+HObject* HInt::setInt(HArgs args)
+{
+	CheckArgs(1);
+	CheckArgsType(0, HInt);
+	int i = *HObjectHelper(args[0]).to<HInt>()->value();
+	*data = i;
+	return new HRet(true);
+}
 HObject* HInt::toString(HArgs args)
 {
 	CheckArgs(0);

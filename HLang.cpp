@@ -122,9 +122,9 @@ bool HLangHelper::exec(QString cd, HLang *def, commandline *cm)
 					qDebug() << def << "[Failed]{" + cd + "} " + ret->getReason();
 			else
 				if (cm != nullptr)
-					cm->add("[OK]");
+					cm->add("[OK] " + ret->getReason());
 				else
-					qDebug() << def << "[OK]{" + cd + "}";
+					qDebug() << def << "[OK]{" + cd + "} " + ret->getReason();
 		}
 		else
 		{
@@ -133,9 +133,9 @@ bool HLangHelper::exec(QString cd, HLang *def, commandline *cm)
 			{
 				def->importclass(*(c->_backvalue_name), ret->getObject());
 				if (cm != nullptr)
-					cm->add("[OK]");
+					cm->add("[OK] " + ret->getReason());
 				else
-					qDebug() << def << "[OK]{" + cd + "}";
+					qDebug() << def << "[OK]{" + cd + "} " + ret->getReason();
 			}
 			else
 				if (cm != nullptr)
