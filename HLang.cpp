@@ -147,6 +147,10 @@ bool HLangHelper::exec(QString cd, HLang *def, commandline *cm)
 	}
 	else
 	{
+		if (cm != nullptr)
+			cm->add("[Failed] Class Not Find");
+		else
+			qDebug() << def << "[Failed]{" + cd + "} Class Not Find";
 		return false;
 	}
 	return true;
