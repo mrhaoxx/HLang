@@ -5,6 +5,7 @@
 #include "HFunction.h"
 #include "HIf.h"
 #include "HBaseInterface.h"
+#include "HTcpSocket.h"
 #include <QMessageBox>
 #ifdef WIN32
 #include "windows.h"
@@ -27,6 +28,7 @@ HBuiltin::HBuiltin()
 HObject* HBuiltin::newclass(HArgs args)
 {
 	CheckArgs(1);
+	CheckArgsType(0, HString);
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "Window")
 		return new HRet((HObject*)new HWindow);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "PushButton")
@@ -41,11 +43,14 @@ HObject* HBuiltin::newclass(HArgs args)
 		return new HRet(new HString);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "if")
 		return new HRet(new HIf);
+	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "TcpSocket")
+		return new HRet(new HTcpSocket);
 	return new HRet(nullptr, false, WhyBuiltinNewFailed);
 }
 HObject* HBuiltin::deleteclass(HArgs args)
 {
 	CheckArgs(1);
+	CheckArgsType(0, HString);
 	if (HObjectHelper(args[0]).to<HString>() == nullptr)
 		return new HRet(nullptr, false, WhyBuiltinDeleteFailed);
 	HDef->deleteclass(HObjectHelper(args[0]).to<HString>()->toQString());
@@ -65,6 +70,7 @@ HObject* HBuiltin::sleep(HArgs args)
 HObject* HBuiltin::system(HArgs args)
 {
 	CheckArgs(1);
+	CheckArgsType(0, HString);
 	if (HObjectHelper(args[0]).to<HString>() != nullptr)
 	{
 		std::system(HObjectHelper(args[0]).to<HString>()->toQString().toStdString().c_str());

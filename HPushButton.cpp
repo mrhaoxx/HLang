@@ -20,29 +20,17 @@ HPushButton::~HPushButton()
 HObject* HPushButton::setClicked(HArgs args)
 {
 	CheckArgs(1);
-	if (HObjectHelper(args[0]).to<HFunction>() != nullptr)
-	{
-		whenClicked = HObjectHelper(args[0]).to<HFunction>();
-		return new HRet(true);
-	}
-	else
-	{
-		return new HRet(nullptr, false, WhyHPushButtonSetClickedFailed);
-	}
+	CheckArgsType(0, HFunction);
+	whenClicked = HObjectHelper(args[0]).to<HFunction>();
+	return new HRet(true);
 }
 
 HObject* HPushButton::hsetText(HArgs args)
 {
 	CheckArgs(1);
-	if (HObjectHelper(args[0]).to<HString>() != nullptr)
-	{
-		this->setText(HObjectHelper(args[0]).to<HString>()->toQString());
-		return new HRet(true);
-	}
-	else
-	{
-		return new HRet(nullptr, false, WhyHPushButtonSetTextFailed);
-	}
+	CheckArgsType(0, HString);
+	this->setText(HObjectHelper(args[0]).to<HString>()->toQString());
+	return new HRet(true);
 }
 HObject* HPushButton::setClickedArgs(HArgs args)
 {

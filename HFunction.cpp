@@ -27,6 +27,7 @@ HFunction::~HFunction()
 HObject* HFunction::add(HArgs args)
 {
 	CheckArgs(1);
+	CheckArgsType(0, HString);
 	if (HObjectHelper(args[0]).to<HString>() != nullptr)
 	{
 		commands.push_back(new QString(HObjectHelper(args[0]).to<HString>()->toQString()));

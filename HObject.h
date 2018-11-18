@@ -33,11 +33,12 @@ HMemberFunctionMap_def(_name) memberfuncs; \
 public: HObject* exec(QString __name,HArgs args) { \
 if (memberfuncs.contains(__name))\
 return (this->*memberfuncs[__name])(args); \
-return new HRet(nullptr, false, "Class-"#_name" MemberFunction Not Find"); \
+return new HRet(nullptr, false, "[Class."#_name"][Function."+__name+"]Not Find"); \
 }
 #define DefineMemberFunction(__name,__function_address) memberfuncs.insert(__name,__function_address)
 #define IsGuiClass 	this->QGuiClassHandle = (QWidget*)this;
-#define CheckArgs(__needvalues) 	if (args.size() != ##__needvalues) return new HRet(nullptr,false,"Args too few or much:[Yours."+QString::number(args.size())+"]-[need."#__needvalues+"]");
+#define CheckArgs(__needvalues) 	if (args.size() != ##__needvalues) return new HRet(nullptr,false,"Args too few or much:[Yours."+QString::number(args.size())+"][need."#__needvalues+"]");
+#define CheckArgsType(__which,__kind) if (HObjectHelper(args[__which]).to<__kind>()==nullptr)return new HRet(nullptr,false,"ArgsType Incorrect [Arg."#__which"][TargetType.:"#__kind"]")
 class HObject
 {
 public:

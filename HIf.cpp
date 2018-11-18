@@ -10,30 +10,24 @@ HIf::HIf()
 HObject* HIf::which(HArgs args)
 {
 	CheckArgs(1);
-	if (HObjectHelper(args[0]).to<HBool>() != nullptr)
-		this->ifwhich = HObjectHelper(args[0]).to<HBool>();
-	else
-		return new HRet(nullptr, false, WhyIfSetWhichFailed);
+	CheckArgsType(0, HBool);
+	this->ifwhich = HObjectHelper(args[0]).to<HBool>();
 	return new HRet(true);
 }
 
 HObject* HIf::htrue(HArgs args)
 {
 	CheckArgs(1);
-	if (HObjectHelper(args[0]).to<HFunction>() != nullptr)
-		this->iftrue = HObjectHelper(args[0]).to<HFunction>();
-	else
-		return new HRet(nullptr, false, WhyIfSetTrueFailed);
+	CheckArgsType(0, HFunction);
+	this->iftrue = HObjectHelper(args[0]).to<HFunction>();
 	return new HRet(true);
 }
 
 HObject* HIf::hfalse(HArgs args)
 {
 	CheckArgs(1);
-	if (HObjectHelper(args[0]).to<HFunction>() != nullptr)
-		this->iffalse = HObjectHelper(args[0]).to<HFunction>();
-	else
-		return new HRet(nullptr, false, WhyIfSetFalseFailed);
+	CheckArgsType(0, HFunction);
+	this->iffalse = HObjectHelper(args[0]).to<HFunction>();
 	return new HRet(true);
 }
 

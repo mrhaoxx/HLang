@@ -18,6 +18,7 @@ bool HBool::value()
 HObject* HBool::set(HArgs args)
 {
 	CheckArgs(1);
+	CheckArgs(0, HString);
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "true")
 		data = true;
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "false")

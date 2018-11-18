@@ -18,8 +18,7 @@ HWindow::~HWindow()
 HObject* HWindow::hsetTitle(HArgs args)
 {
 	CheckArgs(1);
-	if (HObjectHelper(args[0]).to<HString>()->toQString() == nullptr)
-		return new HRet(nullptr, false, WhyHWindowSetTitleFailed);
+	CheckArgsType(0, HString);
 	this->setWindowTitle(HObjectHelper(args[0]).to<HString>()->toQString());
 	return new HRet(true);
 }

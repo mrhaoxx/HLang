@@ -18,6 +18,7 @@ QString HString::toQString()
 HObject* HString::set(HArgs args)
 {
 	CheckArgs(1);
+	CheckArgsType(0, HString);
 	this->clear();
 	this->append(HObjectHelper(args[0]).to<HString>());
 	return new HRet(new HInt(this->length()));
