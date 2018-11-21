@@ -1,5 +1,5 @@
 #include "HWindow.h"
-#include <QPushbutton>
+#include <QPushButton>
 #include "HBaseInterface.h"
 HWindow::HWindow(QWidget *parent)
 	: QWidget(parent)

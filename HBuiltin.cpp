@@ -11,11 +11,10 @@
 #include "windows.h"
 #define ALsleep Sleep
 #endif
-#ifdef LINUX
+#ifndef WIN32
 #include <unistd.h>
 #define ALsleep usleep
 #endif
-
 HBuiltin::HBuiltin()
 {
 	DefineMemberFunction("new", &HBuiltin::newclass);

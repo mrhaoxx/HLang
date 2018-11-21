@@ -38,7 +38,7 @@ HObject* HInt::setInt(HArgs args)
 HObject* HInt::toString(HArgs args)
 {
 	CheckArgs(0);
-	return new HRet(new HString(&QString::number(*data)));
+	return new HRet(new HString(new QString(QString::number(*data))));
 }
 
 HObject* HInt::getAndplusplus(HArgs args)

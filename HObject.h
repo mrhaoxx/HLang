@@ -26,7 +26,7 @@
 #define WhyFunctionLinkFailed needHString
 #define WhyTcpSocketConnectWarring "[Warring]ConnectedSlotNotHandled"
 #define HClassMap QMap<QString, HObject*>
-#define HMemberFunctionMap_def(_class) QMap<QString,HObject*(##_class::*)(HArgs args)>
+#define HMemberFunctionMap_def(_class) QMap<QString,HObject*(_class::*)(HArgs args)>
 #define HArgs std::vector<HObject*>
 #define H_OBJECT(_name) \
 private: \
@@ -38,7 +38,7 @@ return new HRet(nullptr, false, "[Class."#_name"][Function."+__name+"]Not Find")
 }
 #define DefineMemberFunction(__name,__function_address) memberfuncs.insert(__name,__function_address)
 #define IsGuiClass 	this->QGuiClassHandle = (QWidget*)this;
-#define CheckArgs(__needvalues) 	if (args.size() < ##__needvalues) return new HRet(nullptr,false,"Args too few or much:[Yours."+QString::number(args.size())+"][need."#__needvalues+"]");
+#define CheckArgs(__needvalues) 	if (args.size() < __needvalues) return new HRet(nullptr,false,"Args too few or much:[Yours."+QString::number(args.size())+"][need."#__needvalues+"]");
 #define CheckArgsType(__which,__kind) if (HObjectHelper(args[__which]).to<__kind>()==nullptr)return new HRet(nullptr,false,"ArgsType Incorrect [Arg."#__which"][TargetType.:"#__kind"]")
 class HObject
 {

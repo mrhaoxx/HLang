@@ -5,80 +5,8 @@
 TEMPLATE = app
 TARGET = HLang
 DESTDIR = ./debug
-QT += core gui widgets
+QT += core gui widgets network
 CONFIG += debug
-DEFINES += _WINDOWS _UNICODE WIN64 _ENABLE_EXTENDED_ALIGNED_STORAGE QT_DEPRECATED_WARNINGS QT_WIDGETS_LIB GL_APICALL= EGLAPI=
-INCLUDEPATH += ./GeneratedFiles/$(ConfigurationName) \
-    ./GeneratedFiles \
-    . \
-    ./debug \
-    $(QTDIR)/mkspecs/win32-msvc
-LIBS += -L"$(QTDIR)/plugins/styles" \
-    -L"$(QTDIR)/plugins/platforms" \
-    -L"$(QTDIR)/plugins/imageformats" \
-    -l$(QTDIR)/plugins/styles/qwindowsvistastyled \
-    -l$(QTDIR)/plugins/platforms/qwindowsd \
-    -lwinspool \
-    -limm32 \
-    -loleaut32 \
-    -lshlwapi \
-    -lgdi32 \
-    -l$(QTDIR)/plugins/imageformats/qgifd \
-    -l$(QTDIR)/plugins/imageformats/qicnsd \
-    -l$(QTDIR)/plugins/imageformats/qicod \
-    -l$(QTDIR)/plugins/imageformats/qjpegd \
-    -l$(QTDIR)/plugins/imageformats/qtgad \
-    -l$(QTDIR)/plugins/imageformats/qtiffd \
-    -l$(QTDIR)/plugins/imageformats/qwbmpd \
-    -l$(QTDIR)/plugins/imageformats/qwebpd \
-    -luxtheme \
-    -ldwmapi \
-    -llibEGLd \
-    -llibGLESv2d \
-    -lmpr \
-    -lnetapi32 \
-    -luserenv \
-    -lversion \
-    -lws2_32 \
-    -lkernel32 \
-    -luser32 \
-    -lshell32 \
-    -luuid \
-    -lole32 \
-    -ladvapi32 \
-    -lwinmm \
-    -lcomdlg32 \
-    -loleaut32 \
-    -limm32 \
-    -lwinmm \
-    -lws2_32 \
-    -lole32 \
-    -luuid \
-    -ladvapi32 \
-    -ld3d9 \
-    -ldxguid \
-    -lgdi32 \
-    -luser32
-DEPENDPATH += .
-MOC_DIR += ./GeneratedFiles/$(ConfigurationName)
-OBJECTS_DIR += debug
-UI_DIR += ./GeneratedFiles
-RCC_DIR += ./GeneratedFiles
-HEADERS += ./HBool.h \
-    ./HBuiltin.h \
-    ./HFunction.h \
-    ./HWindow.h \
-    ./HPushButton.h \
-    ./HLang.h \
-    ./HObject.h \
-    ./commandline.h
-SOURCES += ./HBool.cpp \
-    ./HBuiltin.cpp \
-    ./HFunction.cpp \
-    ./HPushButton.cpp \
-    ./HWindow.cpp \
-    ./commandline.cpp \
-    ./HLang.cpp \
-    ./main.cpp
-FORMS += ./commandline.ui \
-    ./HWindow.ui
+HEADERS += ./*.h
+SOURCES += ./*.cpp
+FORMS += ./*.ui
