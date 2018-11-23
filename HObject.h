@@ -26,11 +26,10 @@
 #define WhyFunctionLinkFailed needHString
 #define WhyTcpSocketConnectWarring "[Warring]ConnectedSlotNotHandled"
 #define HClassMap QMap<QString, HObject*>
-#define HMemberFunctionMap_def(_class) QMap<QString,HObject*(_class::*)(HArgs args)>
 #define HArgs std::vector<HObject*>
 #define H_OBJECT(_name) \
 private: \
-HMemberFunctionMap_def(_name) memberfuncs; \
+QMap<QString,HObject*(_name::*)(HArgs args)> memberfuncs; \
 public: HObject* exec(QString __name,HArgs args) { \
 if (memberfuncs.contains(__name))\
 return (this->*memberfuncs[__name])(args); \
