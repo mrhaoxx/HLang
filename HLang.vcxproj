@@ -191,6 +191,7 @@
     <ClCompile Include="HIf.cpp" />
     <ClCompile Include="HInt.cpp" />
     <ClCompile Include="HLang.cpp" />
+    <ClCompile Include="hlang_plugin_import.cpp" />
     <ClCompile Include="HPushButton.cpp" />
     <ClCompile Include="HString.cpp" />
     <ClCompile Include="HTcpSocket.cpp" />
