@@ -114,9 +114,6 @@
     <ClCompile Include="HTcpSocket.cpp">
       <Filter>Source Files\HBase\HNetwork</Filter>
     </ClCompile>
-    <ClCompile Include="hlang_plugin_import.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="commandline.h">
