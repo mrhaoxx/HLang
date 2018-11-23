@@ -191,6 +191,7 @@
     <ClCompile Include="HIf.cpp" />
     <ClCompile Include="HInt.cpp" />
     <ClCompile Include="HLang.cpp" />
+    <ClCompile Include="hlang_plugin_import.cpp" />
     <ClCompile Include="HPushButton.cpp" />
     <ClCompile Include="HString.cpp" />
     <ClCompile Include="HTcpSocket.cpp" />
@@ -202,7 +203,6 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include=".\hlang_plugin_import.cpp" />
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
