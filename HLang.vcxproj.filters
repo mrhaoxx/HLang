@@ -68,12 +68,7 @@
     <Filter Include="Source Files\HBase\HNetwork">
       <UniqueIdentifier>{04c19b0b-07b6-4d2a-ad7b-5788d1f13240}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Translation Files">
-      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
-      <Extensions>ts</Extensions>
-      <ParseFiles>false</ParseFiles>
-    </Filter>
-    <Filter Include="Header Files\Base">
+    <Filter Include="Header Files\Front">
       <UniqueIdentifier>{35e82772-257f-40aa-9e49-cc3feb9d96a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -120,7 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="commandline.h">
-      <Filter>Header Files\Base</Filter>
+      <Filter>Header Files\Front</Filter>
     </QtMoc>
     <QtMoc Include="HWindow.h">
       <Filter>Header Files\HGui</Filter>
@@ -150,10 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HLang.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="HObject.h">
-      <Filter>Header Files\Base</Filter>
+      <Filter>Header Files\Front</Filter>
     </ClInclude>
     <ClInclude Include="HBuiltin.h">
       <Filter>Header Files\HBase</Filter>
@@ -179,10 +171,8 @@
     <ClInclude Include="HTcpSocket.h">
       <Filter>Header Files\HBase\HNetwork</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="hlang_zh.ts">
-      <Filter>Translation Files</Filter>
-    </None>
+    <ClInclude Include="HObject.h">
+      <Filter>Header Files\HBase</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
