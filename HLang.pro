@@ -24,7 +24,8 @@ SOURCES += ./Front/*.cpp \
            ./HBase/HNetwork/*.cpp \
            ./HGui/*.cpp \
            ./main.cpp
-FORMS += ./HGui/*.ui
+FORMS += ./HGui/*.ui \
+        ./Front/commandline.ui
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target

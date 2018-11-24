@@ -75,10 +75,12 @@ HObject* HTcpSocket::send(HArgs args)
 
 HObject* HTcpSocket::hreadAll(HArgs args)
 {
+	CheckArgs(0);
 	return new HRet(new HString(new QString(this->readAll())));
 }
 
 HObject* HTcpSocket::hreadLine(HArgs args)
 {
+	CheckArgs(0);
 	return new HRet(new HString(new QString(this->readLine())));
 }
