@@ -1,7 +1,5 @@
 #include "HFunction.h"
-#include "HLang.h"
 #include <QFile>
-#include "HBuiltin.h"
 
 HFunction::HFunction()
 {

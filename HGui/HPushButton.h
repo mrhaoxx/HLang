@@ -3,7 +3,7 @@
 #include <QPushButton>
 #include "HObject.h"
 #include "HBaseInterface.h"
-#include "HFunction.h"
+#include "HLogic/HFunction.h"
 class HPushButton : private QPushButton, public HObject
 {
 	Q_OBJECT;

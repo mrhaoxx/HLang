@@ -1,9 +1,6 @@
 #pragma once
-#include "HBool.h"
-#include "HString.h"
-#include "HInt.h"
+#include "HData/HBool.h"
+#include "HData/HString.h"
+#include "HData/HInt.h"
 class HFunction;
 class HIf;
-class commandline;
-class HLang;
-class HBuiltin;

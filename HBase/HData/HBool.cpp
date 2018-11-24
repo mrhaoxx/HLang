@@ -1,5 +1,5 @@
 #include "HBool.h"
-#include "HBaseInterface.h"
+#include "HString.h"
 
 HBool::HBool(bool par)
 {

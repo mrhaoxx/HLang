@@ -6,11 +6,6 @@
       <Extensions>ui</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
-    <Filter Include="Form Files">
-      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
-      <Extensions>ui</Extensions>
-      <ParseFiles>false</ParseFiles>
-    </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
@@ -47,56 +42,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HPushButton.cpp">
+    <ClCompile Include="HGui\HWindow.cpp">
       <Filter>HGui</Filter>
-    </ClCompile>
-    <ClCompile Include="HWindow.cpp">
-      <Filter>HGui</Filter>
-    </ClCompile>
-    <ClCompile Include="hlang_plugin_import.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="commandline.cpp">
-      <Filter>HBase\Front</Filter>
-    </ClCompile>
-    <ClCompile Include="HLang.cpp">
-      <Filter>HBase\Front</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>HBase\Front</Filter>
     </ClCompile>
-    <ClCompile Include="HBool.cpp">
-      <Filter>HBase\HData</Filter>
-    </ClCompile>
-    <ClCompile Include="HInt.cpp">
-      <Filter>HBase\HData</Filter>
-    </ClCompile>
-    <ClCompile Include="HString.cpp">
-      <Filter>HBase\HData</Filter>
-    </ClCompile>
-    <ClCompile Include="HBuiltin.cpp">
-      <Filter>HBase</Filter>
-    </ClCompile>
-    <ClCompile Include="HTcpSocket.cpp">
+    <ClCompile Include="HBase\HNetwork\HTcpSocket.cpp">
       <Filter>HBase\HNetwork</Filter>
     </ClCompile>
-    <ClCompile Include="HFunction.cpp">
+    <ClCompile Include="HBase\HData\HString.cpp">
+      <Filter>HBase\HData</Filter>
+    </ClCompile>
+    <ClCompile Include="HGui\HPushButton.cpp">
+      <Filter>HGui</Filter>
+    </ClCompile>
+    <ClCompile Include="HBase\HData\HInt.cpp">
+      <Filter>HBase\HData</Filter>
+    </ClCompile>
+    <ClCompile Include="HBase\HLogic\HIf.cpp">
       <Filter>HBase\HLogic</Filter>
     </ClCompile>
-    <ClCompile Include="HIf.cpp">
+    <ClCompile Include="HBase\HLogic\HFunction.cpp">
       <Filter>HBase\HLogic</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="commandline.h">
+    <ClCompile Include="HBase\HBuiltin.cpp">
+      <Filter>HBase</Filter>
+    </ClCompile>
+    <ClCompile Include="HBase\HData\HBool.cpp">
+      <Filter>HBase\HData</Filter>
+    </ClCompile>
+    <ClCompile Include="HBase\HLang.cpp">
+      <Filter>HBase</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\hlang_plugin_import.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Front\commandline.cpp">
       <Filter>HBase\Front</Filter>
-    </QtMoc>
-    <QtMoc Include="HWindow.h">
-      <Filter>HGui</Filter>
-    </QtMoc>
-    <QtMoc Include="HPushButton.h">
-      <Filter>HGui</Filter>
-    </QtMoc>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -105,48 +89,56 @@
     <CustomBuild Include="release\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
-    <ClInclude Include="ui_commandline.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="commandline.ui">
-      <Filter>HBase\Front</Filter>
-    </QtUic>
-    <QtUic Include="HWindow.ui">
-      <Filter>HGui</Filter>
-    </QtUic>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="HLang.h">
-      <Filter>HBase\Front</Filter>
-    </ClInclude>
-    <ClInclude Include="HBuiltin.h">
-      <Filter>HBase</Filter>
-    </ClInclude>
-    <ClInclude Include="HBaseInterface.h">
-      <Filter>HBase</Filter>
-    </ClInclude>
-    <ClInclude Include="HBool.h">
-      <Filter>HBase\HData</Filter>
-    </ClInclude>
-    <ClInclude Include="HInt.h">
-      <Filter>HBase\HData</Filter>
-    </ClInclude>
-    <ClInclude Include="HString.h">
-      <Filter>HBase\HData</Filter>
-    </ClInclude>
-    <ClInclude Include="HIf.h">
-      <Filter>HBase\HLogic</Filter>
-    </ClInclude>
-    <ClInclude Include="HFunction.h">
-      <Filter>HBase\HLogic</Filter>
-    </ClInclude>
-    <ClInclude Include="HTcpSocket.h">
+    <ClInclude Include="HBase\HNetwork\HTcpSocket.h">
       <Filter>HBase\HNetwork</Filter>
     </ClInclude>
-    <ClInclude Include="HObject.h">
+    <ClInclude Include="HBase\HData\HString.h">
+      <Filter>HBase\HData</Filter>
+    </ClInclude>
+    <ClInclude Include="HBase\HObject.h">
       <Filter>HBase</Filter>
     </ClInclude>
+    <ClInclude Include="HBase\HData\HInt.h">
+      <Filter>HBase\HData</Filter>
+    </ClInclude>
+    <ClInclude Include="HBase\HLogic\HIf.h">
+      <Filter>HBase\HLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="HBase\HLogic\HFunction.h">
+      <Filter>HBase\HLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="HBase\HBuiltin.h">
+      <Filter>HBase</Filter>
+    </ClInclude>
+    <ClInclude Include="HBase\HData\HBool.h">
+      <Filter>HBase\HData</Filter>
+    </ClInclude>
+    <ClInclude Include="HBase\HBaseInterface.h">
+      <Filter>HBase</Filter>
+    </ClInclude>
+    <ClInclude Include="HBase\HLang.h">
+      <Filter>HBase</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="HGui\HWindow.h">
+      <Filter>HGui</Filter>
+    </QtMoc>
+    <QtMoc Include="HGui\HPushButton.h">
+      <Filter>HGui</Filter>
+    </QtMoc>
+    <QtMoc Include="Front\commandline.h">
+      <Filter>HBase\Front</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="HGui\HWindow.ui">
+      <Filter>HGui</Filter>
+    </QtUic>
+    <QtUic Include="Front\commandline.ui">
+      <Filter>HBase\Front</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

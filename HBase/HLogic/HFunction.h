@@ -2,6 +2,7 @@
 #include "HObject.h"
 #include <QVector>
 #include "HLang.h"
+#include "HBuiltin.h"
 class HFunction :
 	public HObject
 {

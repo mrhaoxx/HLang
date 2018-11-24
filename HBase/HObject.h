@@ -5,6 +5,7 @@
 #include <QStringList>
 #include <functional>
 #include <QWidget>
+#define Has_Commandline_Front
 #define needHString "Only Accept HString"
 #define needHBool "Only Accept HBool"
 #define needHFunction "Only Accept HFunction"

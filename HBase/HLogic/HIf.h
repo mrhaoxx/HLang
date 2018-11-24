@@ -1,7 +1,7 @@
 #pragma once
 #include "HObject.h"
 #include "HFunction.h"
-#include "HBool.h"
+#include "HLang.h"
 class HIf :
 	public HObject
 {

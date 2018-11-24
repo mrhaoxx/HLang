@@ -1,5 +1,5 @@
 #include "HIf.h"
-#include "HLang.h"
+#include "HData/HBool.h"
 HIf::HIf()
 {
 	DefineMemberFunction("setwhich", &HIf::which);

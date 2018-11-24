@@ -1,5 +1,5 @@
 #include "HTcpSocket.h"
-#include "HBaseInterface.h"
+
 HTcpSocket::HTcpSocket()
 {
 	DefineMemberFunction("connectToHost", &HTcpSocket::hconnectToHost);

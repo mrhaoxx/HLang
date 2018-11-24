@@ -1,5 +1,5 @@
 #include "HString.h"
-#include "HBaseInterface.h"
+#include "HInt.h"
 HString::HString(QString *parent)
 	: QString(*parent)
 {

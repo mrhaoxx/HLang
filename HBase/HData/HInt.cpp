@@ -1,5 +1,6 @@
 #include "HInt.h"
-#include "HBaseInterface.h"
+#include "HString.h"
+
 HInt::HInt(int i)
 {
 	data = new int(i);

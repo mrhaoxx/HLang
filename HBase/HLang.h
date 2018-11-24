@@ -4,7 +4,12 @@
 #include <QWidget>
 #include <QString>
 #include <QVector>
-#include "HBaseInterface.h"
+#include "HData/HBool.h"
+#include "HData/HInt.h"
+#include "HData/HString.h"
+#ifdef Has_Commandline_Front
+class commandline;
+#endif
 class HLang
 {
 public:

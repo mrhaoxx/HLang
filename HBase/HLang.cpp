@@ -1,7 +1,9 @@
 #include "HLang.h"
 #include "HString.h"
-#include "commandline.h"
-
+#include <iostream>
+#ifdef Has_Commandline_Front
+#include "Front/commandline.h"
+#endif
 HLang::~HLang()
 {
 	for (int i = 0; i < registeredclasses.length(); i++)
@@ -112,45 +114,33 @@ bool HLangHelper::exec(QString cd, HLang *def, commandline *cm)
 	if ((def->accessclass(*(c->_class))) != nullptr)
 	{
 		HRet *ret;
-		if (c->_backvalue_name == nullptr)
+
+		ret = HObjectHelper(def->accessclass(*(c->_class))->exec(*(c->_func), vec)).to<HRet>();
+		if (ret->getSuccess())
 		{
-			ret = HObjectHelper(def->accessclass(*(c->_class))->exec(*(c->_func), vec)).to<HRet>();
-			if (!ret->getSuccess())
-				if (cm != nullptr)
-					cm->add("[Failed] " + ret->getReason());
-				else
-					qDebug() << def << "[Failed]{" + cd + "} " + ret->getReason();
-			else
-				if (cm != nullptr)
-					cm->add("[OK] " + ret->getReason());
-				else
-					qDebug() << def << "[OK]{" + cd + "} " + ret->getReason();
-		}
-		else
-		{
-			ret = HObjectHelper(def->accessclass(*(c->_class))->exec(*(c->_func), vec)).to<HRet>();
-			if (ret->getSuccess())
-			{
+			if (c->_backvalue_name != nullptr)
 				def->importclass(*(c->_backvalue_name), ret->getObject());
-				if (cm != nullptr)
-					cm->add("[OK] " + ret->getReason());
-				else
-					qDebug() << def << "[OK]{" + cd + "} " + ret->getReason();
-			}
-			else
-				if (cm != nullptr)
-					cm->add("[Failed] " + ret->getReason());
-				else
-					qDebug() << def << "[Failed]{" + cd + "} " + ret->getReason();
 		}
+#ifdef Has_Commandline_Front
+		if (cm == nullptr)
+			qDebug() << def << "[" + (ret->getSuccess() ? QString("OK") : QString("Failed")) + "]{" + cd.simplified() + "} " + ret->getReason().simplified();
+		else
+			cm->add("[" + (ret->getSuccess() ? QString("OK") : QString("Failed")) + "]" + ret->getReason().simplified());
+#else
+		qDebug() << def << "[" + (ret->getSuccess() ? QString("OK") : QString("Failed")) + "]{" + cd.simplified() + "} " + ret->getReason().simplified();
+#endif
 		delete ret;
 	}
 	else
 	{
-		if (cm != nullptr)
-			cm->add("[Failed] Class Not Find");
-		else
+#ifdef Has_Commandline_Front
+		if (cm == nullptr)
 			qDebug() << def << "[Failed]{" + cd + "} Class Not Find";
+		else
+			cm->add("[Failed]Class Not Find");
+#else
+		qDebug() << def << "[Failed]{" + cd + "} Class Not Find";
+#endif
 		return false;
 	}
 	return true;

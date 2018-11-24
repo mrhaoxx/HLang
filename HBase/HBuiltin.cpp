@@ -1,11 +1,4 @@
 #include "HBuiltin.h"
-#include "HWindow.h"
-#include "HPushButton.h"
-#include "HLang.h"
-#include "HFunction.h"
-#include "HIf.h"
-#include "HBaseInterface.h"
-#include "HTcpSocket.h"
 #include <QMessageBox>
 #ifdef WIN32
 #include "windows.h"
