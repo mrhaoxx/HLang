@@ -9,6 +9,7 @@ HFunction::HFunction()
 	DefineMemberFunction("toString", &HFunction::toString);
 	DefineMemberFunction("addArgs", &HFunction::addArgs);
 	DefineMemberFunction("link", &HFunction::link);
+	DefineMemberFunction("fromString", &HFunction::fromString);
 	HBuiltin *but = new HBuiltin;
 	but->HDef = def;
 	def->importclass("builtin", but);
@@ -39,10 +40,15 @@ HObject* HFunction::loadfile(HArgs args)
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 		return new HRet(nullptr, false, WhyFunctionLoadFileFailed);
 	while (!file.atEnd()) {
-		QString str = file.readLine();
-		str = str.simplified();
-		if (!str.isEmpty() && !(str.at(0) == "#"))
-			commands.push_back(new QString(str));
+		QString str = file.readAll();
+		QStringList strlist = str.split(";");
+		for (int i = 0; i < strlist.length(); i++)
+			strlist[i] = strlist[i].simplified();
+		for (int i = 0; i < strlist.length(); i++)
+		{
+			if (!strlist[i].isEmpty() && !(strlist[i].at(0) == "#"))
+				commands.push_back(new QString(strlist[i]));
+		}
 	}
 	return new HRet(true);
 }
@@ -55,6 +61,23 @@ HObject* HFunction::toString(HArgs args)
 		cs.append(*commands[i] + "\r\n");
 	return new HRet(new HString(new QString(cs)));
 }
+
+HObject* HFunction::fromString(HArgs args)
+{
+	CheckArgs(1);
+	CheckArgsType(0, HString);
+	QString str = HObjectHelper(args[0]).to<HString>()->toQString();
+	QStringList strlist = str.split(";");
+	for (int i = 0; i < strlist.length(); i++)
+		strlist[i] = strlist[i].simplified();
+	for (int i = 0; i < strlist.length(); i++)
+	{
+		if (!strlist[i].isEmpty() && !(strlist[i].at(0) == "#"))
+			commands.push_back(new QString(strlist[i]));
+	}
+	return new HRet(true);
+}
+
 HObject* HFunction::addArgs(HArgs args)
 {
 	CheckArgs(1);
