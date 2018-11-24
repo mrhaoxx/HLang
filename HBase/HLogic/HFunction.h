@@ -15,6 +15,7 @@ public:
 	HObject* loadfile(HArgs args);
 	HObject* toString(HArgs args);
 	HObject* addArgs(HArgs args);
+	HObject* link(HArgs args);
 private:
 	HLang *def = new HLang;
 	std::vector<QString*> argsname;

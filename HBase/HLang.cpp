@@ -115,7 +115,6 @@ bool HLangHelper::exec(QString cd, HLang *def, commandline *cm)
 	if ((def->accessclass(*(c->_class))) != nullptr)
 	{
 		HRet *ret;
-
 		ret = HObjectHelper(def->accessclass(*(c->_class))->exec(*(c->_func), vec)).to<HRet>();
 		if (ret->getSuccess())
 		{
@@ -124,11 +123,11 @@ bool HLangHelper::exec(QString cd, HLang *def, commandline *cm)
 		}
 #ifdef Has_Commandline_Front
 		if (cm == nullptr)
-			qDebug() << def << "[" + (ret->getSuccess() ? QString("OK") : QString("Failed")) + "]{" + cd + "} " + ret->getReason().simplified();
+			qDebug() << def << "[" << (ret->getSuccess() ? QString("OK").toStdString().c_str() : QString("Failed").toStdString().c_str()) << "]{" << cd << "} " << ret->getReason().simplified().toStdString().c_str();
 		else
 			cm->add("[" + (ret->getSuccess() ? QString("OK") : QString("Failed")) + "]" + ret->getReason().simplified());
 #else
-		qDebug() << def << "[" + (ret->getSuccess() ? QString("OK") : QString("Failed")) + "]{" + cd + "} " + ret->getReason().simplified();
+		qDebug() << def << "[" << (ret->getSuccess() ? QString("OK").toStdString().c_str() : QString("Failed").toStdString().c_str()) << "]{" << cd << "} " << ret->getReason().simplified().toStdString().c_str();
 #endif
 		delete ret;
 	}
@@ -136,11 +135,11 @@ bool HLangHelper::exec(QString cd, HLang *def, commandline *cm)
 	{
 #ifdef Has_Commandline_Front
 		if (cm == nullptr)
-			qDebug() << def << "[Failed]{" + cd + "} Class Not Find";
+			qDebug() << def << "[Failed]{" << cd << "} Class Not Find";
 		else
 			cm->add("[Failed]Class Not Find");
 #else
-		qDebug() << def << "[Failed]{" + cd + "} Class Not Find";
+		qDebug() << def << "[Failed]{" << cd << "} Class Not Find";
 #endif
 		return false;
 	}

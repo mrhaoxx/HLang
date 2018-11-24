@@ -59,16 +59,6 @@ public:
 	{
 		return dynamic_cast<_Target*>(obj);
 	}
-	operator QString () {
-		return (dynamic_cast<HString*>(obj) == nullptr) ? QString("") : dynamic_cast<HString*>(obj)->toQString();
-	}
-	operator int() {
-		return (dynamic_cast<HInt*>(obj) == nullptr) ? int(0) : *dynamic_cast<HInt*>(obj)->value();
-	}
-	operator bool()
-	{
-		return (dynamic_cast<HBool*>(obj) == nullptr) ? false : dynamic_cast<HBool*>(obj)->value();
-	}
 private:
 	HObject* obj;
 };

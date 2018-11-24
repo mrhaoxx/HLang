@@ -21,5 +21,6 @@ public:
 	HObject* sleep(HArgs args);
 	HObject* system(HArgs args);
 	HObject* msg(HArgs args);
+	HObject* cout(HArgs args);
 	HLang* HDef = HMain;
 };

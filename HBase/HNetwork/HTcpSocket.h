@@ -15,9 +15,9 @@ public:
 	HObject* hdisconnect(HArgs args);
 	HObject* hconnectToHost(HArgs args);
 	HObject* send(HArgs args);
+	HObject* hreadAll(HArgs args);
+	HObject* hreadLine(HArgs args);
 private:
 	HFunction* whenReadyRead = nullptr;
-	HArgs* whenReadyReadArgs = nullptr;
 	HFunction* whenConnected = nullptr;
-	HArgs* whenConnectedArgs = nullptr;
 };
