@@ -9,9 +9,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += debug console
 INCLUDEPATH += ./HBase\
-               ./HGui\
-               ./HBase/HData\
-               ./HBase/HLogic
+               ./HGui
 HEADERS += ./Front/*.h \
            ./HBase/*.h \
            ./HBase/HData/*.h \

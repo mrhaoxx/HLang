@@ -5,6 +5,7 @@
 #include <QStringList>
 #include <functional>
 #include <QWidget>
+#include <QVector>
 #define Has_Commandline_Front
 #define needHString "Only Accept HString"
 #define needHBool "Only Accept HBool"
@@ -27,7 +28,7 @@
 #define WhyFunctionLinkFailed needHString
 #define WhyTcpSocketConnectWarring "[Warring]ConnectedSlotNotHandled"
 #define HClassMap QMap<QString, HObject*>
-#define HArgs std::vector<HObject*>
+#define HArgs QVector<HObject*>
 #define H_OBJECT(_name) \
 private: \
 QMap<QString,HObject*(_name::*)(HArgs args)> memberfuncs; \
@@ -46,7 +47,7 @@ public:
 	HObject() {};
 	virtual ~HObject() {};
 	virtual HObject* exec(QString __name, HArgs args) {
-		qDebug() << "Warring: HObject exec called";
+		qDebug() << "Warring: HObject exec called[N." + __name + "]" << "[A." << args << "]";
 		return new HObject;
 	};
 	QWidget* QGuiClassHandle = nullptr;

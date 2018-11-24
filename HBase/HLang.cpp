@@ -1,5 +1,4 @@
 #include "HLang.h"
-#include "HString.h"
 #include <iostream>
 #ifdef Has_Commandline_Front
 #include "Front/commandline.h"
