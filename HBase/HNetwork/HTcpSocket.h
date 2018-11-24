@@ -11,15 +11,8 @@ class HTcpSocket :
 	H_OBJECT(HTcpSocket);
 public:
 	HTcpSocket();
-	~HTcpSocket();
-	HObject* setConnected(HArgs args);
-	HObject* setReadReady(HArgs args);
-	HObject* setReadReadyArgs(HArgs args);
-	HObject* setConnectedArgs(HArgs args);
-	HObject* unsetConnectReadReady(HArgs args);
-	HObject* unsetConnectConnected(HArgs args);
-	HObject* unsetConnectReadReadyArgs(HArgs args);
-	HObject* unsetConnectConnectedArgs(HArgs args);
+	HObject* hconnect(HArgs args);
+	HObject* hdisconnect(HArgs args);
 	HObject* hconnectToHost(HArgs args);
 	HObject* send(HArgs args);
 private:

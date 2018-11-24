@@ -75,7 +75,7 @@
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -89,6 +89,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QTDIR)\lib\qtmaind.lib;$(QTDIR)\plugins\mediaservice\dsengined.lib;mf.lib;mfplat.lib;mfuuid.lib;dxva2.lib;evr.lib;$(QTDIR)\plugins\mediaservice\qtmedia_audioengined.lib;$(QTDIR)\plugins\mediaservice\wmfengined.lib;mfreadwrite.lib;wmcodecdspuuid.lib;dmoguids.lib;msdmo.lib;Mf.lib;Mfuuid.lib;Mfplat.lib;Propsys.lib;$(QTDIR)\plugins\audio\qtaudio_wasapid.lib;Mmdevapi.lib;runtimeobject.lib;$(QTDIR)\plugins\audio\qtaudio_windowsd.lib;strmiids.lib;$(QTDIR)\plugins\playlistformats\qtmultimedia_m3ud.lib;$(QTDIR)\plugins\styles\qwindowsvistastyled.lib;$(QTDIR)\plugins\platforms\qwindowsd.lib;winspool.lib;imm32.lib;oleaut32.lib;shlwapi.lib;$(QTDIR)\lib\Qt5EventDispatcherSupportd.lib;$(QTDIR)\lib\Qt5FontDatabaseSupportd.lib;gdi32.lib;$(QTDIR)\lib\qtfreetyped.lib;$(QTDIR)\lib\Qt5ThemeSupportd.lib;$(QTDIR)\lib\Qt5AccessibilitySupportd.lib;$(QTDIR)\lib\Qt5WindowsUIAutomationSupportd.lib;$(QTDIR)\plugins\imageformats\qgifd.lib;$(QTDIR)\plugins\imageformats\qicnsd.lib;$(QTDIR)\plugins\imageformats\qicod.lib;$(QTDIR)\plugins\imageformats\qjpegd.lib;$(QTDIR)\plugins\imageformats\qtgad.lib;$(QTDIR)\plugins\imageformats\qtiffd.lib;$(QTDIR)\plugins\imageformats\qwbmpd.lib;$(QTDIR)\plugins\imageformats\qwebpd.lib;$(QTDIR)\plugins\bearer\qgenericbearerd.lib;$(QTDIR)\lib\Qt5Multimediad.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;uxtheme.lib;dwmapi.lib;$(QTDIR)\lib\Qt5Guid.lib;libEGLd.lib;libGLESv2d.lib;$(QTDIR)\lib\qtlibpngd.lib;$(QTDIR)\lib\qtharfbuzzd.lib;$(QTDIR)\lib\Qt5Networkd.lib;dnsapi.lib;iphlpapi.lib;$(QTDIR)\lib\Qt5Cored.lib;mpr.lib;netapi32.lib;userenv.lib;version.lib;ws2_32.lib;kernel32.lib;user32.lib;shell32.lib;uuid.lib;ole32.lib;advapi32.lib;winmm.lib;$(QTDIR)\lib\qtpcre2d.lib;$(QTDIR)\lib\libEGLd.lib;$(QTDIR)\lib\libGLESv2d.lib;comdlg32.lib;oleaut32.lib;imm32.lib;winmm.lib;ws2_32.lib;ole32.lib;uuid.lib;advapi32.lib;d3d9.lib;dxguid.lib;$(QTDIR)\lib\translatord.lib;$(QTDIR)\lib\preprocessord.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -101,7 +103,7 @@
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <SubSystem>Windows</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <ShowProgress>LinkVerboseLib</ShowProgress>
+      <ShowProgress>LinkVerboseCLR</ShowProgress>
       <Version>1.0</Version>
       <SetChecksum>true</SetChecksum>
     </Link>

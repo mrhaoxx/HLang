@@ -78,6 +78,8 @@ HCommand* HLangHelper::processcommand(QString command) {
 bool HLangHelper::exec(QString cd, HLang *def, commandline *cm)
 {
 	QString command = cd;
+	command.replace("\\n", "\n");
+	command.replace("\\r", "\r");
 	QStringList t = command.split("\"");
 	command.clear();
 	if (t.length() >= 2)
@@ -122,11 +124,11 @@ bool HLangHelper::exec(QString cd, HLang *def, commandline *cm)
 		}
 #ifdef Has_Commandline_Front
 		if (cm == nullptr)
-			qDebug() << def << "[" + (ret->getSuccess() ? QString("OK") : QString("Failed")) + "]{" + cd.simplified() + "} " + ret->getReason().simplified();
+			qDebug() << def << "[" + (ret->getSuccess() ? QString("OK") : QString("Failed")) + "]{" + cd + "} " + ret->getReason().simplified();
 		else
 			cm->add("[" + (ret->getSuccess() ? QString("OK") : QString("Failed")) + "]" + ret->getReason().simplified());
 #else
-		qDebug() << def << "[" + (ret->getSuccess() ? QString("OK") : QString("Failed")) + "]{" + cd.simplified() + "} " + ret->getReason().simplified();
+		qDebug() << def << "[" + (ret->getSuccess() ? QString("OK") : QString("Failed")) + "]{" + cd + "} " + ret->getReason().simplified();
 #endif
 		delete ret;
 	}

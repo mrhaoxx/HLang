@@ -7,26 +7,14 @@
 #include <QWidget>
 #include <QVector>
 #define Has_Commandline_Front
-#define needHString "Only Accept HString"
-#define needHBool "Only Accept HBool"
-#define needHFunction "Only Accept HFunction"
 #define needQWeight "Only Accept QGuiClass"
 #define WhyBuiltinNewFailed "Class Not Find"
-#define WhyBuiltinDeleteFailed needHString
-#define WhyBuiltinSystemFailed needHString
 #define	WhyBuiltinMsgFailed "Class not Support"
-#define WhyFunctionAddFailed needHString
 #define WhyFunctionLoadFileFailed "File not find or can't read"
-#define WhyIfSetWhichFailed needHBool
-#define WhyIfSetTrueFailed needHFunction
-#define WhyIfSetFalseFailed needHFunction
-#define WhyIfExecFailed "True or False Result not setup"
-#define WhyHPushButtonSetClickedFailed needHFunction
-#define WhyHPushButtonSetTextFailed needHString
-#define WhyHWindowSetTitleFailed needHString
+#define WhyIfExecFailed "Which or True or False Result not setup"
 #define WhyHWindowAddWeightFailed needQWeight
-#define WhyFunctionLinkFailed needHString
 #define WhyTcpSocketConnectWarring "[Warring]ConnectedSlotNotHandled"
+#define WhyTcpSocketConnectSlotError "SIGNAL NOT FIND"
 #define HClassMap QMap<QString, HObject*>
 #define HArgs QVector<HObject*>
 #define H_OBJECT(_name) \
@@ -70,6 +58,16 @@ public:
 	_Target* to()
 	{
 		return dynamic_cast<_Target*>(obj);
+	}
+	operator QString () {
+		return (dynamic_cast<HString*>(obj) == nullptr) ? QString("") : dynamic_cast<HString*>(obj)->toQString();
+	}
+	operator int() {
+		return (dynamic_cast<HInt*>(obj) == nullptr) ? int(0) : *dynamic_cast<HInt*>(obj)->value();
+	}
+	operator bool()
+	{
+		return (dynamic_cast<HBool*>(obj) == nullptr) ? false : dynamic_cast<HBool*>(obj)->value();
 	}
 private:
 	HObject* obj;

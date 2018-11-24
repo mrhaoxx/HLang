@@ -22,21 +22,21 @@ HObject* HBuiltin::newclass(HArgs args)
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	std::string str = "123";
-	if (HObjectHelper(args[0]).to<HString>()->toQString() == "Window")
+	if (HObjectHelper(args[0]) == "Window")
 		return new HRet((HObject*)new HWindow);
-	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "PushButton")
+	else if (HObjectHelper(args[0]) == "PushButton")
 		return new HRet((HObject*)new HPushButton(nullptr));
-	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "function")
+	else if (HObjectHelper(args[0]) == "function")
 		return new HRet(new HFunction);
-	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "bool")
+	else if (HObjectHelper(args[0]) == "bool")
 		return new HRet(new HBool);
-	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "int")
+	else if (HObjectHelper(args[0]) == "int")
 		return new HRet(new HInt);
-	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "string")
+	else if (HObjectHelper(args[0]) == "string")
 		return new HRet(new HString);
-	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "if")
+	else if (HObjectHelper(args[0]) == "if")
 		return new HRet(new HIf);
-	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "TcpSocket")
+	else if (HObjectHelper(args[0]) == "TcpSocket")
 		return new HRet(new HTcpSocket);
 	return new HRet(nullptr, false, WhyBuiltinNewFailed);
 }
@@ -44,8 +44,6 @@ HObject* HBuiltin::deleteclass(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
-	if (HObjectHelper(args[0]).to<HString>() == nullptr)
-		return new HRet(nullptr, false, WhyBuiltinDeleteFailed);
 	HDef->deleteclass(HObjectHelper(args[0]).to<HString>()->toQString());
 	return new HRet(true);
 }
@@ -54,7 +52,7 @@ HObject* HBuiltin::sleep(HArgs args)
 	CheckArgs(1);
 	int usecs;
 	if (HObjectHelper(args[0]).to<HInt>() != nullptr)
-		usecs = *HObjectHelper(args[0]).to<HInt>()->value();
+		usecs = HObjectHelper(args[0]);
 	else
 		usecs = HObjectHelper(args[0]).to<HString>()->toQString().toInt();
 	ALsleep(usecs);
@@ -64,15 +62,9 @@ HObject* HBuiltin::system(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
-	if (HObjectHelper(args[0]).to<HString>() != nullptr)
-	{
-		std::system(HObjectHelper(args[0]).to<HString>()->toQString().toStdString().c_str());
-		return new HRet(true);
-	}
-	else
-	{
-		return new HRet(nullptr, false, WhyBuiltinSystemFailed);
-	}
+
+	std::system(HObjectHelper(args[0]).to<HString>()->toQString().toStdString().c_str());
+	return new HRet(true);
 }
 HObject* HBuiltin::msg(HArgs args)
 {
@@ -80,17 +72,17 @@ HObject* HBuiltin::msg(HArgs args)
 	bool iss = false;
 	if (HObjectHelper(args[0]).to<HInt>() != nullptr)
 	{
-		QMessageBox::information(nullptr, "Message", QString::number(*HObjectHelper(args[0]).to<HInt>()->value()));
+		QMessageBox::information(nullptr, "Message", QString::number(HObjectHelper(args[0])));
 		iss = true;
 	}
 	else if (HObjectHelper(args[0]).to<HBool>() != nullptr)
 	{
-		QMessageBox::information(nullptr, "Message", (HObjectHelper(args[0]).to<HBool>()->value()) ? QString("true") : QString("false"));
+		QMessageBox::information(nullptr, "Message", (HObjectHelper(args[0])) ? QString("true") : QString("false"));
 		iss = true;
 	}
 	else if (HObjectHelper(args[0]).to<HString>() != nullptr)
 	{
-		QMessageBox::information(nullptr, "Message", HObjectHelper(args[0]).to<HString>()->toQString());
+		QMessageBox::information(nullptr, "Message", HObjectHelper(args[0]));
 		iss = true;
 	}
 	if (!iss)

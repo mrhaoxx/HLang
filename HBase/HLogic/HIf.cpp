@@ -34,7 +34,7 @@ HObject* HIf::hfalse(HArgs args)
 HObject* HIf::hexec(HArgs args)
 {
 	CheckArgs(0);
-	if (iftrue == nullptr || iffalse == nullptr)
+	if (iftrue == nullptr || iffalse == nullptr || ifwhich == nullptr)
 		return new HRet(nullptr, false, WhyIfExecFailed);
 	if (ifwhich->value())
 		iftrue->hexec(args);

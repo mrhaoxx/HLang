@@ -26,18 +26,14 @@ HObject* HFunction::add(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
-	if (HObjectHelper(args[0]).to<HString>() != nullptr)
-	{
-		commands.push_back(new QString(HObjectHelper(args[0]).to<HString>()->toQString()));
-		return new HRet(true);
-	}
-	return new HRet(nullptr, false, WhyFunctionAddFailed);
+	commands.push_back(new QString(HObjectHelper(args[0])));
+	return new HRet(true);
 }
 
 HObject* HFunction::loadfile(HArgs args)
 {
 	CheckArgs(1);
-	QString file_w = HObjectHelper(args[0]).to<HString>()->toQString();
+	QString file_w = HObjectHelper(args[0]);
 	QFile file(file_w);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 		return new HRet(nullptr, false, WhyFunctionLoadFileFailed);
