@@ -69,7 +69,7 @@ HObject* HFunction::addArgs(HArgs args)
 HObject* HFunction::hexec(HArgs args)
 {
 	CheckArgs((int)argsname.size());
-	for (int i = 0; i < argsname.size(); i++)
+	for (int i = 0; i < (int)argsname.size(); i++)
 		def->importclass(*argsname[i], args[i]);
 	for (int i = 0; i < commands.length(); i++)
 	{
