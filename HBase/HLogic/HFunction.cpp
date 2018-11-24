@@ -43,7 +43,7 @@ HObject* HFunction::loadfile(HArgs args)
 		return new HRet(nullptr, false, WhyFunctionLoadFileFailed);
 	while (!file.atEnd()) {
 		QString str = file.readLine();
-		str.simplified();
+		str = str.simplified();
 		if (!str.isEmpty() && !(str.at(0) == "#"))
 			commands.push_back(new QString(str));
 	}
