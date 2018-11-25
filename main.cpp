@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 	HMain->importclass("builtin", new HBuiltin);
+	QApplication::setQuitOnLastWindowClosed(false);
 	commandline *c;
 	if (argc == 2)
 	{

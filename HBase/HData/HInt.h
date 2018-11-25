@@ -7,7 +7,8 @@ class HInt :
 public:
 	HInt(int i = 0);
 	~HInt();
-	int* value();
+	int value();
+	operator int();
 	HObject* setStr(HArgs args);
 	HObject* getAndplusplus(HArgs args);
 	HObject* toString(HArgs args);

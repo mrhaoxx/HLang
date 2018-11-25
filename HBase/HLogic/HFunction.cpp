@@ -13,6 +13,7 @@ HFunction::HFunction()
 	HBuiltin *but = new HBuiltin;
 	but->HDef = def;
 	def->importclass("builtin", but);
+	def->importclass("thisfunction", this);
 }
 
 HFunction::~HFunction()
@@ -95,6 +96,13 @@ HObject* HFunction::link(HArgs args)
 	return new HRet(true);
 }
 
+void HFunction::reset()
+{
+	def = new HLang;
+	def->importclass("builtin", new HBuiltin);
+	return;
+}
+
 HObject* HFunction::hexec(HArgs args)
 {
 	CheckArgs((int)argsname.size());
@@ -106,5 +114,6 @@ HObject* HFunction::hexec(HArgs args)
 	{
 		HLangHelper::exec(*commands[i], def);
 	}
+	this->reset();
 	return new HRet(true);
 }

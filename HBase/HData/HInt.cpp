@@ -15,9 +15,14 @@ HInt::~HInt()
 	delete data;
 }
 
-int* HInt::value()
+int HInt::value()
 {
-	return new int(*data);
+	return int(*data);
+}
+
+HInt::operator int()
+{
+	return int(*data);
 }
 
 HObject* HInt::setStr(HArgs args)
@@ -32,7 +37,7 @@ HObject* HInt::setInt(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HInt);
-	int i = *HObjectHelper(args[0]).to<HInt>()->value();
+	int i = *HObjectHelper(args[0]).to<HInt>();
 	*data = i;
 	return new HRet(true);
 }

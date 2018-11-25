@@ -8,6 +8,7 @@ public:
 	HBool(bool par = false);
 	~HBool();
 	bool value();
+	operator bool();
 	HObject* set(HArgs args);
 private:
 	bool data;

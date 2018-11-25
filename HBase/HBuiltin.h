@@ -10,6 +10,7 @@
 #include "HLogic/HFunction.h"
 #include "HLogic/HIf.h"
 #include "HNetwork/HTcpSocket.h"
+#include <QThread>
 class HBuiltin :
 	public HObject
 {
@@ -22,5 +23,6 @@ public:
 	HObject* system(HArgs args);
 	HObject* msg(HArgs args);
 	HObject* cout(HArgs args);
+	HObject* termimate(HArgs args);
 	HLang* HDef = HMain;
 };

@@ -8,10 +8,10 @@ HTcpSocket::HTcpSocket()
 	DefineMemberFunction("readAll", &HTcpSocket::hreadAll);
 	DefineMemberFunction("readLine", &HTcpSocket::hreadLine);
 	this->connect(this, &QTcpSocket::readyRead, this, [&] {
-		HArgs *args = new HArgs;
-		args->push_front(this);
+		HArgs args;
+		args.push_front(this);
 		if (whenReadyRead != nullptr)
-			whenReadyRead->hexec(*args);
+			whenReadyRead->hexec(args);
 	});
 	this->connect(this, &QTcpSocket::connected, this, [&] {
 		HArgs args;
@@ -60,7 +60,7 @@ HObject* HTcpSocket::hconnectToHost(HArgs args)
 	QString ret;
 	if (whenReadyRead == nullptr)
 		ret = WhyTcpSocketConnectWarring;
-	this->connectToHost(HObjectHelper(args[0]).to<HString>()->toQString(), *HObjectHelper(args[1]).to<HInt>()->value());
+	this->connectToHost(HObjectHelper(args[0]).to<HString>()->toQString(), *HObjectHelper(args[1]).to<HInt>());
 	return new HRet(nullptr, true, ret);
 }
 
@@ -76,7 +76,9 @@ HObject* HTcpSocket::send(HArgs args)
 HObject* HTcpSocket::hreadAll(HArgs args)
 {
 	CheckArgs(0);
-	return new HRet(new HString(new QString(this->readAll())));
+	QString debugging = this->readAll();
+	QString debugging2 = this->readAll();
+	return new HRet(new HString(new QString(debugging)));
 }
 
 HObject* HTcpSocket::hreadLine(HArgs args)

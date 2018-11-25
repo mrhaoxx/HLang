@@ -15,6 +15,12 @@ bool HBool::value()
 {
 	return data;
 }
+
+HBool::operator bool()
+{
+	return data;
+}
+
 HObject* HBool::set(HArgs args)
 {
 	CheckArgs(1);

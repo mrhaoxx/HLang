@@ -18,6 +18,7 @@ public:
 	HObject* addArgs(HArgs args);
 	HObject* link(HArgs args);
 private:
+	void reset();
 	HLang *def = new HLang;
 	std::vector<QString*> argsname;
 	QVector<QString*> commands;
