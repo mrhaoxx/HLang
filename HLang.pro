@@ -7,7 +7,7 @@ TARGET = HLang
 QT += core gui widgets network multimedia
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 DEFINES += QT_DEPRECATED_WARNINGS
-CONFIG += debug console
+CONFIG += console
 INCLUDEPATH += ./HBase\
                ./HGui
 HEADERS += ./Front/*.h \
