@@ -7,6 +7,15 @@ Programing
 # Target
 ## A dynamic Qt GUI Lauguage
 # TODO
+### Containers
+### HDefine
+#### {//file start(HMain Const.)
+#### i=new("int"); //A Var
+####     int func(Str,Int){ // A New Function
+####         i.acess(); //upcast acess
+####         infunction=new("int");
+####     } // infunction Dest.
+#### }//file end(HMain Dest.)
 ### -class HTcpSocket
 #### ---A Bug That Only Readable Once<br>
 ### -class HTcpServer
