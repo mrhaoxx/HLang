@@ -78,8 +78,8 @@
     <ClCompile Include="GeneratedFiles\hlang_plugin_import.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="Front\commandline.cpp">
-      <Filter>HBase\Front</Filter>
+    <ClCompile Include="HBase\HData\HVoid.cpp">
+      <Filter>HBase\HData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +121,9 @@
     <ClInclude Include="HBase\HLang.h">
       <Filter>HBase</Filter>
     </ClInclude>
+    <ClInclude Include="HBase\HData\HVoid.h">
+      <Filter>HBase\HData</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="HGui\HWindow.h">
@@ -129,16 +132,10 @@
     <QtMoc Include="HGui\HPushButton.h">
       <Filter>HGui</Filter>
     </QtMoc>
-    <QtMoc Include="Front\commandline.h">
-      <Filter>HBase\Front</Filter>
-    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="HGui\HWindow.ui">
       <Filter>HGui</Filter>
-    </QtUic>
-    <QtUic Include="Front\commandline.ui">
-      <Filter>HBase\Front</Filter>
     </QtUic>
   </ItemGroup>
 </Project>

@@ -8,11 +8,13 @@ commandline::commandline(QWidget *parent) :
 	ui(new Ui::commandline)
 {
 	ui->setupUi(this);
+	def->importclass("builtin", new HBuiltin(def));
 }
 
 commandline::~commandline()
 {
 	delete ui;
+	delete def;
 }
 
 void commandline::add(QString str)
@@ -24,15 +26,15 @@ void commandline::on_lineEdit_returnPressed()
 {
 	QString _command = ui->lineEdit->text();
 	if (_command == "reload_builtin")
-		HMain->importclass("builtin", new HBuiltin);
+		def->importclass("builtin", new HBuiltin(def));
 	if (_command == "reload")
 	{
-		delete HMain;
-		HMain = new HLang;
-		HMain->importclass("builtin", new HBuiltin);
+		delete def;
+		def = new HLang(nullptr);
+		def->importclass("builtin", new HBuiltin(def));
 	}
 	ui->textBrowser->setText(ui->textBrowser->document()->toPlainText() + _command);
-	HLangHelper::exec(_command, HMain, this);
+	HLangHelper::exec(_command, def, this);
 	ui->textBrowser->append(">>");
 	ui->textBrowser->moveCursor(QTextCursor::End);
 	ui->lineEdit->clear();

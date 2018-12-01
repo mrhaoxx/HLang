@@ -1,5 +1,6 @@
 #include "HInt.h"
 #include "HString.h"
+#include "HVoid.h"
 
 HInt::HInt(int i)
 {
@@ -31,7 +32,7 @@ HObject* HInt::setStr(HArgs args)
 	CheckArgsType(0, HString);
 	int i = HObjectHelper(args[0]).to<HString>()->toQString().toInt();
 	*data = i;
-	return new HRet(true);
+	return new HVoid;
 }
 HObject* HInt::setInt(HArgs args)
 {
@@ -39,17 +40,17 @@ HObject* HInt::setInt(HArgs args)
 	CheckArgsType(0, HInt);
 	int i = *HObjectHelper(args[0]).to<HInt>();
 	*data = i;
-	return new HRet(true);
+	return new HVoid;
 }
 HObject* HInt::toString(HArgs args)
 {
 	CheckArgs(0);
-	return new HRet(new HString(new QString(QString::number(*data))));
+	return new HString(QString::number(*data));
 }
 
 HObject* HInt::getAndplusplus(HArgs args)
 {
 	CheckArgs(0);
 	*data = *data + 1;
-	return new HRet(new HInt(*data));
+	return this;
 }

@@ -8,16 +8,12 @@ HTcpSocket::HTcpSocket()
 	DefineMemberFunction("readAll", &HTcpSocket::hreadAll);
 	DefineMemberFunction("readLine", &HTcpSocket::hreadLine);
 	this->connect(this, &QTcpSocket::readyRead, this, [&] {
-		HArgs args;
-		args.push_front(this);
 		if (whenReadyRead != nullptr)
-			whenReadyRead->hexec(args);
+			whenReadyRead->hexec(HArgs());
 	});
 	this->connect(this, &QTcpSocket::connected, this, [&] {
-		HArgs args;
-		args.push_front(this);
 		if (whenConnected != nullptr)
-			whenConnected->hexec(args);
+			whenConnected->hexec(HArgs());
 	});
 }
 
@@ -28,13 +24,13 @@ HObject* HTcpSocket::hconnect(HArgs args)
 	CheckArgsType(1, HFunction);
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "connected") {
 		this->whenConnected = HObjectHelper(args[1]).to<HFunction>();
-		return new HRet(true);
+		return new HVoid;
 	}
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "readyread") {
 		this->whenReadyRead = HObjectHelper(args[1]).to<HFunction>();
-		return new HRet(true);
+		return new HVoid;
 	}
-	return new HRet(nullptr, false, WhyTcpSocketConnectSlotError);
+	throw HError(HError::RT_ERROR, WhyConnectSlotError);
 }
 
 HObject* HTcpSocket::hdisconnect(HArgs args)
@@ -43,13 +39,13 @@ HObject* HTcpSocket::hdisconnect(HArgs args)
 	CheckArgsType(0, HString);
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "connected") {
 		this->whenConnected = nullptr;
-		return new HRet(true);
+		return new HVoid;
 	}
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "readyread") {
 		this->whenReadyRead = nullptr;
-		return new HRet(true);
+		return new HVoid;
 	}
-	return new HRet(nullptr, false, WhyTcpSocketConnectSlotError);
+	throw HError(HError::RT_ERROR, WhyConnectSlotError);
 }
 
 HObject* HTcpSocket::hconnectToHost(HArgs args)
@@ -61,7 +57,7 @@ HObject* HTcpSocket::hconnectToHost(HArgs args)
 	if (whenReadyRead == nullptr)
 		ret = WhyTcpSocketConnectWarring;
 	this->connectToHost(HObjectHelper(args[0]).to<HString>()->toQString(), *HObjectHelper(args[1]).to<HInt>());
-	return new HRet(nullptr, true, ret);
+	throw HError(HError::RT_WARNING, WhyConnectSlotError);
 }
 
 HObject* HTcpSocket::send(HArgs args)
@@ -70,19 +66,17 @@ HObject* HTcpSocket::send(HArgs args)
 	CheckArgsType(0, HString);
 	this->write(HObjectHelper(args[0]).to<HString>()->toQString().toLatin1());
 	this->flush();
-	return new HRet(true);
+	return new HVoid;
 }
 
 HObject* HTcpSocket::hreadAll(HArgs args)
 {
 	CheckArgs(0);
-	QString debugging = this->readAll();
-	QString debugging2 = this->readAll();
-	return new HRet(new HString(new QString(debugging)));
+	return new HString(this->readAll());
 }
 
 HObject* HTcpSocket::hreadLine(HArgs args)
 {
 	CheckArgs(0);
-	return new HRet(new HString(new QString(this->readLine())));
+	return new HString(this->readLine());
 }

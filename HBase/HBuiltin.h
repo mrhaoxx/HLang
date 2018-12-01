@@ -7,6 +7,7 @@
 #include "HData/HBool.h"
 #include "HData/HInt.h"
 #include "HData/HString.h"
+#include "HData/HVoid.h"
 #include "HLogic/HFunction.h"
 #include "HLogic/HIf.h"
 #include "HNetwork/HTcpSocket.h"
@@ -16,7 +17,7 @@ class HBuiltin :
 {
 	H_OBJECT(HBuiltin)
 public:
-	HBuiltin();
+	HBuiltin(HLang* def);
 	HObject* newclass(HArgs args);
 	HObject* deleteclass(HArgs args);
 	HObject* sleep(HArgs args);
@@ -24,5 +25,7 @@ public:
 	HObject* msg(HArgs args);
 	HObject* cout(HArgs args);
 	HObject* termimate(HArgs args);
-	HLang* HDef = HMain;
+	HObject* keepexec(HArgs args);
+	HObject* quit(HArgs args);
+	HLang* HDef;
 };

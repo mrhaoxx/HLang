@@ -1,6 +1,6 @@
 #include "HBool.h"
 #include "HString.h"
-
+#include "HVoid.h"
 HBool::HBool(bool par)
 {
 	data = par;
@@ -29,5 +29,5 @@ HObject* HBool::set(HArgs args)
 		data = true;
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "false")
 		data = false;
-	return new HRet(true);
+	return new HVoid;
 }

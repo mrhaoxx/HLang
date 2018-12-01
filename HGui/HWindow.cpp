@@ -20,27 +20,27 @@ HObject* HWindow::hsetTitle(HArgs args)
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	this->setWindowTitle(HObjectHelper(args[0]).to<HString>()->toQString());
-	return new HRet(true);
+	return new HVoid;
 }
 
 HObject* HWindow::hadd(HArgs args)
 {
 	CheckArgs(1);
 	if (args[0]->QGuiClassHandle == nullptr)
-		return new HRet(nullptr, false, WhyHWindowAddWeightFailed);
+		throw HError(HError::RT_ERROR, WhyHWindowAddWeightFailed);
 	ui.main->addWidget(args[0]->QGuiClassHandle);
-	return new HRet(true);
+	return new HVoid;
 }
 
 HObject* HWindow::hshow(HArgs args)
 {
 	CheckArgs(0);
 	this->show();
-	return new HRet(true);
+	return new HVoid;
 }
 HObject* HWindow::hhide(HArgs args)
 {
 	CheckArgs(0);
 	this->hide();
-	return new HRet(true);
+	return new HVoid;
 }

@@ -1,42 +1,41 @@
 #include "HString.h"
 #include "HInt.h"
 
-HString::operator QString()
+HString::operator QString&()
 {
-	return this->toQString();
+	return *data;
 }
 
 HString::operator const char*()
 {
-	return this->toQString().toStdString().c_str();
+	return data->toStdString().c_str();
 }
 
 HString::HString(QString *parent)
-	: QString(*parent)
 {
 	DefineMemberFunction("set", &HString::set);
+	this->data = new QString(*parent);
 }
 
 HString::HString(QString str)
 {
 	DefineMemberFunction("set", &HString::set);
-	this->append(str);
+	*this->data = str;
 }
-QString HString::toQString()
+QString& HString::toQString()
 {
-	return *(QString*)this;
+	return *data;
 }
 
 HObject* HString::set(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
-	this->clear();
-	this->append(HObjectHelper(args[0]).to<HString>());
-	return new HRet(new HInt(this->length()));
+	*data = HObjectHelper(args[0]).to<HString>()->toQString();
+	return new HInt(data->length());
 }
 
 HString::operator std::string()
 {
-	return this->toStdString();
+	return data->toStdString();
 }

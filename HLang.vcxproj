@@ -101,7 +101,7 @@
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
       <OutputFile>$(OutDir)\HLang.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ShowProgress>LinkVerboseCLR</ShowProgress>
       <Version>1.0</Version>
@@ -193,12 +193,12 @@
     </QtUic>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Front\commandline.cpp" />
     <ClCompile Include="GeneratedFiles\hlang_plugin_import.cpp" />
     <ClCompile Include="HBase\HBuiltin.cpp" />
     <ClCompile Include="HBase\HData\HBool.cpp" />
     <ClCompile Include="HBase\HData\HInt.cpp" />
     <ClCompile Include="HBase\HData\HString.cpp" />
+    <ClCompile Include="HBase\HData\HVoid.cpp" />
     <ClCompile Include="HBase\HLang.cpp" />
     <ClCompile Include="HBase\HLogic\HFunction.cpp" />
     <ClCompile Include="HBase\HLogic\HIf.cpp" />
@@ -226,15 +226,12 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Front\commandline.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)HGui;$(ProjectDir)HBase;.\GeneratedFiles\$(ConfigurationName)\.;.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtCore;.\debug;$(QTDIR)\mkspecs\win32-msvc</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\.;.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtCore;.\release;$(QTDIR)\mkspecs\win32-msvc</IncludePath>
-    </QtMoc>
     <ClInclude Include="HBase\HBaseInterface.h" />
     <ClInclude Include="HBase\HBuiltin.h" />
     <ClInclude Include="HBase\HData\HBool.h" />
     <ClInclude Include="HBase\HData\HInt.h" />
     <ClInclude Include="HBase\HData\HString.h" />
+    <ClInclude Include="HBase\HData\HVoid.h" />
     <ClInclude Include="HBase\HLang.h" />
     <ClInclude Include="HBase\HLogic\HFunction.h" />
     <ClInclude Include="HBase\HLogic\HIf.h" />
@@ -244,7 +241,6 @@
     <QtMoc Include="HGui\HPushButton.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="Front\commandline.ui" />
     <QtUic Include="HGui\HWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

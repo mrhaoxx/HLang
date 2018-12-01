@@ -11,12 +11,9 @@ class HPushButton : private QPushButton, public HObject
 public:
 	HPushButton(QWidget *parent);
 	~HPushButton();
+	HObject* hconnect(HArgs args);
+	HObject* hdisconnect(HArgs args);
 	HObject* hsetText(HArgs args);
-	HObject* setClickedArgs(HArgs args);
-	HObject* setClicked(HArgs args);
-	HObject* unsetClicked(HArgs args);
-	HObject* unsetClickedArgs(HArgs args);
 private:
 	HFunction *whenClicked = nullptr;
-	HArgs *whenClickedArgs = nullptr;
 };

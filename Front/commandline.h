@@ -19,6 +19,8 @@ private slots:
 	void on_lineEdit_returnPressed();
 
 private:
+
+	HLang* def = new HLang(nullptr);
 	Ui::commandline *ui;
 };
 #endif // COMMANDLINE_H

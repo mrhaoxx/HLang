@@ -1,7 +1,7 @@
 #include "HBuiltin.h"
 #include <QMessageBox>
 #include <iostream>
-HBuiltin::HBuiltin()
+HBuiltin::HBuiltin(HLang *def)
 {
 	DefineMemberFunction("new", &HBuiltin::newclass);
 	DefineMemberFunction("delete", &HBuiltin::deleteclass);
@@ -9,7 +9,10 @@ HBuiltin::HBuiltin()
 	DefineMemberFunction("system", &HBuiltin::system);
 	DefineMemberFunction("msg", &HBuiltin::msg);
 	DefineMemberFunction("cout", &HBuiltin::cout);
+	DefineMemberFunction("exec", &HBuiltin::keepexec);
+	DefineMemberFunction("quit", &HBuiltin::quit);
 	DefineMemberFunction("exit", &HBuiltin::termimate);
+	this->HDef = def;
 }
 
 HObject* HBuiltin::newclass(HArgs args)
@@ -17,29 +20,29 @@ HObject* HBuiltin::newclass(HArgs args)
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "window")
-		return new HRet((HObject*)new HWindow);
+		return (HObject*)new HWindow;
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "PushButton")
-		return new HRet((HObject*)new HPushButton(nullptr));
+		return (HObject*)new HPushButton(nullptr);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "function")
-		return new HRet(new HFunction);
+		return new HFunction(HDef);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "bool")
-		return new HRet(new HBool);
+		return new HBool;
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "int")
-		return new HRet(new HInt);
+		return new HInt;
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "string")
-		return new HRet(new HString);
+		return new HString;
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "if")
-		return new HRet(new HIf);
+		return new HIf;
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "TcpSocket")
-		return new HRet(new HTcpSocket);
-	return new HRet(nullptr, false, WhyBuiltinNewFailed);
+		return new HTcpSocket;
+	throw HError(HError::RT_ERROR, WhyBuiltinNewFailed);
 }
 HObject* HBuiltin::deleteclass(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	HDef->deleteclass(HObjectHelper(args[0]).to<HString>()->toQString());
-	return new HRet(true);
+	return new HVoid;
 }
 HObject* HBuiltin::sleep(HArgs args)
 {
@@ -50,7 +53,7 @@ HObject* HBuiltin::sleep(HArgs args)
 	else
 		usecs = HObjectHelper(args[0]).to<HString>()->toQString().toInt();
 	QThread::usleep(usecs);
-	return new HRet(true);
+	return new HVoid;
 }
 HObject* HBuiltin::system(HArgs args)
 {
@@ -58,7 +61,7 @@ HObject* HBuiltin::system(HArgs args)
 	CheckArgsType(0, HString);
 
 	std::system((*HObjectHelper(args[0]).to<HString>()));
-	return new HRet(true);
+	return new HVoid;
 }
 HObject* HBuiltin::msg(HArgs args)
 {
@@ -80,8 +83,8 @@ HObject* HBuiltin::msg(HArgs args)
 		iss = true;
 	}
 	if (!iss)
-		return new HRet(nullptr, iss, WhyBuiltinMsgFailed);
-	return new HRet(iss);
+		throw HError(HError::RT_ERROR, WhyBuiltinMsgFailed);
+	return new HVoid;
 }
 HObject* HBuiltin::cout(HArgs args) {
 	CheckArgs(1);
@@ -102,9 +105,9 @@ HObject* HBuiltin::cout(HArgs args) {
 		iss = true;
 	}
 	if (!iss)
-		return new HRet(nullptr, iss, WhyBuiltinMsgFailed);
+		throw HError(HError::RT_ERROR, WhyBuiltinMsgFailed);
 	qDebug() << "\r\n";
-	return new HRet(iss);
+	return new HVoid;
 };
 
 HObject* HBuiltin::termimate(HArgs args)
@@ -112,5 +115,18 @@ HObject* HBuiltin::termimate(HArgs args)
 	CheckArgs(1);
 	CheckArgsType(0, HInt);
 	exit(*HObjectHelper(args[0]).to<HInt>());
-	return new HRet(true);
+	return new HVoid;
+}
+
+HObject* HBuiltin::keepexec(HArgs args)
+{
+	CheckArgs(0);
+	return new HInt(QApplication::exec());
+}
+
+HObject* HBuiltin::quit(HArgs args)
+{
+	CheckArgs(0);
+	QApplication::quit();
+	return new HVoid;
 }

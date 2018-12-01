@@ -12,7 +12,7 @@ HObject* HIf::which(HArgs args)
 	CheckArgs(1);
 	CheckArgsType(0, HBool);
 	this->ifwhich = HObjectHelper(args[0]).to<HBool>();
-	return new HRet(true);
+	return new HVoid;
 }
 
 HObject* HIf::htrue(HArgs args)
@@ -20,7 +20,7 @@ HObject* HIf::htrue(HArgs args)
 	CheckArgs(1);
 	CheckArgsType(0, HFunction);
 	this->iftrue = HObjectHelper(args[0]).to<HFunction>();
-	return new HRet(true);
+	return new HVoid;
 }
 
 HObject* HIf::hfalse(HArgs args)
@@ -28,17 +28,17 @@ HObject* HIf::hfalse(HArgs args)
 	CheckArgs(1);
 	CheckArgsType(0, HFunction);
 	this->iffalse = HObjectHelper(args[0]).to<HFunction>();
-	return new HRet(true);
+	return new HVoid;
 }
 
 HObject* HIf::hexec(HArgs args)
 {
 	CheckArgs(0);
 	if (iftrue == nullptr || iffalse == nullptr || ifwhich == nullptr)
-		return new HRet(nullptr, false, WhyIfExecFailed);
+		throw HError(HError::RT_ERROR, WhyIfExecFailed);
 	if (ifwhich->value())
 		iftrue->hexec(args);
 	else
 		iffalse->hexec(args);
-	return new HRet(true);
+	return new HVoid;
 }

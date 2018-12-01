@@ -3,10 +3,15 @@
 #include <QObject>
 #include <QDebug>
 #include <QStringList>
+#include <exception>
+#include <typeinfo>
 #include <functional>
 #include <QWidget>
 #include <QVector>
-#define Has_Commandline_Front
+
+#define RT_DEBUG qDebug() << "[UserCommand]"
+#define IS_DEBUG qDebug() << "[System]"
+
 #define needQWeight "Only Accept QGuiClass"
 #define WhyBuiltinNewFailed "Class Not Find"
 #define	WhyBuiltinMsgFailed "Class not Support"
@@ -14,37 +19,34 @@
 #define WhyIfExecFailed "Which or True or False Result not setup"
 #define WhyHWindowAddWeightFailed needQWeight
 #define WhyTcpSocketConnectWarring "[Warring]ConnectedSlotNotHandled"
-#define WhyTcpSocketConnectSlotError "SIGNAL NOT FIND"
-#define HClassMap QMap<QString, HObject*>
+#define WhyConnectSlotError "SIGNAL NOT FIND"
 #define HArgs QVector<HObject*>
 #define H_OBJECT(_name) \
 private: \
 QMap<QString,HObject*(_name::*)(HArgs args)> memberfuncs; \
-public: HObject* exec(QString __name,HArgs args) { \
+public: HObject* exec(QString __name,HArgs args){ \
+IS_DEBUG << ">>" << (void*)this << "<<" << "[Class."#_name"] Calling [Function."<< __name.toStdString().c_str() << "]"; \
 if (memberfuncs.contains(__name))\
 return (this->*memberfuncs[__name])(args); \
-return new HRet(nullptr, false, "[Class."#_name"][Function."+__name+"]Not Find"); \
+throw HError(HError::ELEVEL::RT_ERROR, "FunctionNotFound"); \
 }
 #define DefineMemberFunction(__name,__function_address) memberfuncs.insert(__name,__function_address)
 #define IsGuiClass 	this->QGuiClassHandle = (QWidget*)this;
-#define CheckArgs(__needvalues) 	if (args.size() < __needvalues) return new HRet(nullptr,false,"Args too few or much:[Yours."+QString::number(args.size())+"][need."#__needvalues+"]");
-#define CheckArgsType(__which,__kind) if (HObjectHelper(args[__which]).to<__kind>()==nullptr)return new HRet(nullptr,false,"ArgsType Incorrect [Arg."#__which"][TargetType.:"#__kind"]")
+#define CheckArgs(__needvalues) 	if (args.size() < __needvalues) throw HError(HError::ELEVEL::RT_ERROR,"Args too few or much:[Yours."+QString::number(args.size())+"][need."#__needvalues+"]");
+#define CheckArgsType(__which,__kind) if (HObjectHelper(args[__which]).to<__kind>()==nullptr)throw HError(HError::ELEVEL::RT_ERROR,"ArgsType Incorrect [Arg."#__which"][TargetType.:"#__kind"]");
+class HError;
 class HObject
 {
 public:
 	HObject() {};
 	virtual ~HObject() {};
-	virtual HObject* exec(QString __name, HArgs args) {
-		qDebug() << "Warring: HObject exec called[N." + __name + "]" << "[A." << args << "]";
-		return new HObject;
-	};
+	virtual HObject* exec(QString __name, HArgs args) = 0;
 	QWidget* QGuiClassHandle = nullptr;
 };
 
 struct HCommand {
 	QString *_class = nullptr;
 	QString *_func = nullptr;
-	QString *_self = nullptr;
 	QStringList *_args = nullptr;
 	QString *_backvalue_name = nullptr;
 };
@@ -62,30 +64,31 @@ public:
 private:
 	HObject* obj;
 };
-class HRet :public HObject
-{
+class HError {
 public:
-	HRet(HObject* ret = nullptr, bool isSuccess = true, QString reason = "")
+	enum ELEVEL
 	{
-		this->isSuccess = isSuccess;
-		this->ret = ret;
-		this->reason = reason;
+		NONE,
+		RT_NOTICE,
+		RT_WARNING,
+		RT_ERROR
+	};
+	HError(HError::ELEVEL Elevel = NONE, QString Why = "", HObject* _ret = nullptr) {
+		this->elevel = Elevel;
+		this->why = Why;
+		this->ret = _ret;
+	};
+	HError::ELEVEL getELevel() const {
+		return elevel;
 	}
-	HRet(bool isSuccess)
-	{
-		this->isSuccess = isSuccess;
+	QString getWhy() const {
+		return why;
 	}
-	bool getSuccess() {
-		return isSuccess;
-	}
-	HObject* getObject() {
+	HObject* getObject() const {
 		return ret;
 	}
-	QString getReason() {
-		return reason;
-	}
 private:
-	bool isSuccess = false;
+	ELEVEL elevel = NONE;
 	HObject* ret = nullptr;
-	QString reason;
+	QString why = "";
 };
