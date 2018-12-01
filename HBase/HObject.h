@@ -45,10 +45,10 @@ public:
 };
 
 struct HCommand {
-	QString *_class = nullptr;
-	QString *_func = nullptr;
-	QStringList *_args = nullptr;
-	QString *_backvalue_name = nullptr;
+	QString _class;
+	QString _func;
+	QStringList _args;
+	QString _backvalue_name;
 };
 class HObjectHelper {
 public:

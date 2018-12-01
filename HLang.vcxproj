@@ -200,6 +200,7 @@
     <ClCompile Include="HBase\HData\HString.cpp" />
     <ClCompile Include="HBase\HData\HVoid.cpp" />
     <ClCompile Include="HBase\HLang.cpp" />
+    <ClCompile Include="HBase\HLogic\HCodes.cpp" />
     <ClCompile Include="HBase\HLogic\HFunction.cpp" />
     <ClCompile Include="HBase\HLogic\HIf.cpp" />
     <ClCompile Include="HBase\HNetwork\HTcpSocket.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="HBase\HData\HString.h" />
     <ClInclude Include="HBase\HData\HVoid.h" />
     <ClInclude Include="HBase\HLang.h" />
+    <ClInclude Include="HBase\HLogic\HCodes.h" />
     <ClInclude Include="HBase\HLogic\HFunction.h" />
     <ClInclude Include="HBase\HLogic\HIf.h" />
     <ClInclude Include="HBase\HNetwork\HTcpSocket.h" />

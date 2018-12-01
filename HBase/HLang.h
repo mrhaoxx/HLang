@@ -19,6 +19,3 @@ private:
 	HLang *higherlevel;
 	QMap<QString, HObject*> classes;
 };
-namespace HLangHelper {
-	HCommand* processcommand(QString command);
-}

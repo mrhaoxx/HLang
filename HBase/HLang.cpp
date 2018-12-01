@@ -1,8 +1,5 @@
 #include "HLang.h"
 #include <iostream>
-#ifdef Has_Commandline_Front
-#include "Front/commandline.h"
-#endif
 HLang::HLang(HLang* hl)
 {
 	this->higherlevel = hl;
@@ -60,6 +57,4 @@ void HLang::deleteclass(QString __name)
 		classes.remove(__name);
 		return;
 	}
-}
-HCommand* HLangHelper::processcommand(QString command) {
 }

@@ -81,6 +81,9 @@
     <ClCompile Include="HBase\HData\HVoid.cpp">
       <Filter>HBase\HData</Filter>
     </ClCompile>
+    <ClCompile Include="HBase\HLogic\HCodes.cpp">
+      <Filter>HBase\HLogic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -123,6 +126,9 @@
     </ClInclude>
     <ClInclude Include="HBase\HData\HVoid.h">
       <Filter>HBase\HData</Filter>
+    </ClInclude>
+    <ClInclude Include="HBase\HLogic\HCodes.h">
+      <Filter>HBase\HLogic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
