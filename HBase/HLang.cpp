@@ -9,7 +9,7 @@ HLang::~HLang()
 {
 	QMapIterator<QString, HObject*> i(classes);
 	QStringList namelist;
-	IS_DEBUG << "Destruction domain >>" << this << "<< {";
+	IS_DEBUG << ERRORCOLOR << "Destruction domain" << ColorClean << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<< {";
 	for (; i.hasNext();)
 	{
 		i.next();
@@ -19,12 +19,12 @@ HLang::~HLang()
 	{
 		deleteclass(namelist[i]);
 	}
-	IS_DEBUG << "} [OK]";
+	IS_DEBUG << "}" << DONECOLOR << "[OK]" << ColorClean;
 }
 
 bool HLang::importclass(QString __name, HObject* __class)
 {
-	IS_DEBUG << ">>" << this << "<< Importing [" << __name.toStdString().c_str() << "]";
+	IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<< " << NOTICECOLOR << "Importing[" << CLASSCOLOR << __name.toStdString().c_str() << ColorClean << "]";
 	if (classes.contains(__name))
 		return false;
 	if (__class == nullptr)
@@ -37,14 +37,14 @@ bool HLang::importclass(QString __name, HObject* __class)
 HObject* HLang::accessclass(QString __name)
 {
 	if (classes.contains(__name)) {
-		IS_DEBUG << ">>" << this << "<< Accessing [" << __name.toStdString().c_str() << "]";
+		IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "Accessing [" << CLASSCOLOR << __name.toStdString().c_str() << ColorClean << "]";
 		return classes[__name];
 	}
 	if (higherlevel == nullptr) {
-		IS_DEBUG << ">>" << this << "<< AccessingNotFound [" << __name.toStdString().c_str() << "]";
+		IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << ERRORCOLOR << "AccessingNotFound [" << CLASSCOLOR << __name.toStdString().c_str() << ColorClean << "]";
 		return nullptr;
 	}
-	IS_DEBUG << ">>" << this << "<< AccessingRedirect[" << __name.toStdString().c_str() << "]->" << higherlevel;
+	IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "AccessingRedirect[" << CLASSCOLOR << __name.toStdString().c_str() << ColorClean << "]->" << higherlevel;
 	return higherlevel->accessclass(__name);
 }
 
@@ -52,7 +52,7 @@ void HLang::deleteclass(QString __name)
 {
 	if (classes.contains(__name))
 	{
-		IS_DEBUG << ">>" << this << "<< Deleting [" << __name.toStdString().c_str() << "]";
+		IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << ERRORCOLOR << "Deleting" << ColorClean << "[" << CLASSCOLOR << __name.toStdString().c_str() << ColorClean << "]";
 		delete classes[__name];
 		classes.remove(__name);
 		return;

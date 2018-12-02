@@ -1,9 +1,9 @@
 #include "HCodes.h"
-
-HCodes::HCodes(HLang *uf)
-{
-}
-
-HCodes::~HCodes()
-{
-}
+//
+//HCodes::HCodes(HLang *uf)
+//{
+//}
+//
+//HCodes::~HCodes()
+//{
+//}

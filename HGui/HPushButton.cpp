@@ -9,7 +9,7 @@ HPushButton::HPushButton(QWidget *parent)
 	DefineMemberFunction("disconnect", &HPushButton::hdisconnect);
 	this->connect(this, &HPushButton::clicked, this, [&] {
 		if (whenClicked != nullptr)
-			whenClicked->hexec(HArgs());
+			whenClicked->run(HArgs());
 	});
 }
 

@@ -20,6 +20,7 @@ HString::HString(QString *parent)
 HString::HString(QString str)
 {
 	DefineMemberFunction("set", &HString::set);
+	data = new QString;
 	*this->data = str;
 }
 QString& HString::toQString()

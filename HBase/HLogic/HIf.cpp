@@ -37,8 +37,8 @@ HObject* HIf::hexec(HArgs args)
 	if (iftrue == nullptr || iffalse == nullptr || ifwhich == nullptr)
 		throw HError(HError::RT_ERROR, WhyIfExecFailed);
 	if (ifwhich->value())
-		iftrue->hexec(args);
+		iftrue->run(args);
 	else
-		iffalse->hexec(args);
+		iffalse->run(args);
 	return new HVoid;
 }

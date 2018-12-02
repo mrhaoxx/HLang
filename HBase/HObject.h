@@ -8,9 +8,39 @@
 #include <functional>
 #include <QWidget>
 #include <QVector>
+#define ColourfulDebug
+#ifdef ColourfulDebug
+#define UserColor "\033[32m"
+#define SystemColor "\033[34m"
+#define NONECOLOR "\033[0m"
+#define NOTICECOLOR "\033[33;1m"
+#define WARNINGCOLOR "\033[43;37m"
+#define ERRORCOLOR "\033[31;1m"
+#define WHYCOLOR "\033[40;37m"
+#define CDCOLOR "\033[36m"
+#define ColorClean "\033[0m"
+#define DONECOLOR "\033[32;1m"
+#define CLASSCOLOR "\033[35m"
+#define FUNCTIONCOLOR "\033[45;37m"
+#define ADDRESSCOLOR "\033[37;1m"
+#else
+#define UserColor ""
+#define SystemColor ""
+#define NONECOLOR ""
+#define NOTICECOLOR ""
+#define WARNINGCOLOR ""
+#define ERRORCOLOR ""
+#define ColorClean ""
+#define CDCOLOR ""
+#define WHYCOLOR ""
+#define DONECOLOR ""
+#define CLASSCOLOR ""
+#define FUNCTIONCOLOR ""
+#define ADDRESSCOLOR ""
+#endif
 
-#define RT_DEBUG qDebug() << "[UserCommand]"
-#define IS_DEBUG qDebug() << "[System]"
+#define RT_DEBUG qDebug() << UserColor << "[User]" << ColorClean
+#define IS_DEBUG qDebug() << SystemColor <<"[System]" << ColorClean
 
 #define needQWeight "Only Accept QGuiClass"
 #define WhyBuiltinNewFailed "Class Not Find"
@@ -25,7 +55,7 @@
 private: \
 QMap<QString,HObject*(_name::*)(HArgs args)> memberfuncs; \
 public: HObject* exec(QString __name,HArgs args){ \
-IS_DEBUG << ">>" << (void*)this << "<<" << "[Class."#_name"] Calling [Function."<< __name.toStdString().c_str() << "]"; \
+IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << CLASSCOLOR <<"["#_name"]" << ColorClean << " Calling [" << FUNCTIONCOLOR << __name.toStdString().c_str() << ColorClean <<"]"; \
 if (memberfuncs.contains(__name))\
 return (this->*memberfuncs[__name])(args); \
 throw HError(HError::ELEVEL::RT_ERROR, "FunctionNotFound"); \
@@ -33,7 +63,7 @@ throw HError(HError::ELEVEL::RT_ERROR, "FunctionNotFound"); \
 #define DefineMemberFunction(__name,__function_address) memberfuncs.insert(__name,__function_address)
 #define IsGuiClass 	this->QGuiClassHandle = (QWidget*)this;
 #define CheckArgs(__needvalues) 	if (args.size() < __needvalues) throw HError(HError::ELEVEL::RT_ERROR,"Args too few or much:[Yours."+QString::number(args.size())+"][need."#__needvalues+"]");
-#define CheckArgsType(__which,__kind) if (HObjectHelper(args[__which]).to<__kind>()==nullptr)throw HError(HError::ELEVEL::RT_ERROR,"ArgsType Incorrect [Arg."#__which"][TargetType.:"#__kind"]");
+#define CheckArgsType(__which,__kind) if (HObjectHelper(args[__which]).to<__kind>()==nullptr)throw HError(HError::ELEVEL::RT_ERROR,"ArgsType Incorrect [Arg:"#__which"][TargetType:"#__kind"]");
 class HError;
 class HObject
 {
@@ -44,12 +74,6 @@ public:
 	QWidget* QGuiClassHandle = nullptr;
 };
 
-struct HCommand {
-	QString _class;
-	QString _func;
-	QStringList _args;
-	QString _backvalue_name;
-};
 class HObjectHelper {
 public:
 	HObjectHelper(HObject* obj)
@@ -73,7 +97,7 @@ public:
 		RT_WARNING,
 		RT_ERROR
 	};
-	HError(HError::ELEVEL Elevel = NONE, QString Why = "", HObject* _ret = nullptr) {
+	HError(HError::ELEVEL Elevel = NONE, QString Why = "", HObject* _ret = nullptr, QString cd = "") {
 		this->elevel = Elevel;
 		this->why = Why;
 		this->ret = _ret;
