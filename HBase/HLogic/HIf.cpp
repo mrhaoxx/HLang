@@ -5,7 +5,7 @@ HIf::HIf()
 	DefineMemberFunction("setwhich", &HIf::which);
 	DefineMemberFunction("settrue", &HIf::htrue);
 	DefineMemberFunction("setfalse", &HIf::hfalse);
-	DefineMemberFunction("exec", &HIf::hexec);
+	DefineMemberFunction("run", &HIf::hexec);
 }
 HObject* HIf::which(HArgs args)
 {
@@ -36,7 +36,7 @@ HObject* HIf::hexec(HArgs args)
 	CheckArgs(0);
 	if (iftrue == nullptr || iffalse == nullptr || ifwhich == nullptr)
 		throw HError(HError::RT_ERROR, WhyIfExecFailed);
-	if (ifwhich->value())
+	if (ifwhich)
 		iftrue->run(args);
 	else
 		iffalse->run(args);

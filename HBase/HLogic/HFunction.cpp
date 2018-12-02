@@ -1,7 +1,23 @@
 #include "HFunction.h"
 QStringList HFunction::SplitCommands(QString cmds)
 {
-	QStringList a = cmds.simplified().split(";");
+	QStringList strlist;
+	QString f = cmds;
+	f = f.replace("\\\"", "\u0001");
+	QStringList t = cmds.split("\"");
+	for (int i = 0; i < t.length(); i++)
+		if ((i & 1) != 0)
+			strlist.push_back(t[i]);
+	for (int i = 0; i < strlist.length(); i++)
+		f.replace(strlist[i], "(\u0002" + QString(i) + ")");
+	for (int x = 0; x < strlist.length(); x++)
+		strlist[x] = strlist[x].replace("\u0001", "\\\"");
+	QStringList a = f.simplified().split(";");
+	for (int x = 0; x < a.length(); x++)
+		if (a[x].contains("\u0002"))
+			for (int y = 0; y < strlist.length(); y++)
+				if (a[x].contains("\u0002" + QString(y)))
+					a[x] = a[x].replace("(\u0002" + QString(y) + ")", strlist[y]);
 	for (int i = 0; i < a.length(); i++)
 		a[i] = a[i].simplified();
 	while (a.last().isEmpty())
@@ -40,7 +56,7 @@ HCommand HFunction::ResolveCommand(QString cmd)
 	return c;
 };
 
-void HFunction::CoutMsg(HError &e, HCommand cd)
+void HFunction::CoutMsg(HError &e)
 {
 	QString LMSG;
 	switch (e.getELevel())
@@ -53,16 +69,20 @@ void HFunction::CoutMsg(HError &e, HCommand cd)
 		break;
 	case HError::RT_WARNING:
 		LMSG = QString(WARNINGCOLOR) + "WARNING" + QString(ColorClean);
+		break;
 	case HError::RT_ERROR:
 		LMSG = QString(ERRORCOLOR) + "ERROR" + QString(ColorClean);
+		break;
 	}
 	qDebug() << QString("[" + LMSG + "]").toStdString().c_str() << WHYCOLOR << e.getWhy() << ColorClean;
 }
 
 void HFunction::runcode(HCommand cmd)
 {
-	if (thisdef == nullptr)
+	if (thisdef == nullptr) {
 		thisdef = new HLang(upperdef);
+		thisdef->importclass("builtin", new HBuiltin(thisdef));
+	}
 	try {
 		HArgs args;
 		for (int x = 0; x < cmd._args.length(); x++)
@@ -91,14 +111,18 @@ void HFunction::runcode(HCommand cmd)
 							args.insert(x, arg);
 					}
 			}
-		if (!cmd._backvalue_name.isEmpty())
-			thisdef->importclass(cmd._backvalue_name, thisdef->accessclass(cmd._class)->exec(cmd._func, args));
+		HObject* aceobj = thisdef->accessclass(cmd._class);
+		if (aceobj != nullptr)
+			if (!cmd._backvalue_name.isEmpty())
+				thisdef->importclass(cmd._backvalue_name, aceobj->exec(cmd._func, args));
+			else
+				aceobj->exec(cmd._func, args);
 		else
-			thisdef->accessclass(cmd._class)->exec(cmd._func, args);
+			throw HError(HError::RT_ERROR, "Object Class Not Found");
 	}
 	catch (HError& e)
 	{
-		CoutMsg(e, cmd);
+		CoutMsg(e);
 	}
 }
 

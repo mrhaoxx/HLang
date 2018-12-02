@@ -22,12 +22,11 @@ class HFunction :
 	QStringList commands;
 	QStringList SplitCommands(QString cmds);
 	HCommand ResolveCommand(QString cmd);
-	void CoutMsg(HError &e, HCommand cd);
 	void runcode(HCommand cmd);
 	void resetdef();
 public:
-	HFunction
-	(HLang *upperdef = nullptr);
+	HFunction(HLang *upperdef = nullptr);
 	HObject* fromString(HArgs args);
 	HObject* run(HArgs args);
+	static void CoutMsg(HError &e);
 };

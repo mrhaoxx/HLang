@@ -1,5 +1,4 @@
-﻿#include "HObject.h"
-#include <QApplication>
+﻿#include <QApplication>
 #include "HBuiltin.h"
 #include <iostream>
 #include <QDebug>
@@ -22,9 +21,14 @@ int main(int argc, char *argv[])
 				a.append(QString::fromStdString(in));
 				std::cin >> in;
 			}
-			HFunction m(HMain);
-			m.fromString(HArgs({ new HString(a) }));
-			m.run(HArgs());
+			try {
+				HCodes m(HMain);
+				m.fromString(HArgs({ new HString(a) }));
+				m.run(HArgs());
+			}
+			catch (HError &e) {
+				HFunction::CoutMsg(e);
+			}
 		}
 	}
 	return app.exec();

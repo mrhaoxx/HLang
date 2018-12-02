@@ -35,6 +35,8 @@ HObject* HBuiltin::newclass(HArgs args)
 		return new HIf;
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "TcpSocket")
 		return new HTcpSocket;
+	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "codes")
+		return new HCodes(HDef);
 	throw HError(HError::RT_ERROR, WhyBuiltinNewFailed);
 }
 HObject* HBuiltin::deleteclass(HArgs args)
@@ -129,4 +131,9 @@ HObject* HBuiltin::quit(HArgs args)
 	CheckArgs(0);
 	QApplication::quit();
 	return new HVoid;
+}
+
+void HBuiltin::setDef(HLang* def)
+{
+	HDef = def;
 }

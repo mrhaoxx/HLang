@@ -10,6 +10,7 @@
 #include "HData/HVoid.h"
 #include "HLogic/HFunction.h"
 #include "HLogic/HIf.h"
+#include "HLogic/HCodes.h"
 #include "HNetwork/HTcpSocket.h"
 #include <QThread>
 class HBuiltin :
@@ -27,5 +28,6 @@ public:
 	HObject* termimate(HArgs args);
 	HObject* keepexec(HArgs args);
 	HObject* quit(HArgs args);
+	void setDef(HLang* def);
 	HLang* HDef;
 };

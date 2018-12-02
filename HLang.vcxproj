@@ -196,8 +196,10 @@
     <ClCompile Include="GeneratedFiles\hlang_plugin_import.cpp" />
     <ClCompile Include="HBase\HBuiltin.cpp" />
     <ClCompile Include="HBase\HData\HBool.cpp" />
+    <ClCompile Include="HBase\HData\HFile.cpp" />
     <ClCompile Include="HBase\HData\HInt.cpp" />
     <ClCompile Include="HBase\HData\HString.cpp" />
+    <ClCompile Include="HBase\HData\HVector.cpp" />
     <ClCompile Include="HBase\HData\HVoid.cpp" />
     <ClCompile Include="HBase\HLang.cpp" />
     <ClCompile Include="HBase\HLogic\HCodes.cpp" />
@@ -230,8 +232,10 @@
     <ClInclude Include="HBase\HBaseInterface.h" />
     <ClInclude Include="HBase\HBuiltin.h" />
     <ClInclude Include="HBase\HData\HBool.h" />
+    <ClInclude Include="HBase\HData\HFile.h" />
     <ClInclude Include="HBase\HData\HInt.h" />
     <ClInclude Include="HBase\HData\HString.h" />
+    <ClInclude Include="HBase\HData\HVector.h" />
     <ClInclude Include="HBase\HData\HVoid.h" />
     <ClInclude Include="HBase\HLang.h" />
     <ClInclude Include="HBase\HLogic\HCodes.h" />

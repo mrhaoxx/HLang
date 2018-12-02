@@ -97,7 +97,7 @@ public:
 		RT_WARNING,
 		RT_ERROR
 	};
-	HError(HError::ELEVEL Elevel = NONE, QString Why = "", HObject* _ret = nullptr, QString cd = "") {
+	HError(HError::ELEVEL Elevel = NONE, QString Why = "", HObject* _ret = nullptr) {
 		this->elevel = Elevel;
 		this->why = Why;
 		this->ret = _ret;
