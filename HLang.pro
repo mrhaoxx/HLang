@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = HLang
-QT += core gui widgets network multimedia
+QT += core gui widgets network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += console
