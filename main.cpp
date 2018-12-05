@@ -2,6 +2,7 @@
 #include "HBuiltin.h"
 #include <iostream>
 #include <QDebug>
+bool iscolorful= true;
 bool isdebug = false;
 int main(int argc, char *argv[])
 {

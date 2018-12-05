@@ -8,39 +8,21 @@
 #include <functional>
 #include <QWidget>
 #include <QVector>
-#define ColourfulDebug
-#ifdef ColourfulDebug
-#define UserColor "\033[32m"
-#define SystemColor "\033[34m"
-#define NONECOLOR "\033[0m"
-#define NOTICECOLOR "\033[33;1m"
-#define WARNINGCOLOR "\033[43;37m"
-#define ERRORCOLOR "\033[31;1m"
-#define WHYCOLOR "\033[40;37m"
-#define CDCOLOR "\033[36m"
-#define ColorClean "\033[0m"
-#define DONECOLOR "\033[32;1m"
-#define CLASSCOLOR "\033[35m"
-#define FUNCTIONCOLOR "\033[45;37m"
-#define ADDRESSCOLOR "\033[37;1m"
-#else
-#define UserColor ""
-#define SystemColor ""
-#define NONECOLOR ""
-#define NOTICECOLOR ""
-#define WARNINGCOLOR ""
-#define ERRORCOLOR ""
-#define ColorClean ""
-#define CDCOLOR ""
-#define WHYCOLOR ""
-#define DONECOLOR ""
-#define CLASSCOLOR ""
-#define FUNCTIONCOLOR ""
-#define ADDRESSCOLOR ""
-#endif
-
+#define UserColor(iscolorful)?std::string("\033[32m"):std::string("")
+#define SystemColor (iscolorful)?std::string("\033[34m"):std::string("")
+#define NONECOLOR (iscolorful)?std::string("\033[0m"):std::string("")
+#define NOTICECOLOR (iscolorful)?std::string("\033[33;1m"):std::string("")
+#define WARNINGCOLOR (iscolorful)?std::string("\033[43;37m"):std::string("")
+#define ERRORCOLOR (iscolorful)?std::string("\033[31;1m"):std::string("")
+#define WHYCOLOR (iscolorful)?std::string("\033[40;37m"):std::string("")
+#define CDCOLOR (iscolorful)?std::string("\033[36m"):std::string("")
+#define ColorClean (iscolorful)?std::string("\033[0m"):std::string("")
+#define DONECOLOR (iscolorful)?std::string("\033[32;1m"):std::string("")
+#define CLASSCOLOR (iscolorful)?std::string("\033[35m"):std::string("")
+#define FUNCTIONCOLOR (iscolorful)?std::string("\033[45;37m"):std::string("")
+#define ADDRESSCOLOR (iscolorful)?std::string("\033[37;1m"):("")
 extern bool isdebug;
-
+extern bool iscolorful;
 #define RT_DEBUG if(isdebug)qDebug() << UserColor << "[User]" << ColorClean
 #define IS_DEBUG if(isdebug)qDebug() << SystemColor <<"[System]" << ColorClean
 
