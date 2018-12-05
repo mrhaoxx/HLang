@@ -28,6 +28,7 @@ public:
 	HObject* termimate(HArgs args);
 	HObject* keepexec(HArgs args);
 	HObject* quit(HArgs args);
+	HObject* setdebug(HArgs args);
 	void setDef(HLang* def);
 	HLang* HDef;
 };

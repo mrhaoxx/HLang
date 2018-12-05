@@ -12,9 +12,17 @@ HBuiltin::HBuiltin(HLang *def)
 	DefineMemberFunction("exec", &HBuiltin::keepexec);
 	DefineMemberFunction("quit", &HBuiltin::quit);
 	DefineMemberFunction("exit", &HBuiltin::termimate);
+	DefineMemberFunction("setdebug", &HBuiltin::setdebug);
 	this->HDef = def;
 }
 
+HObject* HBuiltin::setdebug(HArgs args)
+{
+	CheckArgs(1);
+	CheckArgsType(0,HBool);
+	isdebug=HObjectHelper(args[0]).to<HBool>();
+	return new HVoid;
+}
 HObject* HBuiltin::newclass(HArgs args)
 {
 	CheckArgs(1);

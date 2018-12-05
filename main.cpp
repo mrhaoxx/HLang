@@ -2,6 +2,7 @@
 #include "HBuiltin.h"
 #include <iostream>
 #include <QDebug>
+bool isdebug = false;
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);

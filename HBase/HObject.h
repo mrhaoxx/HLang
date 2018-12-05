@@ -39,8 +39,10 @@
 #define ADDRESSCOLOR ""
 #endif
 
-#define RT_DEBUG qDebug() << UserColor << "[User]" << ColorClean
-#define IS_DEBUG qDebug() << SystemColor <<"[System]" << ColorClean
+extern bool isdebug;
+
+#define RT_DEBUG if(isdebug)qDebug() << UserColor << "[User]" << ColorClean
+#define IS_DEBUG if(isdebug)qDebug() << SystemColor <<"[System]" << ColorClean
 
 #define needQWeight "Only Accept QGuiClass"
 #define WhyBuiltinNewFailed "Class Not Find"
