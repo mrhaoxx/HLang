@@ -21,12 +21,19 @@ class HFunction :
 	QStringList argnames;
 	QStringList SplitCommands(QString cmds);
 	HCommand ResolveCommand(QString cmd);
+	bool *b = new bool(false);
 	void runcode(HCommand cmd);
 	void resetdef();
 public:
-	HFunction(HLang *upperdef = nullptr, QStringList argsname = QStringList());
+	enum Type {
+		_function,
+		_while
+	}type;
+	HFunction(HLang *upperdef = nullptr, QStringList argsname = QStringList(), HFunction::Type t = _function);
 	HObject* fromString(HArgs args);
 	HObject* run(HArgs args);
+	HObject* switchtype(HArgs args);
+	HObject* setCond(HArgs args);
 	static void CoutMsg(HError &e);
 	~HFunction();
 };

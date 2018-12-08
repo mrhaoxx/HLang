@@ -54,6 +54,8 @@ QVector<std::tuple<QString, QStringList, QString>> HCodes::FindDomain(QString wh
 		QString name = t.split("{")[0];
 		QString s = t.split("{")[1].split("}")[0];
 		QStringList argnames = (name.split("(").length() > 1) ? name.split("(")[1].chopped(1).split(",") : QStringList();
+		for (int i = 0; i < argnames.length(); i++)
+			if (argnames[i].simplified() == "")argnames.removeAt(i);
 		name = name.split("(")[0];
 		if (s != "")
 			domains.append(std::tuple<QString, QStringList, QString>(name, argnames, s));

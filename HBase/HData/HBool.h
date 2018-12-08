@@ -7,7 +7,7 @@ class HBool :
 public:
 	HBool(bool par = false);
 	~HBool();
-	bool value();
+	bool &value();
 	operator bool();
 	HObject* set(HArgs args);
 private:

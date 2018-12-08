@@ -13,7 +13,7 @@ HBool::~HBool()
 	MDebug("Destructed");
 }
 
-bool HBool::value()
+bool& HBool::value()
 {
 	return data;
 }

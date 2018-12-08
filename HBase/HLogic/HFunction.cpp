@@ -153,15 +153,19 @@ void HFunction::resetdef()
 	if (thisdef == nullptr)
 		return;
 	delete thisdef;
+	thisdef = nullptr;
 	return;
 }
 
-HFunction::HFunction(HLang *upperdef, QStringList argsname)
+HFunction::HFunction(HLang *upperdef, QStringList argsname, HFunction::Type t)
 {
 	DefineMemberFunction("fromString", &HFunction::fromString);
 	DefineMemberFunction("run", &HFunction::run);
+	DefineMemberFunction("setcond", &HFunction::setCond);
+	DefineMemberFunction("switchtype", &HFunction::switchtype);
 	this->upperdef = upperdef;
 	this->argnames = argsname;
+	this->type = t;
 	MDebug("Constructed");
 }
 
@@ -180,28 +184,61 @@ HObject* HFunction::run(HArgs args)
 		thisdef = new HLang(upperdef);
 		thisdef->importclass("builtin", new HBuiltin(thisdef));
 	}
-	for (int i = 0; i < args.length(); i++)
+	for (int i = 0; i < argnames.length(); i++)
 		thisdef->importclass(argnames[i], args[i]);
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Running" << ColorClear;
-	for (int i = 0; i < commands.length(); i++)
-	{
-		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "START" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
-		HCommand c = ResolveCommand(commands[i]);
-		IndentAdd;
-		if (c._func != "return")
-			runcode(ResolveCommand(commands[i]));
-		else
+	do {
+		for (int i = 0; i < commands.length(); i++)
 		{
-			HObject* o = thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
-			thisdef->IgnClass((c._args.length() > 0) ? c._args[0] : "");
+			RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "START" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
+			HCommand c = ResolveCommand(commands[i]);
+			IndentAdd;
+			if (c._func != "return")
+				runcode(ResolveCommand(commands[i]));
+			else
+			{
+				HObject* o = thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
+				thisdef->IgnClass((c._args.length() > 0) ? c._args[0] : "");
+				IndentRem;
+				return o;
+			}
 			IndentRem;
-			return o;
+			RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "DONE" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
 		}
-		IndentRem;
-		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "DONE" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
-	}
-	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Cleaning" << ColorClear;
-	this->resetdef();
+		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Cleaning" << ColorClear;
+		this->resetdef();
+	} while (*b && type == _while);
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Finished" << ColorClear;
 	return new HVoid;
+}
+
+HObject* HFunction::switchtype(HArgs args)
+{
+	CheckArgs(1);
+	CheckArgsType(0, HString);
+	QString i = *HObjectHelper(args[0]).to<HString>();
+	if (i == "function")
+	{
+		type = _function;
+	}
+	else if (i == "while")
+	{
+		type = _while;
+	}
+	else
+		throw HError(HError::RT_ERROR, "Type Not Found");
+	return new HVoid;
+}
+
+HObject* HFunction::setCond(HArgs args)
+{
+	if (type != _function)
+	{
+		CheckArgs(1);
+		CheckArgsType(0, HBool);
+		this->b = &(HObjectHelper(args[0]).to<HBool>()->value());
+		return new HVoid;
+	}
+	else
+		throw HError(HError::RT_ERROR, "The Strut isn't a while");
 }
