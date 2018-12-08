@@ -11,10 +11,12 @@ HPushButton::HPushButton(QWidget *parent)
 		if (whenClicked != nullptr)
 			whenClicked->run(HArgs());
 	});
+	MDebug("Constructed");
 }
 
 HPushButton::~HPushButton()
 {
+	MDebug("Destructed");
 }
 
 HObject* HPushButton::hconnect(HArgs args)

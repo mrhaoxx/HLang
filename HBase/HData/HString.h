@@ -12,6 +12,7 @@ public:
 	operator std::string();
 	HString(QString *parent = new QString(""));
 	HString(QString str);
+	~HString();
 	QString& toQString();
 	HObject* set(HArgs args);
 };

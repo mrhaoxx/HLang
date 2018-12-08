@@ -25,6 +25,9 @@ QStringList HFunction::SplitCommands(QString cmds)
 	return a;
 }
 
+HFunction::~HFunction() {
+	MDebug("Destructed");
+}
 HCommand HFunction::ResolveCommand(QString cmd)
 {
 	HCommand c;
@@ -62,19 +65,19 @@ void HFunction::CoutMsg(HError &e)
 	switch (e.getELevel())
 	{
 	case HError::NONE:
-		LMSG = QString(NONECOLOR) + "NONE" + QString(ColorClean);
+		LMSG = QString(NOCOLOR) + "NONE" + QString(ColorClear);
 		break;
 	case HError::RT_NOTICE:
-		LMSG = QString(NOTICECOLOR) + "NOTICE" + QString(ColorClean);
+		LMSG = QString(YELLOWCOLOR) + "NOTICE" + QString(ColorClear);
 		break;
 	case HError::RT_WARNING:
-		LMSG = QString(WARNINGCOLOR) + "WARNING" + QString(ColorClean);
+		LMSG = QString(WARNINGCOLOR) + "WARNING" + QString(ColorClear);
 		break;
 	case HError::RT_ERROR:
-		LMSG = QString(ERRORCOLOR) + "ERROR" + QString(ColorClean);
+		LMSG = QString(REDCOLOR) + "ERROR" + QString(ColorClear);
 		break;
 	}
-	qDebug() << QString("[" + LMSG + "]").toStdString().c_str() << WHYCOLOR << e.getWhy() << ColorClean;
+	qDebug() << QString("[" + LMSG + "]").toStdString().c_str() << BWCOLOR << e.getWhy() << ColorClear;
 }
 
 void HFunction::runcode(HCommand cmd)
@@ -84,12 +87,16 @@ void HFunction::runcode(HCommand cmd)
 		thisdef->importclass("builtin", new HBuiltin(thisdef));
 	}
 	try {
+		HArgs waitdelete;
 		HArgs args;
 		for (int x = 0; x < cmd._args.length(); x++)
 			if (cmd._args[x].contains("\u0002"))
 				for (int y = 0; y < cmd._argstrs.length(); y++)
-					if (cmd._args[x].contains("\u0002" + QString(y)))
-						args.insert(x, new HString(cmd._argstrs[y]));
+					if (cmd._args[x].contains("\u0002" + QString(y))) {
+						HObject* handle = new HString(cmd._argstrs[y]);
+						args.insert(x, handle);
+						waitdelete.push_back(handle);
+					}
 					else;
 			else {
 				bool isit = false;
@@ -116,9 +123,11 @@ void HFunction::runcode(HCommand cmd)
 			if (!cmd._backvalue_name.isEmpty())
 				thisdef->importclass(cmd._backvalue_name, aceobj->exec(cmd._func, args));
 			else
-				aceobj->exec(cmd._func, args);
+				delete aceobj->exec(cmd._func, args);
 		else
 			throw HError(HError::RT_ERROR, "Object Class Not Found");
+		for (int i = 0; i < waitdelete.length(); i++)
+			delete waitdelete[i];
 	}
 	catch (HError& e)
 	{
@@ -139,6 +148,7 @@ HFunction::HFunction(HLang *upperdef)
 	DefineMemberFunction("fromString", &HFunction::fromString);
 	DefineMemberFunction("run", &HFunction::run);
 	this->upperdef = upperdef;
+	MDebug("Constructed");
 }
 
 HObject* HFunction::fromString(HArgs args)
@@ -152,15 +162,15 @@ HObject* HFunction::fromString(HArgs args)
 HObject* HFunction::run(HArgs args)
 {
 	CheckArgs(0);
-	RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "Function Running" << ColorClean;
+	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Running" << ColorClear;
 	for (int i = 0; i < commands.length(); i++)
 	{
-		RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<[" << DONECOLOR << "START" << ColorClean << "]{" << CDCOLOR << commands[i] << ColorClean << "}";
+		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "START" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
 		runcode(ResolveCommand(commands[i]));
-		RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<[" << DONECOLOR << "DONE" << ColorClean << "]{" << CDCOLOR << commands[i] << ColorClean << "}";
+		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "DONE" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
 	}
-	RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "Function Cleaning" << ColorClean;
+	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Cleaning" << ColorClear;
 	this->resetdef();
-	RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "Function Finished" << ColorClean;
+	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Finished" << ColorClear;
 	return new HVoid;
 }

@@ -2,8 +2,9 @@
 #include "HBuiltin.h"
 #include <iostream>
 #include <QDebug>
-bool iscolorful= true;
-bool isdebug = false;
+bool *iscolorful = new bool(true);
+bool *isdebug = new bool(true);
+bool *moremsg = new bool(false);
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);

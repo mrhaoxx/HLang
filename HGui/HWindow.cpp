@@ -9,10 +9,12 @@ HWindow::HWindow(QWidget *parent)
 	DefineMemberFunction("hide", &HWindow::hhide);
 	DefineMemberFunction("add", &HWindow::hadd);
 	DefineMemberFunction("setTitle", &HWindow::hsetTitle);
+	MDebug("Constructed");
 }
 
 HWindow::~HWindow()
 {
+	MDebug("Destructed");
 }
 
 HObject* HWindow::hsetTitle(HArgs args)

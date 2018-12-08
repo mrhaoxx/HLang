@@ -8,23 +8,31 @@
 #include <functional>
 #include <QWidget>
 #include <QVector>
-#define UserColor(iscolorful)?std::string("\033[32m"):std::string("")
-#define SystemColor (iscolorful)?std::string("\033[34m"):std::string("")
-#define NONECOLOR (iscolorful)?std::string("\033[0m"):std::string("")
-#define NOTICECOLOR (iscolorful)?std::string("\033[33;1m"):std::string("")
-#define WARNINGCOLOR (iscolorful)?std::string("\033[43;37m"):std::string("")
-#define ERRORCOLOR (iscolorful)?std::string("\033[31;1m"):std::string("")
-#define WHYCOLOR (iscolorful)?std::string("\033[40;37m"):std::string("")
-#define CDCOLOR (iscolorful)?std::string("\033[36m"):std::string("")
-#define ColorClean (iscolorful)?std::string("\033[0m"):std::string("")
-#define DONECOLOR (iscolorful)?std::string("\033[32;1m"):std::string("")
-#define CLASSCOLOR (iscolorful)?std::string("\033[35m"):std::string("")
-#define FUNCTIONCOLOR (iscolorful)?std::string("\033[45;37m"):std::string("")
-#define ADDRESSCOLOR (iscolorful)?std::string("\033[37;1m"):("")
-extern bool isdebug;
-extern bool iscolorful;
-#define RT_DEBUG if(isdebug)qDebug() << UserColor << "[User]" << ColorClean
-#define IS_DEBUG if(isdebug)qDebug() << SystemColor <<"[System]" << ColorClean
+#define UserColor ((*iscolorful)?std::string("\033[32m").c_str():std::string("").c_str())
+#define SystemColor ((*iscolorful)?std::string("\033[34m").c_str():std::string("").c_str())
+#define NOCOLOR ((*iscolorful)?std::string("\033[0m").c_str():std::string("").c_str())
+#define YELLOWCOLOR ((*iscolorful)?std::string("\033[33;1m").c_str():std::string("").c_str())
+#define WARNINGCOLOR ((*iscolorful)?std::string("\033[43;37m").c_str():std::string("").c_str())
+#define REDCOLOR ((*iscolorful)?std::string("\033[31;1m").c_str():std::string("").c_str())
+#define BWCOLOR ((*iscolorful)?std::string("\033[40;37m").c_str():std::string("").c_str())
+#define SKYBLUECOLOR ((*iscolorful)?std::string("\033[36m").c_str():std::string("").c_str())
+#define ColorClear ((*iscolorful)?std::string("\033[0m").c_str():std::string("").c_str())
+#define BULECOLOR ((*iscolorful)?std::string("\033[32;1m").c_str():std::string("").c_str())
+#define PURPLECOLOR ((*iscolorful)?std::string("\033[35m").c_str():std::string("").c_str())
+#define WPURPLECOLOR ((*iscolorful)?std::string("\033[45;37m").c_str():std::string("").c_str())
+#define HWHITECOLOR ((*iscolorful)?std::string("\033[37;1m").c_str():std::string("").c_str())
+extern bool *isdebug;
+extern bool *iscolorful;
+extern bool *moremsg;
+#define RT_DEBUG if(*isdebug)qDebug() << UserColor << "[User]" << ColorClear
+#define IS_DEBUG if(*isdebug)qDebug() << SystemColor <<"[System]" << ColorClear
+#ifdef WIN32
+#define __FILENAME__ (strrchr(__FILE__, '\\') ? QString(strrchr(__FILE__, '\\') + 1).split(".")[0].toStdString().c_str() : QString(__FILE__).split(".")[0].toStdString().c_str())
+#else
+#define __FILENAME__ (strrchr(__FILE__, '/') ? QString(strrchr(__FILE__, '\\') + 1).split(".")[0].toStdString().c_str() :QString(__FILE__).split(".")[0].toStdString().c_str())
+#endif
+
+#define MDebug(msg) if(*isdebug&&*moremsg)qDebug()<<"["<< (QString(YELLOWCOLOR) + QString(__FILENAME__) + QString(ColorClear)).toStdString().c_str() << "]" << HWHITECOLOR << msg << ColorClear
 
 #define needQWeight "Only Accept QGuiClass"
 #define WhyBuiltinNewFailed "Class Not Find"
@@ -39,7 +47,7 @@ extern bool iscolorful;
 private: \
 QMap<QString,HObject*(_name::*)(HArgs args)> memberfuncs; \
 public: HObject* exec(QString __name,HArgs args){ \
-IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << CLASSCOLOR <<"["#_name"]" << ColorClean << " Calling [" << FUNCTIONCOLOR << __name.toStdString().c_str() << ColorClean <<"]"; \
+IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << PURPLECOLOR <<"["#_name"]" << ColorClear << " Calling [" << WPURPLECOLOR << __name.toStdString().c_str() << ColorClear <<"]"; \
 if (memberfuncs.contains(__name))\
 return (this->*memberfuncs[__name])(args); \
 throw HError(HError::ELEVEL::RT_ERROR, "FunctionNotFound"); \

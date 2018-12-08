@@ -9,7 +9,7 @@ HLang::~HLang()
 {
 	QMapIterator<QString, HObject*> i(classes);
 	QStringList namelist;
-	IS_DEBUG << ERRORCOLOR << "Destruction domain" << ColorClean << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<< {";
+	IS_DEBUG << REDCOLOR << "Destruction domain" << ColorClear << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<< {";
 	for (; i.hasNext();)
 	{
 		i.next();
@@ -19,12 +19,12 @@ HLang::~HLang()
 	{
 		deleteclass(namelist[i]);
 	}
-	IS_DEBUG << "}" << DONECOLOR << "[OK]" << ColorClean;
+	IS_DEBUG << "}" << BULECOLOR << "[OK]" << ColorClear;
 }
 
 bool HLang::importclass(QString __name, HObject* __class)
 {
-	IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<< " << NOTICECOLOR << "Importing[" << CLASSCOLOR << __name.toStdString().c_str() << ColorClean << "]";
+	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<< " << YELLOWCOLOR << "Importing[" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
 	if (classes.contains(__name))
 		return false;
 	if (__class == nullptr)
@@ -37,14 +37,14 @@ bool HLang::importclass(QString __name, HObject* __class)
 HObject* HLang::accessclass(QString __name)
 {
 	if (classes.contains(__name)) {
-		IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "Accessing [" << CLASSCOLOR << __name.toStdString().c_str() << ColorClean << "]";
+		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Accessing [" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
 		return classes[__name];
 	}
 	if (higherlevel == nullptr) {
-		IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << ERRORCOLOR << "AccessingNotFound [" << CLASSCOLOR << __name.toStdString().c_str() << ColorClean << "]";
+		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << REDCOLOR << "AccessingNotFound [" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
 		return nullptr;
 	}
-	IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "AccessingRedirect[" << CLASSCOLOR << __name.toStdString().c_str() << ColorClean << "]->" << higherlevel;
+	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "AccessingRedirect[" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]->" << higherlevel;
 	return higherlevel->accessclass(__name);
 }
 
@@ -52,7 +52,7 @@ void HLang::deleteclass(QString __name)
 {
 	if (classes.contains(__name))
 	{
-		IS_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << ERRORCOLOR << "Deleting" << ColorClean << "[" << CLASSCOLOR << __name.toStdString().c_str() << ColorClean << "]";
+		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << REDCOLOR << "Deleting" << ColorClear << "[" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
 		delete classes[__name];
 		classes.remove(__name);
 		return;

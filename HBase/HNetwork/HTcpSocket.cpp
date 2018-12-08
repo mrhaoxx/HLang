@@ -15,6 +15,7 @@ HTcpSocket::HTcpSocket()
 		if (whenConnected != nullptr)
 			whenConnected->run(HArgs());
 	});
+	MDebug("Constructed");
 }
 
 HObject* HTcpSocket::hconnect(HArgs args)
@@ -79,4 +80,8 @@ HObject* HTcpSocket::hreadLine(HArgs args)
 {
 	CheckArgs(0);
 	return new HString(this->readLine());
+}
+HTcpSocket::~HTcpSocket()
+{
+	MDebug("Destructed");
 }

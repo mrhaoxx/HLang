@@ -29,4 +29,5 @@ public:
 	HObject* fromString(HArgs args);
 	HObject* run(HArgs args);
 	static void CoutMsg(HError &e);
+	~HFunction();
 };

@@ -6,6 +6,7 @@ HCodes::HCodes(HLang *uf)
 	DefineMemberFunction("fromString", &HCodes::fromString);
 	DefineMemberFunction("getFunction", &HCodes::getFunction);
 	this->upperdef = uf;
+	MDebug("Constructed");
 }
 
 HObject* HCodes::fromString(HArgs args)
@@ -24,14 +25,14 @@ HObject* HCodes::fromString(HArgs args)
 HObject* HCodes::run(HArgs args)
 {
 	CheckArgs(0);
-	RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "CodeBlocks Running" << ColorClean;
+	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Running" << ColorClear;
 	for (int i = 0; i < domains.length(); i++)
 	{
-		RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "CodeBlocks Domain [" << CLASSCOLOR << domains[i] << NOTICECOLOR << "] Start" << ColorClean;
+		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Domain [" << PURPLECOLOR << domains[i] << YELLOWCOLOR << "] Start" << ColorClear;
 		domains[i]->run(args);
-		RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "CodeBlocks Domain [" << CLASSCOLOR << domains[i] << NOTICECOLOR << "] Finished" << ColorClean;
+		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Domain [" << PURPLECOLOR << domains[i] << YELLOWCOLOR << "] Finished" << ColorClear;
 	}
-	RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "CodeBlocks Finished" << ColorClean;
+	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Finished" << ColorClear;
 	return new HVoid;
 }
 
@@ -44,12 +45,13 @@ HObject* HCodes::getFunction(HArgs args)
 
 HCodes::~HCodes()
 {
-	RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "CodeBlocks Deleting Domains {" << ColorClean;
+	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Deleting Domains {" << ColorClear;
 	for (int i = 0; i < domains.length(); i++) {
 		delete domains[i];
-		RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << ERRORCOLOR << "Deleting " << domains[i] << ColorClean;
+		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << REDCOLOR << "Deleting " << domains[i] << ColorClear;
 	}
-	RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "}" << DONECOLOR << "[OK]" << ColorClean;
+	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "}" << BULECOLOR << "[OK]" << ColorClear;
+	MDebug("Destructed");
 }
 
 QStringList HCodes::FindDomain(QString whole)
@@ -73,5 +75,5 @@ void HCodes::LoadToFunction(QString cmds)
 	HFunction *f = new  HFunction(upperdef);
 	f->fromString(HArgs({ new HString(cmds) }));
 	this->domains.push_back(f);
-	RT_DEBUG << ">>" << ADDRESSCOLOR << (void*)this << ColorClean << "<<" << NOTICECOLOR << "CodeBlocks Loaded Domain [" << CLASSCOLOR << f << NOTICECOLOR << "]" << ColorClean;
+	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Loaded Domain [" << PURPLECOLOR << f << YELLOWCOLOR << "]" << ColorClear;
 }

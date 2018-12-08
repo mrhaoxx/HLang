@@ -11,6 +11,7 @@ class HTcpSocket :
 	H_OBJECT(HTcpSocket);
 public:
 	HTcpSocket();
+	~HTcpSocket();
 	HObject* hconnect(HArgs args);
 	HObject* hdisconnect(HArgs args);
 	HObject* hconnectToHost(HArgs args);

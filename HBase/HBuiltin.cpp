@@ -18,15 +18,19 @@ HBuiltin::HBuiltin(HLang *def)
 
 HObject* HBuiltin::setdebug(HArgs args)
 {
-	CheckArgs(1);
-	CheckArgsType(0,HBool);
-	isdebug=HObjectHelper(args[0]).to<HBool>();
+	CheckArgs(2);
+	CheckArgsType(0, HBool);
+	CheckArgsType(1, HBool);
+	IS_DEBUG << "Setting debug message:" << "Debug?" << HObjectHelper(args[0]).to<HBool>()->value() << "Colorful?" << HObjectHelper(args[1]).to<HBool>()->value();
+	*isdebug = HObjectHelper(args[0]).to<HBool>()->value();
+	*iscolorful = HObjectHelper(args[1]).to<HBool>()->value();
 	return new HVoid;
 }
 HObject* HBuiltin::newclass(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
+	IS_DEBUG << "Building new class";
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "window")
 		return (HObject*)new HWindow;
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "PushButton")
