@@ -8,8 +8,8 @@ class HCodes :
 	H_OBJECT(HCodes);
 	HLang* upperdef = nullptr;
 	HLang* thisdef = nullptr;
-	QVector<QPair<QString, QString>> FindDomain(QString whole);
-	void LoadToFunction(QString name, QString cmds);
+	QVector<std::tuple<QString, QStringList, QString>> FindDomain(QString whole);
+	void LoadToFunction(QString name, QStringList argsn, QString cmds);
 public:
 	HCodes(HLang *uf = nullptr);
 	HObject* fromString(HArgs args);

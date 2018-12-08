@@ -14,11 +14,11 @@ HObject* HCodes::fromString(HArgs args)
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	QString w = (*HObjectHelper(args[0]).to<HString>());
-	QVector<QPair<QString, QString>> l = FindDomain(w);
+	QVector<std::tuple<QString, QStringList, QString>> l = FindDomain(w);
 	if (l.length() == 0)
 		throw HError(HError::RT_WARNING, "No Blocks Found");
 	for (int i = 0; i < l.length(); i++)
-		LoadToFunction(l[i].first, l[i].second);
+		LoadToFunction(std::get<0>(l[i]), std::get<1>(l[i]), std::get<2>(l[i]));
 	return new HVoid;
 }
 
@@ -39,28 +39,32 @@ HObject* HCodes::run(HArgs args)
 
 HCodes::~HCodes()
 {
+	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Cleaning" << ColorClear;
 	delete thisdef;
+	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Destructed" << ColorClear;
 	MDebug("Destructed");
 }
 
-QVector<QPair<QString, QString>> HCodes::FindDomain(QString whole)
+QVector<std::tuple<QString, QStringList, QString>> HCodes::FindDomain(QString whole)
 {
-	QVector<QPair<QString, QString>> domains;
+	QVector<std::tuple<QString, QStringList, QString>> domains;
 	QString t = whole;
 	while (t.contains("{") && t.contains("}") && t.length() >= 2)
 	{
 		QString name = t.split("{")[0];
 		QString s = t.split("{")[1].split("}")[0];
+		QStringList argnames = (name.split("(").length() > 1) ? name.split("(")[1].chopped(1).split(",") : QStringList();
+		name = name.split("(")[0];
 		if (s != "")
-			domains.append(QPair<QString, QString>(name, s));
+			domains.append(std::tuple<QString, QStringList, QString>(name, argnames, s));
 		t = t.mid(t.indexOf("}") + 1);
 	}
 	return domains;
 }
 
-void HCodes::LoadToFunction(QString name, QString cmds)
+void HCodes::LoadToFunction(QString name, QStringList argsn, QString cmds)
 {
-	HFunction *f = new  HFunction(thisdef);
+	HFunction *f = new  HFunction(thisdef, argsn);
 	HObject * w = new HString(cmds);
 	delete f->fromString(HArgs({ w }));
 	this->thisdef->importclass(name, f);

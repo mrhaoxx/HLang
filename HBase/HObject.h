@@ -25,8 +25,8 @@ extern bool *isdebug;
 extern bool *iscolorful;
 extern bool *moremsg;
 extern QString *indent;
-#define IndentAdd indent->append("    ");
-#define IndentRem indent->chop(4);
+#define IndentAdd indent->append("        ");
+#define IndentRem indent->chop(8);
 #define RT_DEBUG if(*isdebug)qDebug() << indent->toStdString().c_str() <<UserColor << "[User]" << ColorClear
 #define IS_DEBUG if(*isdebug)qDebug() << indent->toStdString().c_str() << SystemColor <<"[System]" << ColorClear
 #ifdef WIN32
@@ -57,7 +57,7 @@ throw HError(HError::ELEVEL::RT_ERROR, "FunctionNotFound"); \
 }
 #define DefineMemberFunction(__name,__function_address) memberfuncs.insert(__name,__function_address)
 #define IsGuiClass 	this->QGuiClassHandle = (QWidget*)this;
-#define CheckArgs(__needvalues) 	if (args.size() < __needvalues) throw HError(HError::ELEVEL::RT_ERROR,"Args too few or much:[Yours."+QString::number(args.size())+"][need."#__needvalues+"]");
+#define CheckArgs(__needvalues) 	if (args.size() < __needvalues) throw HError(HError::ELEVEL::RT_ERROR,"Args too few or much:[Yours."+QString::number(args.size())+"][need."+QString::number(__needvalues)+"]");
 #define CheckArgsType(__which,__kind) if (HObjectHelper(args[__which]).to<__kind>()==nullptr)throw HError(HError::ELEVEL::RT_ERROR,"ArgsType Incorrect [Arg:"#__which"][TargetType:"#__kind"]");
 class HError;
 class HObject

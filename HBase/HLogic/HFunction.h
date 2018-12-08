@@ -11,21 +11,20 @@ struct HCommand {
 	QStringList _argstrs;
 	QString _backvalue_name;
 };
-class HCodes;
 class HFunction :
 	public HObject
 {
 	H_OBJECT(HFunction);
 	HLang *upperdef = nullptr;
 	HLang *thisdef = nullptr;
-	friend HCodes;
 	QStringList commands;
+	QStringList argnames;
 	QStringList SplitCommands(QString cmds);
 	HCommand ResolveCommand(QString cmd);
 	void runcode(HCommand cmd);
 	void resetdef();
 public:
-	HFunction(HLang *upperdef = nullptr);
+	HFunction(HLang *upperdef = nullptr, QStringList argsname = QStringList());
 	HObject* fromString(HArgs args);
 	HObject* run(HArgs args);
 	static void CoutMsg(HError &e);

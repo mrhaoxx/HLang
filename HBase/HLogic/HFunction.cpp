@@ -156,11 +156,12 @@ void HFunction::resetdef()
 	return;
 }
 
-HFunction::HFunction(HLang *upperdef)
+HFunction::HFunction(HLang *upperdef, QStringList argsname)
 {
 	DefineMemberFunction("fromString", &HFunction::fromString);
 	DefineMemberFunction("run", &HFunction::run);
 	this->upperdef = upperdef;
+	this->argnames = argsname;
 	MDebug("Constructed");
 }
 
@@ -174,7 +175,13 @@ HObject* HFunction::fromString(HArgs args)
 
 HObject* HFunction::run(HArgs args)
 {
-	CheckArgs(0);
+	CheckArgs(argnames.length());
+	if (thisdef == nullptr) {
+		thisdef = new HLang(upperdef);
+		thisdef->importclass("builtin", new HBuiltin(thisdef));
+	}
+	for (int i = 0; i < args.length(); i++)
+		thisdef->importclass(argnames[i], args[i]);
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Running" << ColorClear;
 	for (int i = 0; i < commands.length(); i++)
 	{
@@ -187,6 +194,7 @@ HObject* HFunction::run(HArgs args)
 		{
 			HObject* o = thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
 			thisdef->IgnClass((c._args.length() > 0) ? c._args[0] : "");
+			IndentRem;
 			return o;
 		}
 		IndentRem;
