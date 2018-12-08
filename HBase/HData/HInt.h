@@ -13,6 +13,8 @@ public:
 	HObject* getAndplusplus(HArgs args);
 	HObject* toString(HArgs args);
 	HObject* setInt(HArgs args);
+	HObject* plus(HArgs args);
+	HObject* minus(HArgs args);
 private:
 	int *data;
 };

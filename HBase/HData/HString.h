@@ -10,9 +10,10 @@ public:
 	operator QString&();
 	operator const char*();
 	operator std::string();
-	HString(QString *parent = new QString(""));
-	HString(QString str);
+	HString(QString str = "");
 	~HString();
 	QString& toQString();
 	HObject* set(HArgs args);
+	HObject* at(HArgs args);
+	HObject* append(HArgs args);
 };

@@ -9,6 +9,8 @@ HInt::HInt(int i)
 	DefineMemberFunction("fromString", &HInt::setStr);
 	DefineMemberFunction("toString", &HInt::toString);
 	DefineMemberFunction("set", &HInt::setInt);
+	DefineMemberFunction("+", &HInt::plus);
+	DefineMemberFunction("-", &HInt::minus);
 	MDebug("Constructed");
 }
 
@@ -44,6 +46,23 @@ HObject* HInt::setInt(HArgs args)
 	*data = i;
 	return new HVoid;
 }
+
+HObject* HInt::plus(HArgs args)
+{
+	CheckArgs(1);
+	CheckArgsType(0, HInt);
+	*data = *data + HObjectHelper(args[0]).to<HInt>()->value();
+	return new HVoid;
+}
+
+HObject* HInt::minus(HArgs args)
+{
+	CheckArgs(1);
+	CheckArgsType(0, HInt);
+	*data = *data - HObjectHelper(args[0]).to<HInt>()->value();
+	return new HVoid;
+}
+
 HObject* HInt::toString(HArgs args)
 {
 	CheckArgs(0);
