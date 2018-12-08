@@ -3,13 +3,11 @@
 
 HString::operator QString&()
 {
-	MDebug("Acessing");
 	return *data;
 }
 
 HString::operator const char*()
 {
-	MDebug("Acessing");
 	return data->toStdString().c_str();
 }
 
@@ -29,7 +27,6 @@ HString::HString(QString str)
 }
 QString& HString::toQString()
 {
-	MDebug("Acessing");
 	return *data;
 }
 
@@ -37,14 +34,12 @@ HObject* HString::set(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
-	MDebug("Setting");
 	*data = HObjectHelper(args[0]).to<HString>()->toQString();
 	return new HInt(data->length());
 }
 
 HString::operator std::string()
 {
-	MDebug("Acessing");
 	return data->toStdString();
 }
 HString::~HString() {

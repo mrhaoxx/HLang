@@ -20,13 +20,11 @@ HInt::~HInt()
 
 int HInt::value()
 {
-	MDebug("Accessing");
 	return int(*data);
 }
 
 HInt::operator int()
 {
-	MDebug("Accessing");
 	return int(*data);
 }
 
@@ -36,7 +34,6 @@ HObject* HInt::setStr(HArgs args)
 	CheckArgsType(0, HString);
 	int i = HObjectHelper(args[0]).to<HString>()->toQString().toInt();
 	*data = i;
-	MDebug("Setting from String");
 	return new HVoid;
 }
 HObject* HInt::setInt(HArgs args)
@@ -45,13 +42,11 @@ HObject* HInt::setInt(HArgs args)
 	CheckArgsType(0, HInt);
 	int i = *HObjectHelper(args[0]).to<HInt>();
 	*data = i;
-	MDebug("Setting from Int");
 	return new HVoid;
 }
 HObject* HInt::toString(HArgs args)
 {
 	CheckArgs(0);
-	MDebug("To String");
 	return new HString(QString::number(*data));
 }
 
@@ -59,6 +54,5 @@ HObject* HInt::getAndplusplus(HArgs args)
 {
 	CheckArgs(0);
 	*data = *data + 1;
-	MDebug("GetAndPlus");
 	return this;
 }

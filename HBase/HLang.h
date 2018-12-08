@@ -14,6 +14,7 @@ public:
 	bool importclass(QString __name, HObject* __class);
 	HObject* accessclass(QString __name);
 	void deleteclass(QString __name);
+	void IgnClass(QString __name);
 	int tmpused = 0;
 private:
 	HLang *higherlevel;

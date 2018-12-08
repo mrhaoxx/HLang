@@ -7,9 +7,9 @@ class HCodes :
 {
 	H_OBJECT(HCodes);
 	HLang* upperdef = nullptr;
-	QVector<HFunction*> domains;
-	QStringList FindDomain(QString whole);
-	void LoadToFunction(QString cmds);
+	HLang* thisdef = nullptr;
+	QVector<QPair<QString, QString>> FindDomain(QString whole);
+	void LoadToFunction(QString name, QString cmds);
 public:
 	HCodes(HLang *uf = nullptr);
 	HObject* fromString(HArgs args);

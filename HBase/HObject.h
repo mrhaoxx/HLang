@@ -24,15 +24,18 @@
 extern bool *isdebug;
 extern bool *iscolorful;
 extern bool *moremsg;
-#define RT_DEBUG if(*isdebug)qDebug() << UserColor << "[User]" << ColorClear
-#define IS_DEBUG if(*isdebug)qDebug() << SystemColor <<"[System]" << ColorClear
+extern QString *indent;
+#define IndentAdd indent->append("    ");
+#define IndentRem indent->chop(4);
+#define RT_DEBUG if(*isdebug)qDebug() << indent->toStdString().c_str() <<UserColor << "[User]" << ColorClear
+#define IS_DEBUG if(*isdebug)qDebug() << indent->toStdString().c_str() << SystemColor <<"[System]" << ColorClear
 #ifdef WIN32
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? QString(strrchr(__FILE__, '\\') + 1).split(".")[0].toStdString().c_str() : QString(__FILE__).split(".")[0].toStdString().c_str())
 #else
 #define __FILENAME__ (strrchr(__FILE__, '/') ? QString(strrchr(__FILE__, '\\') + 1).split(".")[0].toStdString().c_str() :QString(__FILE__).split(".")[0].toStdString().c_str())
 #endif
 
-#define MDebug(msg) if(*isdebug&&*moremsg)qDebug()<<"["<< (QString(YELLOWCOLOR) + QString(__FILENAME__) + QString(ColorClear)).toStdString().c_str() << "]" << HWHITECOLOR << msg << ColorClear
+#define MDebug(msg) if(*isdebug&&*moremsg)qDebug()<< indent->toStdString().c_str() <<"["<< (QString(YELLOWCOLOR) + QString(__FILENAME__) + QString(ColorClear)).toStdString().c_str() << "]" << HWHITECOLOR << msg << ColorClear;
 
 #define needQWeight "Only Accept QGuiClass"
 #define WhyBuiltinNewFailed "Class Not Find"

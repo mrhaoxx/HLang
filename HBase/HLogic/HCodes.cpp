@@ -4,8 +4,8 @@ HCodes::HCodes(HLang *uf)
 {
 	DefineMemberFunction("run", &HCodes::run);
 	DefineMemberFunction("fromString", &HCodes::fromString);
-	DefineMemberFunction("getFunction", &HCodes::getFunction);
 	this->upperdef = uf;
+	this->thisdef = new HLang(upperdef);
 	MDebug("Constructed");
 }
 
@@ -14,11 +14,11 @@ HObject* HCodes::fromString(HArgs args)
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	QString w = (*HObjectHelper(args[0]).to<HString>());
-	QStringList l = FindDomain(w);
+	QVector<QPair<QString, QString>> l = FindDomain(w);
 	if (l.length() == 0)
 		throw HError(HError::RT_WARNING, "No Blocks Found");
 	for (int i = 0; i < l.length(); i++)
-		LoadToFunction(l[i]);
+		LoadToFunction(l[i].first, l[i].second);
 	return new HVoid;
 }
 
@@ -26,54 +26,44 @@ HObject* HCodes::run(HArgs args)
 {
 	CheckArgs(0);
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Running" << ColorClear;
-	for (int i = 0; i < domains.length(); i++)
-	{
-		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Domain [" << PURPLECOLOR << domains[i] << YELLOWCOLOR << "] Start" << ColorClear;
-		domains[i]->run(args);
-		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Domain [" << PURPLECOLOR << domains[i] << YELLOWCOLOR << "] Finished" << ColorClear;
+	if (thisdef->accessclass("main") != nullptr) {
+		IndentAdd;
+		delete thisdef->accessclass("main")->exec("run", HArgs());
+		IndentRem;
 	}
+	else
+		throw HError(HError::RT_NOTICE, "No Main Function Found");
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Finished" << ColorClear;
 	return new HVoid;
 }
 
-HObject* HCodes::getFunction(HArgs args)
-{
-	CheckArgs(1);
-	CheckArgsType(0, HInt);
-	return domains[*HObjectHelper(args[0]).to<HInt>()];
-}
-
 HCodes::~HCodes()
 {
-	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Deleting Domains {" << ColorClear;
-	for (int i = 0; i < domains.length(); i++) {
-		delete domains[i];
-		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << REDCOLOR << "Deleting " << domains[i] << ColorClear;
-	}
-	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "}" << BULECOLOR << "[OK]" << ColorClear;
+	delete thisdef;
 	MDebug("Destructed");
 }
 
-QStringList HCodes::FindDomain(QString whole)
+QVector<QPair<QString, QString>> HCodes::FindDomain(QString whole)
 {
-	QStringList domains;
+	QVector<QPair<QString, QString>> domains;
 	QString t = whole;
 	while (t.contains("{") && t.contains("}") && t.length() >= 2)
 	{
-		int f = whole.indexOf("{");
-		int l = whole.indexOf("}");
-		QString s = t.mid(f + 1, l - f - 1);
+		QString name = t.split("{")[0];
+		QString s = t.split("{")[1].split("}")[0];
 		if (s != "")
-			domains.push_back(s);
-		t = t.mid(l + 1);
+			domains.append(QPair<QString, QString>(name, s));
+		t = t.mid(t.indexOf("}") + 1);
 	}
 	return domains;
 }
 
-void HCodes::LoadToFunction(QString cmds)
+void HCodes::LoadToFunction(QString name, QString cmds)
 {
-	HFunction *f = new  HFunction(upperdef);
-	f->fromString(HArgs({ new HString(cmds) }));
-	this->domains.push_back(f);
-	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Loaded Domain [" << PURPLECOLOR << f << YELLOWCOLOR << "]" << ColorClear;
+	HFunction *f = new  HFunction(thisdef);
+	HObject * w = new HString(cmds);
+	delete f->fromString(HArgs({ w }));
+	this->thisdef->importclass(name, f);
+	delete w;
+	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Loaded Domain [" << PURPLECOLOR << name << YELLOWCOLOR << "]" << ColorClear;
 }

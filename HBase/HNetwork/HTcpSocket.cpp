@@ -9,11 +9,11 @@ HTcpSocket::HTcpSocket()
 	DefineMemberFunction("readLine", &HTcpSocket::hreadLine);
 	this->connect(this, &QTcpSocket::readyRead, this, [&] {
 		if (whenReadyRead != nullptr)
-			whenReadyRead->run(HArgs());
+			delete whenReadyRead->run(HArgs());
 	});
 	this->connect(this, &QTcpSocket::connected, this, [&] {
 		if (whenConnected != nullptr)
-			whenConnected->run(HArgs());
+			delete whenConnected->run(HArgs());
 	});
 	MDebug("Constructed");
 }

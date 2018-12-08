@@ -82,12 +82,12 @@ void HFunction::CoutMsg(HError &e)
 
 void HFunction::runcode(HCommand cmd)
 {
+	HArgs waitdelete;
 	if (thisdef == nullptr) {
 		thisdef = new HLang(upperdef);
 		thisdef->importclass("builtin", new HBuiltin(thisdef));
 	}
 	try {
-		HArgs waitdelete;
 		HArgs args;
 		for (int x = 0; x < cmd._args.length(); x++)
 			if (cmd._args[x].contains("\u0002"))
@@ -95,20 +95,33 @@ void HFunction::runcode(HCommand cmd)
 					if (cmd._args[x].contains("\u0002" + QString(y))) {
 						HObject* handle = new HString(cmd._argstrs[y]);
 						args.insert(x, handle);
-						waitdelete.push_back(handle);
+						waitdelete.append(handle);
 					}
 					else;
 			else {
 				bool isit = false;
 				int  toit = cmd._args[x].toInt(&isit);
-				if (isit)
-					args.insert(x, new HInt(toit));
+				if (isit) {
+					HObject* h = new HInt(toit);
+					args.insert(x, h);
+					waitdelete.append(h);
+				}
 				else
-					if (cmd._args[x] == "true")
-						args.insert(x, new HBool(true));
-					else if (cmd._args[x] == "false")
-						args.insert(x, new HBool(false));
-					else if (cmd._args[x].isEmpty());
+					if (cmd._args[x] == "true") {
+						HObject* h = new HBool(true);
+						args.insert(x, h);
+						waitdelete.append(h);
+					}
+					else if (cmd._args[x] == "false") {
+						HObject* h = new HBool(false);
+						args.insert(x, h);
+						waitdelete.append(h);
+					}
+					else if (cmd._args[x].isEmpty()) {
+						HObject* h = new HVoid;
+						args.insert(x, h);
+						waitdelete.append(h);
+					}
 					else
 					{
 						HObject *arg = thisdef->accessclass(cmd._args[x]);
@@ -126,13 +139,13 @@ void HFunction::runcode(HCommand cmd)
 				delete aceobj->exec(cmd._func, args);
 		else
 			throw HError(HError::RT_ERROR, "Object Class Not Found");
-		for (int i = 0; i < waitdelete.length(); i++)
-			delete waitdelete[i];
 	}
 	catch (HError& e)
 	{
 		CoutMsg(e);
 	}
+	for (int i = 0; i < waitdelete.length(); i++)
+		delete waitdelete[i];
 }
 
 void HFunction::resetdef()
@@ -166,7 +179,17 @@ HObject* HFunction::run(HArgs args)
 	for (int i = 0; i < commands.length(); i++)
 	{
 		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "START" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
-		runcode(ResolveCommand(commands[i]));
+		HCommand c = ResolveCommand(commands[i]);
+		IndentAdd;
+		if (c._func != "return")
+			runcode(ResolveCommand(commands[i]));
+		else
+		{
+			HObject* o = thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
+			thisdef->IgnClass((c._args.length() > 0) ? c._args[0] : "");
+			return o;
+		}
+		IndentRem;
 		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "DONE" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
 	}
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Cleaning" << ColorClear;

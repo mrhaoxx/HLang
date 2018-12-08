@@ -5,6 +5,7 @@
 bool *iscolorful = new bool(true);
 bool *isdebug = new bool(true);
 bool *moremsg = new bool(false);
+QString *indent = new QString("");
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
@@ -26,8 +27,10 @@ int main(int argc, char *argv[])
 			}
 			try {
 				HCodes m(HMain);
-				m.fromString(HArgs({ new HString(a) }));
-				m.run(HArgs());
+				HObject* s = new HString(a);
+				delete m.fromString(HArgs({ s }));
+				delete s;
+				delete m.run(HArgs());
 			}
 			catch (HError &e) {
 				HFunction::CoutMsg(e);

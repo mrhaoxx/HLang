@@ -10,6 +10,7 @@ HLang::~HLang()
 	QMapIterator<QString, HObject*> i(classes);
 	QStringList namelist;
 	IS_DEBUG << REDCOLOR << "Destruction domain" << ColorClear << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<< {";
+	IndentAdd;
 	for (; i.hasNext();)
 	{
 		i.next();
@@ -19,6 +20,7 @@ HLang::~HLang()
 	{
 		deleteclass(namelist[i]);
 	}
+	IndentRem;
 	IS_DEBUG << "}" << BULECOLOR << "[OK]" << ColorClear;
 }
 
@@ -57,4 +59,10 @@ void HLang::deleteclass(QString __name)
 		classes.remove(__name);
 		return;
 	}
+}
+
+void HLang::IgnClass(QString __name)
+{
+	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << REDCOLOR << "Ignoring" << ColorClear << "[" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
+	classes.remove(__name);
 }

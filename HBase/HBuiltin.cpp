@@ -26,6 +26,7 @@ HObject* HBuiltin::setdebug(HArgs args)
 	*iscolorful = HObjectHelper(args[1]).to<HBool>()->value();
 	return new HVoid;
 }
+
 HObject* HBuiltin::newclass(HArgs args)
 {
 	CheckArgs(1);
