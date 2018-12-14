@@ -2,8 +2,8 @@
 
 HCodes::HCodes(HLang *uf)
 {
-	DefineMemberFunction("run", &HCodes::run);
-	DefineMemberFunction("fromString", &HCodes::fromString);
+	DefineMemberFunction(HCodes, "run", &HCodes::run);
+	DefineMemberFunction(HCodes, "fromString", &HCodes::fromString);
 	this->upperdef = uf;
 	this->thisdef = new HLang(upperdef);
 	MDebug("Constructed");

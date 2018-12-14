@@ -4,7 +4,7 @@
 HBool::HBool(bool par)
 {
 	data = par;
-	DefineMemberFunction("set", &HBool::set);
+	DefineMemberFunction(HBool, "set", &HBool::set);
 	MDebug("Constructed");
 }
 

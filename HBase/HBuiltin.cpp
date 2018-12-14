@@ -3,16 +3,16 @@
 #include <iostream>
 HBuiltin::HBuiltin(HLang *def)
 {
-	DefineMemberFunction("new", &HBuiltin::newclass);
-	DefineMemberFunction("delete", &HBuiltin::deleteclass);
-	DefineMemberFunction("usleep", &HBuiltin::sleep);
-	DefineMemberFunction("system", &HBuiltin::system);
-	DefineMemberFunction("msg", &HBuiltin::msg);
-	DefineMemberFunction("cout", &HBuiltin::cout);
-	DefineMemberFunction("exec", &HBuiltin::keepexec);
-	DefineMemberFunction("quit", &HBuiltin::quit);
-	DefineMemberFunction("exit", &HBuiltin::termimate);
-	DefineMemberFunction("setdebug", &HBuiltin::setdebug);
+	DefineMemberFunction(HBuiltin, "new", &HBuiltin::newclass);
+	DefineMemberFunction(HBuiltin, "delete", &HBuiltin::deleteclass);
+	DefineMemberFunction(HBuiltin, "usleep", &HBuiltin::sleep);
+	DefineMemberFunction(HBuiltin, "system", &HBuiltin::system);
+	DefineMemberFunction(HBuiltin, "msg", &HBuiltin::msg);
+	DefineMemberFunction(HBuiltin, "cout", &HBuiltin::cout);
+	DefineMemberFunction(HBuiltin, "exec", &HBuiltin::keepexec);
+	DefineMemberFunction(HBuiltin, "quit", &HBuiltin::quit);
+	DefineMemberFunction(HBuiltin, "exit", &HBuiltin::termimate);
+	DefineMemberFunction(HBuiltin, "setdebug", &HBuiltin::setdebug);
 	this->HDef = def;
 }
 
@@ -106,22 +106,20 @@ HObject* HBuiltin::cout(HArgs args) {
 	bool iss = false;
 	if (HObjectHelper(args[0]).to<HInt>() != nullptr)
 	{
-		qDebug() << "ConsoleOutput{" << "\n" << QString::number(*HObjectHelper(args[0]).to<HInt>()) << "\n" << "}";
+		qDebug() << QString::number(*HObjectHelper(args[0]).to<HInt>());
 		iss = true;
 	}
 	else if (HObjectHelper(args[0]).to<HBool>() != nullptr)
 	{
-		qDebug() << "ConsoleOutput{" << "\n" << (HObjectHelper(args[0]).to<HBool>()->value()) << "\n" << "}";
+		qDebug() << (HObjectHelper(args[0]).to<HBool>()->value());
 		iss = true;
 	}
 	else if (HObjectHelper(args[0]).to<HString>() != nullptr)
 	{
-		qDebug() << "ConsoleOutput{" << "\n" << (const char*)(*HObjectHelper(args[0]).to<HString>()) << "\n" << "}";
-		iss = true;
+		qDebug() << (const char*)(*HObjectHelper(args[0]).to<HString>());
 	}
 	if (!iss)
 		throw HError(HError::RT_ERROR, WhyBuiltinMsgFailed);
-	qDebug() << "\r\n";
 	return new HVoid;
 };
 

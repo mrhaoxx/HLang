@@ -14,9 +14,9 @@ HString::operator const char*()
 
 HString::HString(QString str)
 {
-	DefineMemberFunction("set", &HString::set);
-	DefineMemberFunction("at", &HString::at);
-	DefineMemberFunction("append", &HString::append);
+	DefineMemberFunction(HString, "set", &HString::set);
+	DefineMemberFunction(HString, "at", &HString::at);
+	DefineMemberFunction(HString, "append", &HString::append);
 	MDebug("Constructed");
 	data = new QString;
 	*this->data = str;

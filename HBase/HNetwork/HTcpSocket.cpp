@@ -2,11 +2,11 @@
 
 HTcpSocket::HTcpSocket()
 {
-	DefineMemberFunction("connectToHost", &HTcpSocket::hconnectToHost);
-	DefineMemberFunction("send", &HTcpSocket::send);
-	DefineMemberFunction("connect", &HTcpSocket::hconnect);
-	DefineMemberFunction("readAll", &HTcpSocket::hreadAll);
-	DefineMemberFunction("readLine", &HTcpSocket::hreadLine);
+	DefineMemberFunction(HTcpSocket, "connectToHost", &HTcpSocket::hconnectToHost);
+	DefineMemberFunction(HTcpSocket, "send", &HTcpSocket::send);
+	DefineMemberFunction(HTcpSocket, "connect", &HTcpSocket::hconnect);
+	DefineMemberFunction(HTcpSocket, "readAll", &HTcpSocket::hreadAll);
+	DefineMemberFunction(HTcpSocket, "readLine", &HTcpSocket::hreadLine);
 	this->connect(this, &QTcpSocket::readyRead, this, [&] {
 		if (whenReadyRead != nullptr)
 			delete whenReadyRead->run(HArgs());

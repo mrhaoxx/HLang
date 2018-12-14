@@ -5,10 +5,10 @@ HWindow::HWindow(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-	DefineMemberFunction("show", &HWindow::hshow);
-	DefineMemberFunction("hide", &HWindow::hhide);
-	DefineMemberFunction("add", &HWindow::hadd);
-	DefineMemberFunction("setTitle", &HWindow::hsetTitle);
+	DefineMemberFunction(HWindow, "show", &HWindow::hshow);
+	DefineMemberFunction(HWindow, "hide", &HWindow::hhide);
+	DefineMemberFunction(HWindow, "add", &HWindow::hadd);
+	DefineMemberFunction(HWindow, "setTitle", &HWindow::hsetTitle);
 	MDebug("Constructed");
 }
 

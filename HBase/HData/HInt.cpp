@@ -5,12 +5,12 @@
 HInt::HInt(int i)
 {
 	data = new int(i);
-	DefineMemberFunction("++", &HInt::getAndplusplus);
-	DefineMemberFunction("fromString", &HInt::setStr);
-	DefineMemberFunction("toString", &HInt::toString);
-	DefineMemberFunction("set", &HInt::setInt);
-	DefineMemberFunction("+", &HInt::plus);
-	DefineMemberFunction("-", &HInt::minus);
+	DefineMemberFunction(HInt, "++", &HInt::getAndplusplus);
+	DefineMemberFunction(HInt, "fromString", &HInt::setStr);
+	DefineMemberFunction(HInt, "toString", &HInt::toString);
+	DefineMemberFunction(HInt, "set", &HInt::setInt);
+	DefineMemberFunction(HInt, "+", &HInt::plus);
+	DefineMemberFunction(HInt, "-", &HInt::minus);
 	MDebug("Constructed");
 }
 

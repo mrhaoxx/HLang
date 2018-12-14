@@ -2,10 +2,10 @@
 #include "HData/HBool.h"
 HIf::HIf()
 {
-	DefineMemberFunction("setwhich", &HIf::which);
-	DefineMemberFunction("settrue", &HIf::htrue);
-	DefineMemberFunction("setfalse", &HIf::hfalse);
-	DefineMemberFunction("run", &HIf::hexec);
+	DefineMemberFunction(HIf, "setwhich", &HIf::which);
+	DefineMemberFunction(HIf, "settrue", &HIf::htrue);
+	DefineMemberFunction(HIf, "setfalse", &HIf::hfalse);
+	DefineMemberFunction(HIf, "run", &HIf::hexec);
 }
 HObject* HIf::which(HArgs args)
 {

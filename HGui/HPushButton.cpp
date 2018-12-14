@@ -4,9 +4,9 @@ HPushButton::HPushButton(QWidget *parent)
 	: QPushButton(parent)
 {
 	IsGuiClass;
-	DefineMemberFunction("setText", &HPushButton::hsetText);
-	DefineMemberFunction("connect", &HPushButton::hconnect);
-	DefineMemberFunction("disconnect", &HPushButton::hdisconnect);
+	DefineMemberFunction(HPushButton, "setText", &HPushButton::hsetText);
+	DefineMemberFunction(HPushButton, "connect", &HPushButton::hconnect);
+	DefineMemberFunction(HPushButton, "disconnect", &HPushButton::hdisconnect);
 	this->connect(this, &HPushButton::clicked, this, [&] {
 		if (whenClicked != nullptr)
 			delete whenClicked->run(HArgs());

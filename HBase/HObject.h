@@ -48,18 +48,17 @@ extern QString *indent;
 #define HArgs QVector<HObject*>
 #define H_OBJECT(_name) \
 private: \
-QMap<QString,HObject*(_name::*)(HArgs args)> memberfuncs; \
+QMap<QString,HObject*(_name::*)(HArgs args)> memberfuncs##_name; \
 public: HObject* exec(QString __name,HArgs args){ \
 IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << PURPLECOLOR <<"["#_name"]" << ColorClear << " Calling [" << WPURPLECOLOR << __name.toStdString().c_str() << ColorClear <<"]"; \
-if (memberfuncs.contains(__name))\
-return (this->*memberfuncs[__name])(args); \
+if (memberfuncs##_name.contains(__name))\
+return (this->*memberfuncs##_name[__name])(args); \
 throw HError(HError::ELEVEL::RT_ERROR, "FunctionNotFound"); \
 }
-#define DefineMemberFunction(__name,__function_address) memberfuncs.insert(__name,__function_address)
+#define DefineMemberFunction(_class,__name,__function_address) memberfuncs##_class.insert(__name,__function_address)
 #define IsGuiClass 	this->QGuiClassHandle = (QWidget*)this;
 #define CheckArgs(__needvalues) 	if (args.size() < __needvalues) throw HError(HError::ELEVEL::RT_ERROR,"Args too few or much:[Yours."+QString::number(args.size())+"][need."+QString::number(__needvalues)+"]");
 #define CheckArgsType(__which,__kind) if (HObjectHelper(args[__which]).to<__kind>()==nullptr)throw HError(HError::ELEVEL::RT_ERROR,"ArgsType Incorrect [Arg:"#__which"][TargetType:"#__kind"]");
-class HError;
 class HObject
 {
 public:
