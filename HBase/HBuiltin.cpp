@@ -13,6 +13,7 @@ HBuiltin::HBuiltin(HLang *def)
 	DefineMemberFunction(HBuiltin, "quit", &HBuiltin::quit);
 	DefineMemberFunction(HBuiltin, "exit", &HBuiltin::termimate);
 	DefineMemberFunction(HBuiltin, "setdebug", &HBuiltin::setdebug);
+	DefineMemberFunction(HBuiltin, "aboutQt", &HBuiltin::aboutQt);
 	this->HDef = def;
 }
 
@@ -24,6 +25,13 @@ QSharedPointer<HObject> HBuiltin::setdebug(HArgs args)
 	IS_DEBUG << "Setting debug message:" << "Debug?" << HObjectHelper(args[0]).to<HBool>()->value() << "Colorful?" << HObjectHelper(args[1]).to<HBool>()->value();
 	*isdebug = HObjectHelper(args[0]).to<HBool>()->value();
 	*iscolorful = HObjectHelper(args[1]).to<HBool>()->value();
+	return QSharedPointer<HObject>(new HVoid);
+}
+
+QSharedPointer<HObject> HBuiltin::aboutQt(HArgs args)
+{
+	CheckArgs(0);
+	QApplication::aboutQt();
 	return QSharedPointer<HObject>(new HVoid);
 }
 
