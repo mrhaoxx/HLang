@@ -73,9 +73,6 @@
     <ClCompile Include="HBase\HData\HFile.cpp">
       <Filter>HBase\HData</Filter>
     </ClCompile>
-    <ClCompile Include="HBase\HData\HVector.cpp">
-      <Filter>HBase\HData</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -48,7 +48,7 @@ extern QString *indent;
 #define WhyConnectSlotError "SIGNAL NOT FIND"
 #define HArgs QVector<QSharedPointer<HObject>>
 #define H_OBJECT(_name) \
-private: \
+protected: \
 QMap<QString,QSharedPointer<HObject>(_name::*)(HArgs args)> memberfuncs##_name; \
 public: QSharedPointer<HObject> exec(QString __name,HArgs args){ \
 IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << PURPLECOLOR <<"["#_name"]" << ColorClear << " Calling [" << WPURPLECOLOR << __name.toStdString().c_str() << ColorClear <<"]"; \
@@ -60,6 +60,7 @@ throw HError(HError::ELEVEL::RT_ERROR, "FunctionNotFound"); \
 #define IsGuiClass 	this->QGuiClassHandle = (QWidget*)this;
 #define CheckArgs(__needvalues) 	if (args.size() < __needvalues) throw HError(HError::ELEVEL::RT_ERROR,"Args too few or much:[Yours."+QString::number(args.size())+"][need."+QString::number(__needvalues)+"]");
 #define CheckArgsType(__which,__kind) if (HObjectHelper(args[__which]).to<__kind>()==nullptr)throw HError(HError::ELEVEL::RT_ERROR,"ArgsType Incorrect [Arg:"#__which"][TargetType:"#__kind"]");
+#define InheritFrom(_class,_this) for (int i = 0; i < memberfuncs##_class.keys().length();i++)if (!memberfuncs##_this.contains(memberfuncs##_class.keys()[i]))DefineMemberFunction(_this,memberfuncs##_class.keys()[i],memberfuncs##_class.values()[i])
 class HObject
 {
 public:

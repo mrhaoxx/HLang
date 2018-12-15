@@ -1,6 +1,7 @@
 #include "HBuiltin.h"
 #include <QMessageBox>
 #include <iostream>
+#include "HData/HVector.h"
 HBuiltin::HBuiltin(HLang *def)
 {
 	DefineMemberFunction(HBuiltin, "new", &HBuiltin::newclass);
@@ -42,7 +43,7 @@ QSharedPointer<HObject> HBuiltin::newclass(HArgs args)
 	IS_DEBUG << "Building new class";
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "window")
 		return QSharedPointer<HObject>((HObject*)new HWindow);
-	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "PushButton")
+	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "pushbutton")
 		return QSharedPointer<HObject>((HObject*)new HPushButton(nullptr));
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "function")
 		return QSharedPointer<HObject>(new HFunction(HDef));
@@ -54,10 +55,12 @@ QSharedPointer<HObject> HBuiltin::newclass(HArgs args)
 		return QSharedPointer<HObject>(new HString);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "if")
 		return QSharedPointer<HObject>(new HIf);
-	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "TcpSocket")
+	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "tcpsocket")
 		return QSharedPointer<HObject>(new HTcpSocket);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "codes")
 		return QSharedPointer<HObject>(new HCodes(HDef));
+	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "vector")
+		return QSharedPointer<HObject>(new HVector<HVoid>);
 	throw HError(HError::RT_ERROR, WhyBuiltinNewFailed);
 }
 QSharedPointer<HObject> HBuiltin::deleteclass(HArgs args)
