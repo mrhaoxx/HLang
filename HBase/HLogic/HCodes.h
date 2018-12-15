@@ -12,8 +12,8 @@ class HCodes :
 	void LoadToFunction(QString name, QStringList argsn, QString cmds);
 public:
 	HCodes(HLang *uf = nullptr);
-	HObject* fromString(HArgs args);
-	HObject* run(HArgs args);
-	HObject* getFunction(HArgs args);
+	QSharedPointer<HObject> fromString(HArgs args);
+	QSharedPointer<HObject> run(HArgs args);
+	QSharedPointer<HObject> getFunction(HArgs args);
 	~HCodes();
 };

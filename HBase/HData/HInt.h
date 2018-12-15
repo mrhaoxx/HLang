@@ -9,12 +9,12 @@ public:
 	~HInt();
 	int value();
 	operator int();
-	HObject* setStr(HArgs args);
-	HObject* getAndplusplus(HArgs args);
-	HObject* toString(HArgs args);
-	HObject* setInt(HArgs args);
-	HObject* plus(HArgs args);
-	HObject* minus(HArgs args);
+	QSharedPointer<HObject> setStr(HArgs args);
+	QSharedPointer<HObject> getAndplusplus(HArgs args);
+	QSharedPointer<HObject> toString(HArgs args);
+	QSharedPointer<HObject> setInt(HArgs args);
+	QSharedPointer<HObject> plus(HArgs args);
+	QSharedPointer<HObject> minus(HArgs args);
 private:
 	int *data;
 };

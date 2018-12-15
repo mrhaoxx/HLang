@@ -7,7 +7,7 @@ HLang::HLang(HLang* hl)
 
 HLang::~HLang()
 {
-	QMapIterator<QString, HObject*> i(classes);
+	QMapIterator<QString, QSharedPointer<HObject>> i(classes);
 	QStringList namelist;
 	IS_DEBUG << REDCOLOR << "Destruction domain" << ColorClear << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<< {";
 	IndentAdd;
@@ -24,7 +24,7 @@ HLang::~HLang()
 	IS_DEBUG << "}" << BULECOLOR << "[OK]" << ColorClear;
 }
 
-bool HLang::importclass(QString __name, HObject* __class)
+bool HLang::importclass(QString __name, QSharedPointer<HObject> __class)
 {
 	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<< " << YELLOWCOLOR << "Importing[" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
 	if (classes.contains(__name))
@@ -36,7 +36,7 @@ bool HLang::importclass(QString __name, HObject* __class)
 	classes.insert(__name, __class);
 	return true;
 }
-HObject* HLang::accessclass(QString __name)
+QSharedPointer<HObject> HLang::accessclass(QString __name)
 {
 	if (classes.contains(__name)) {
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Accessing [" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
@@ -44,7 +44,7 @@ HObject* HLang::accessclass(QString __name)
 	}
 	if (higherlevel == nullptr) {
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << REDCOLOR << "AccessingNotFound [" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
-		return nullptr;
+		return QSharedPointer<HObject>(nullptr);
 	}
 	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "AccessingRedirect[" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]->" << higherlevel;
 	return higherlevel->accessclass(__name);
@@ -55,7 +55,7 @@ void HLang::deleteclass(QString __name)
 	if (classes.contains(__name))
 	{
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << REDCOLOR << "Deleting" << ColorClear << "[" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
-		delete classes[__name];
+		classes[__name].clear();
 		classes.remove(__name);
 		return;
 	}

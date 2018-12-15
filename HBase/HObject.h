@@ -8,6 +8,7 @@
 #include <functional>
 #include <QWidget>
 #include <QVector>
+#include <QSharedPointer>
 #define UserColor ((*iscolorful)?std::string("\033[32m").c_str():std::string("").c_str())
 #define SystemColor ((*iscolorful)?std::string("\033[34m").c_str():std::string("").c_str())
 #define NOCOLOR ((*iscolorful)?std::string("\033[0m").c_str():std::string("").c_str())
@@ -35,7 +36,7 @@ extern QString *indent;
 #define __FILENAME__ (strrchr(__FILE__, '/') ? QString(strrchr(__FILE__, '\\') + 1).split(".")[0].toStdString().c_str() :QString(__FILE__).split(".")[0].toStdString().c_str())
 #endif
 
-#define MDebug(msg) if(*isdebug&&*moremsg)qDebug()<< indent->toStdString().c_str() <<"["<< (QString(YELLOWCOLOR) + QString(__FILENAME__) + QString(ColorClear)).toStdString().c_str() << "]" << HWHITECOLOR << msg << ColorClear;
+#define MDebug(msg) if(*isdebug&&*moremsg)if(QString(msg).contains("D"))IndentRem else IndentAdd;if(*isdebug&&*moremsg)qDebug()<< indent->toStdString().c_str() <<"["<< (QString(YELLOWCOLOR) + QString(__FILENAME__) + QString(ColorClear)).toStdString().c_str() << "]" << HWHITECOLOR << msg << ColorClear;
 
 #define needQWeight "Only Accept QGuiClass"
 #define WhyBuiltinNewFailed "Class Not Find"
@@ -45,11 +46,11 @@ extern QString *indent;
 #define WhyHWindowAddWeightFailed needQWeight
 #define WhyTcpSocketConnectWarring "[Warring]ConnectedSlotNotHandled"
 #define WhyConnectSlotError "SIGNAL NOT FIND"
-#define HArgs QVector<HObject*>
+#define HArgs QVector<QSharedPointer<HObject>>
 #define H_OBJECT(_name) \
 private: \
-QMap<QString,HObject*(_name::*)(HArgs args)> memberfuncs##_name; \
-public: HObject* exec(QString __name,HArgs args){ \
+QMap<QString,QSharedPointer<HObject>(_name::*)(HArgs args)> memberfuncs##_name; \
+public: QSharedPointer<HObject> exec(QString __name,HArgs args){ \
 IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << PURPLECOLOR <<"["#_name"]" << ColorClear << " Calling [" << WPURPLECOLOR << __name.toStdString().c_str() << ColorClear <<"]"; \
 if (memberfuncs##_name.contains(__name))\
 return (this->*memberfuncs##_name[__name])(args); \
@@ -64,23 +65,23 @@ class HObject
 public:
 	HObject() {};
 	virtual ~HObject() {};
-	virtual HObject* exec(QString __name, HArgs args) = 0;
+	virtual QSharedPointer<HObject> exec(QString __name, HArgs args) = 0;
 	QWidget* QGuiClassHandle = nullptr;
 };
 
 class HObjectHelper {
 public:
-	HObjectHelper(HObject* obj)
+	HObjectHelper(QSharedPointer<HObject> obj)
 	{
 		this->obj = obj;
 	}
 	template<typename _Target>
 	_Target* to()
 	{
-		return dynamic_cast<_Target*>(obj);
+		return dynamic_cast<_Target*>(obj.get());
 	}
 private:
-	HObject* obj;
+	QSharedPointer<HObject> obj;
 };
 class HError {
 public:
@@ -91,7 +92,7 @@ public:
 		RT_WARNING,
 		RT_ERROR
 	};
-	HError(HError::ELEVEL Elevel = NONE, QString Why = "", HObject* _ret = nullptr) {
+	HError(HError::ELEVEL Elevel = NONE, QString Why = "", QSharedPointer<HObject> _ret = nullptr) {
 		this->elevel = Elevel;
 		this->why = Why;
 		this->ret = _ret;
@@ -102,11 +103,11 @@ public:
 	QString getWhy() const {
 		return why;
 	}
-	HObject* getObject() const {
+	QSharedPointer<HObject> getObject() const {
 		return ret;
 	}
 private:
 	ELEVEL elevel = NONE;
-	HObject* ret = nullptr;
+	QSharedPointer<HObject> ret = nullptr;
 	QString why = "";
 };

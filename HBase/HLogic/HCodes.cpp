@@ -9,7 +9,7 @@ HCodes::HCodes(HLang *uf)
 	MDebug("Constructed");
 }
 
-HObject* HCodes::fromString(HArgs args)
+QSharedPointer<HObject> HCodes::fromString(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
@@ -19,22 +19,22 @@ HObject* HCodes::fromString(HArgs args)
 		throw HError(HError::RT_WARNING, "No Blocks Found");
 	for (int i = 0; i < l.length(); i++)
 		LoadToFunction(std::get<0>(l[i]), std::get<1>(l[i]), std::get<2>(l[i]));
-	return new HVoid;
+	return QSharedPointer<HObject>(new HVoid);
 }
 
-HObject* HCodes::run(HArgs args)
+QSharedPointer<HObject> HCodes::run(HArgs args)
 {
 	CheckArgs(0);
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Running" << ColorClear;
 	if (thisdef->accessclass("main") != nullptr) {
 		IndentAdd;
-		delete thisdef->accessclass("main")->exec("run", HArgs());
+		thisdef->accessclass("main")->exec("run", HArgs()).clear();
 		IndentRem;
 	}
 	else
 		throw HError(HError::RT_NOTICE, "No Main Function Found");
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Finished" << ColorClear;
-	return new HVoid;
+	return QSharedPointer<HObject>(new HVoid);
 }
 
 HCodes::~HCodes()
@@ -66,10 +66,8 @@ QVector<std::tuple<QString, QStringList, QString>> HCodes::FindDomain(QString wh
 
 void HCodes::LoadToFunction(QString name, QStringList argsn, QString cmds)
 {
-	HFunction *f = new  HFunction(thisdef, argsn);
-	HObject * w = new HString(cmds);
-	delete f->fromString(HArgs({ w }));
+	QSharedPointer<HObject> f(new HFunction(thisdef, argsn));
+	f->exec("fromString", (HArgs({ QSharedPointer<HObject>(new HString(cmds)) }))).clear();
 	this->thisdef->importclass(name, f);
-	delete w;
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Loaded Domain [" << PURPLECOLOR << name << YELLOWCOLOR << "]" << ColorClear;
 }

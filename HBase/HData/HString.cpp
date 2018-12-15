@@ -26,27 +26,27 @@ QString& HString::toQString()
 	return *data;
 }
 
-HObject* HString::set(HArgs args)
+QSharedPointer<HObject> HString::set(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	*data = HObjectHelper(args[0]).to<HString>()->toQString();
-	return new HInt(data->length());
+	return QSharedPointer<HObject>(new HInt(data->length()));
 }
 
-HObject* HString::at(HArgs args)
+QSharedPointer<HObject> HString::at(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HInt);
-	return new HString(data->at(*HObjectHelper(args[0]).to<HInt>()));
+	return QSharedPointer<HObject>(new HString(data->at(*HObjectHelper(args[0]).to<HInt>())));
 }
 
-HObject* HString::append(HArgs args)
+QSharedPointer<HObject> HString::append(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	data->append((QString)*HObjectHelper(args[0]).to<HString>());
-	return new HVoid;
+	return QSharedPointer<HObject>(new HVoid);
 }
 
 HString::operator std::string()

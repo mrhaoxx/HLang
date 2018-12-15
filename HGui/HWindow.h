@@ -10,10 +10,10 @@ class HWindow : public QWidget, public HObject
 public:
 	HWindow(QWidget *parent = Q_NULLPTR);
 	~HWindow();
-	HObject* hshow(HArgs args);
-	HObject* hhide(HArgs args);
-	HObject* hadd(HArgs args);
-	HObject* hsetTitle(HArgs args);
+	QSharedPointer<HObject> hshow(HArgs args);
+	QSharedPointer<HObject> hhide(HArgs args);
+	QSharedPointer<HObject> hadd(HArgs args);
+	QSharedPointer<HObject> hsetTitle(HArgs args);
 private:
 	Ui::HWindow ui;
 };

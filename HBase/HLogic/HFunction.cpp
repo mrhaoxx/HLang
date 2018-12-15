@@ -85,7 +85,7 @@ void HFunction::runcode(HCommand cmd)
 	HArgs waitdelete;
 	if (thisdef == nullptr) {
 		thisdef = new HLang(upperdef);
-		thisdef->importclass("builtin", new HBuiltin(thisdef));
+		thisdef->importclass("builtin", QSharedPointer<HObject>(new HBuiltin(thisdef)));
 	}
 	try {
 		HArgs args;
@@ -93,50 +93,40 @@ void HFunction::runcode(HCommand cmd)
 			if (cmd._args[x].contains("\u0002"))
 				for (int y = 0; y < cmd._argstrs.length(); y++)
 					if (cmd._args[x].contains("\u0002" + QString(y))) {
-						HObject* handle = new HString(cmd._argstrs[y]);
-						args.insert(x, handle);
-						waitdelete.append(handle);
+						args.insert(x, QSharedPointer<HObject>(new HString(cmd._argstrs[y])));
 					}
 					else;
 			else {
 				bool isit = false;
 				int  toit = cmd._args[x].toInt(&isit);
 				if (isit) {
-					HObject* h = new HInt(toit);
-					args.insert(x, h);
-					waitdelete.append(h);
+					args.insert(x, QSharedPointer<HObject>(new HInt(toit)));
 				}
 				else
 					if (cmd._args[x] == "true") {
-						HObject* h = new HBool(true);
-						args.insert(x, h);
-						waitdelete.append(h);
+						args.insert(x, QSharedPointer<HObject>(new HBool(true)));
 					}
 					else if (cmd._args[x] == "false") {
-						HObject* h = new HBool(false);
-						args.insert(x, h);
-						waitdelete.append(h);
+						args.insert(x, QSharedPointer<HObject>(new HBool(false)));
 					}
 					else if (cmd._args[x].isEmpty()) {
-						HObject* h = new HVoid;
-						args.insert(x, h);
-						waitdelete.append(h);
+						args.insert(x, QSharedPointer<HObject>(new HVoid));
 					}
 					else
 					{
-						HObject *arg = thisdef->accessclass(cmd._args[x]);
-						if (arg == nullptr)
+						QSharedPointer<HObject> arg = thisdef->accessclass(cmd._args[x]);
+						if (arg.isNull())
 							throw HError(HError::RT_ERROR, "Args Class Not Find");
 						else
 							args.insert(x, arg);
 					}
 			}
-		HObject* aceobj = thisdef->accessclass(cmd._class);
-		if (aceobj != nullptr)
+		QSharedPointer<HObject> aceobj = thisdef->accessclass(cmd._class);
+		if (!aceobj.isNull())
 			if (!cmd._backvalue_name.isEmpty())
 				thisdef->importclass(cmd._backvalue_name, aceobj->exec(cmd._func, args));
 			else
-				delete aceobj->exec(cmd._func, args);
+				aceobj->exec(cmd._func, args).clear();
 		else
 			throw HError(HError::RT_ERROR, "Object Class Not Found");
 	}
@@ -144,8 +134,6 @@ void HFunction::runcode(HCommand cmd)
 	{
 		CoutMsg(e);
 	}
-	for (int i = 0; i < waitdelete.length(); i++)
-		delete waitdelete[i];
 }
 
 void HFunction::resetdef()
@@ -166,20 +154,20 @@ HFunction::HFunction(HLang *upperdef, QStringList argsname)
 	MDebug("Constructed");
 }
 
-HObject* HFunction::fromString(HArgs args)
+QSharedPointer<HObject> HFunction::fromString(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	this->commands = SplitCommands(*HObjectHelper(args[0]).to<HString>());
-	return new HVoid;
+	return QSharedPointer<HObject>(new HVoid);
 }
 
-HObject* HFunction::run(HArgs args)
+QSharedPointer<HObject> HFunction::run(HArgs args)
 {
 	CheckArgs(argnames.length());
 	if (thisdef == nullptr) {
 		thisdef = new HLang(upperdef);
-		thisdef->importclass("builtin", new HBuiltin(thisdef));
+		thisdef->importclass("builtin", QSharedPointer<HObject>(new HBuiltin(thisdef)));
 	}
 	for (int i = 0; i < argnames.length(); i++)
 		thisdef->importclass(argnames[i], args[i]);
@@ -193,7 +181,7 @@ HObject* HFunction::run(HArgs args)
 			runcode(ResolveCommand(commands[i]));
 		else
 		{
-			HObject* o = thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
+			QSharedPointer<HObject> o = thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
 			thisdef->IgnClass((c._args.length() > 0) ? c._args[0] : "");
 			IndentRem;
 			return o;
@@ -204,5 +192,5 @@ HObject* HFunction::run(HArgs args)
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Cleaning" << ColorClear;
 	this->resetdef();
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Finished" << ColorClear;
-	return new HVoid;
+	return QSharedPointer<HObject>(new HVoid);
 }

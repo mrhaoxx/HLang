@@ -25,8 +25,8 @@ class HFunction :
 	void resetdef();
 public:
 	HFunction(HLang *upperdef = nullptr, QStringList argsname = QStringList());
-	HObject* fromString(HArgs args);
-	HObject* run(HArgs args);
+	QSharedPointer<HObject> fromString(HArgs args);
+	QSharedPointer<HObject> run(HArgs args);
 	static void CoutMsg(HError &e);
 	~HFunction();
 };

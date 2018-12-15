@@ -8,10 +8,10 @@ class HIf :
 	H_OBJECT(HIf);
 public:
 	HIf();
-	HObject* which(HArgs args);
-	HObject* htrue(HArgs args);
-	HObject* hfalse(HArgs args);
-	HObject* hexec(HArgs args);
+	QSharedPointer<HObject> which(HArgs args);
+	QSharedPointer<HObject> htrue(HArgs args);
+	QSharedPointer<HObject> hfalse(HArgs args);
+	QSharedPointer<HObject> hexec(HArgs args);
 
 private:
 	HFunction* iftrue;

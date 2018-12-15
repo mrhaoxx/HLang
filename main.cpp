@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 	HLang* HMain = new HLang(nullptr);
-	HMain->importclass("builtin", new HBuiltin(HMain));
+	HMain->importclass("builtin", QSharedPointer<HObject>(new HBuiltin(HMain)));
 	if (argc == 2) {
 		qDebug() << "The Model isn't ready";
 		return 0;
@@ -27,10 +27,10 @@ int main(int argc, char *argv[])
 			}
 			try {
 				HCodes m(HMain);
-				HObject* s = new HString(a);
-				delete m.fromString(HArgs({ s }));
-				delete s;
-				delete m.run(HArgs());
+				QSharedPointer<HObject> s(new HString(a));
+				m.fromString(HArgs({ s })).clear();
+				s.clear();
+				m.run(HArgs());
 			}
 			catch (HError &e) {
 				HFunction::CoutMsg(e);

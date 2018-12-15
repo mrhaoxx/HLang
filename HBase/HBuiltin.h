@@ -19,17 +19,17 @@ class HBuiltin :
 	H_OBJECT(HBuiltin)
 public:
 	HBuiltin(HLang* def);
-	HObject* newclass(HArgs args);
-	HObject* deleteclass(HArgs args);
-	HObject* sleep(HArgs args);
-	HObject* system(HArgs args);
-	HObject* msg(HArgs args);
-	HObject* cout(HArgs args);
-	HObject* termimate(HArgs args);
-	HObject* keepexec(HArgs args);
-	HObject* quit(HArgs args);
-	HObject* ret(HArgs args);
-	HObject* setdebug(HArgs args);
+	QSharedPointer<HObject> newclass(HArgs args);
+	QSharedPointer<HObject> deleteclass(HArgs args);
+	QSharedPointer<HObject> sleep(HArgs args);
+	QSharedPointer<HObject> system(HArgs args);
+	QSharedPointer<HObject> msg(HArgs args);
+	QSharedPointer<HObject> cout(HArgs args);
+	QSharedPointer<HObject> termimate(HArgs args);
+	QSharedPointer<HObject> keepexec(HArgs args);
+	QSharedPointer<HObject> quit(HArgs args);
+	QSharedPointer<HObject> ret(HArgs args);
+	QSharedPointer<HObject> setdebug(HArgs args);
 	void setDef(HLang* def);
 	HLang* HDef;
 };

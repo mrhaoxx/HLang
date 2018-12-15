@@ -238,3 +238,7 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+/Makefile
+/Makefile.Release
+/Makefile.Debug
+/HLang.pro.user.4.8-pre1
