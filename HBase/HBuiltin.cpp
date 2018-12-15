@@ -2,6 +2,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include "HData/HVector.h"
+#include "HLogic/HWhile.h"
 HBuiltin::HBuiltin(HLang *def)
 {
 	DefineMemberFunction(HBuiltin, "new", &HBuiltin::newclass);
@@ -60,7 +61,9 @@ QSharedPointer<HObject> HBuiltin::newclass(HArgs args)
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "codes")
 		return QSharedPointer<HObject>(new HCodes(HDef));
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "vector")
-		return QSharedPointer<HObject>(new HVector<HVoid>);
+		return QSharedPointer<HObject>(new HVector);
+	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "while")
+		return QSharedPointer<HObject>(new HWhile);
 	throw HError(HError::RT_ERROR, WhyBuiltinNewFailed);
 }
 QSharedPointer<HObject> HBuiltin::deleteclass(HArgs args)

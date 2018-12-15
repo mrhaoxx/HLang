@@ -5,3 +5,4 @@
 #include "HData/HVoid.h"
 class HFunction;
 class HIf;
+class HWhile;

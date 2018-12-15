@@ -195,6 +195,7 @@
     <ClCompile Include="HBase\HData\HFile.cpp" />
     <ClCompile Include="HBase\HData\HInt.cpp" />
     <ClCompile Include="HBase\HData\HString.cpp" />
+    <ClCompile Include="HBase\HData\HVector.cpp" />
     <ClCompile Include="HBase\HData\HVoid.cpp" />
     <ClCompile Include="HBase\HLang.cpp" />
     <ClCompile Include="HBase\HLogic\HCodes.cpp" />
