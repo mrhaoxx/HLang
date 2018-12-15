@@ -45,7 +45,7 @@ QSharedPointer<HObject> HString::append(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
-	data->append((QString)*HObjectHelper(args[0]).to<HString>());
+	data->append(HObjectHelper(args[0]).to<HString>()->toQString());
 	return QSharedPointer<HObject>(new HVoid);
 }
 
