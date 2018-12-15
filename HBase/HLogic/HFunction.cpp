@@ -181,10 +181,8 @@ QSharedPointer<HObject> HFunction::run(HArgs args)
 			runcode(ResolveCommand(commands[i]));
 		else
 		{
-			QSharedPointer<HObject> o = thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
-			thisdef->IgnClass((c._args.length() > 0) ? c._args[0] : "");
 			IndentRem;
-			return o;
+			return thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
 		}
 		IndentRem;
 		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "DONE" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
@@ -192,5 +190,14 @@ QSharedPointer<HObject> HFunction::run(HArgs args)
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Cleaning" << ColorClear;
 	this->resetdef();
 	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Finished" << ColorClear;
+	return QSharedPointer<HObject>(new HVoid);
+}
+
+QSharedPointer<HObject> HFunction::copy(HArgs args)
+{
+	CheckArgs(1);
+	CheckArgsType(0, HFunction);
+	this->argnames = (HObjectHelper(args[0]).to<HFunction>()->argnames);
+	this->commands = (HObjectHelper(args[0]).to<HFunction>()->commands);
 	return QSharedPointer<HObject>(new HVoid);
 }

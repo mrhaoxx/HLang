@@ -200,6 +200,7 @@
     <ClCompile Include="HBase\HLogic\HCodes.cpp" />
     <ClCompile Include="HBase\HLogic\HFunction.cpp" />
     <ClCompile Include="HBase\HLogic\HIf.cpp" />
+    <ClCompile Include="HBase\HLogic\HWhile.cpp" />
     <ClCompile Include="HBase\HNetwork\HTcpSocket.cpp" />
     <ClCompile Include="HGui\HPushButton.cpp" />
     <ClCompile Include="HGui\HWindow.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="HBase\HLogic\HCodes.h" />
     <ClInclude Include="HBase\HLogic\HFunction.h" />
     <ClInclude Include="HBase\HLogic\HIf.h" />
+    <ClInclude Include="HBase\HLogic\HWhile.h" />
     <ClInclude Include="HBase\HNetwork\HTcpSocket.h" />
     <ClInclude Include="HBase\HObject.h" />
     <QtMoc Include="HGui\HWindow.h" />

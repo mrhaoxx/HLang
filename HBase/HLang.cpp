@@ -60,9 +60,3 @@ void HLang::deleteclass(QString __name)
 		return;
 	}
 }
-
-void HLang::IgnClass(QString __name)
-{
-	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << REDCOLOR << "Ignoring" << ColorClear << "[" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
-	classes.remove(__name);
-}

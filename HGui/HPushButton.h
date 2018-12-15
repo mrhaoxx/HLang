@@ -15,5 +15,5 @@ public:
 	QSharedPointer<HObject> hdisconnect(HArgs args);
 	QSharedPointer<HObject> hsetText(HArgs args);
 private:
-	HFunction *whenClicked = nullptr;
+	QSharedPointer<HFunction> whenClicked = nullptr;
 };

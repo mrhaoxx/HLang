@@ -15,7 +15,6 @@ public:
 	bool importclass(QString __name, QSharedPointer<HObject> __class);
 	QSharedPointer<HObject> accessclass(QString __name);
 	void deleteclass(QString __name);
-	void IgnClass(QString __name);
 	int tmpused = 0;
 private:
 	HLang *higherlevel;

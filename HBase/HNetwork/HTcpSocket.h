@@ -19,6 +19,6 @@ public:
 	QSharedPointer<HObject> hreadAll(HArgs args);
 	QSharedPointer<HObject> hreadLine(HArgs args);
 private:
-	HFunction* whenReadyRead = nullptr;
-	HFunction* whenConnected = nullptr;
+	QSharedPointer<HFunction> whenReadyRead = nullptr;
+	QSharedPointer<HFunction> whenConnected = nullptr;
 };

@@ -31,6 +31,5 @@ public:
 	QSharedPointer<HObject> ret(HArgs args);
 	QSharedPointer<HObject> setdebug(HArgs args);
 	QSharedPointer<HObject> aboutQt(HArgs args);
-	void setDef(HLang* def);
 	HLang* HDef;
 };

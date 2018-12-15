@@ -74,6 +74,9 @@
       <Filter>HBase\HData</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="HBase\HLogic\HWhile.cpp">
+      <Filter>HBase\HLogic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -125,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="HBase\HData\HVector.h">
       <Filter>HBase\HData</Filter>
+    </ClInclude>
+    <ClInclude Include="HBase\HLogic\HWhile.h">
+      <Filter>HBase\HLogic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -77,9 +77,9 @@ public:
 		this->obj = obj;
 	}
 	template<typename _Target>
-	_Target* to()
+	QSharedPointer<_Target> to()
 	{
-		return dynamic_cast<_Target*>(obj.get());
+		return obj.dynamicCast<_Target>();
 	}
 private:
 	QSharedPointer<HObject> obj;

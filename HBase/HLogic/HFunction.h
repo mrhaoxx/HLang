@@ -17,16 +17,17 @@ class HFunction :
 	H_OBJECT(HFunction);
 	HLang *upperdef = nullptr;
 	HLang *thisdef = nullptr;
-	QStringList commands;
-	QStringList argnames;
 	QStringList SplitCommands(QString cmds);
 	HCommand ResolveCommand(QString cmd);
 	void runcode(HCommand cmd);
+	QStringList commands;
+	QStringList argnames;
 	void resetdef();
 public:
 	HFunction(HLang *upperdef = nullptr, QStringList argsname = QStringList());
 	QSharedPointer<HObject> fromString(HArgs args);
 	QSharedPointer<HObject> run(HArgs args);
+	QSharedPointer<HObject> copy(HArgs args);
 	static void CoutMsg(HError &e);
 	~HFunction();
 };

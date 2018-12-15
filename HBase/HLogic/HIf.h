@@ -14,7 +14,7 @@ public:
 	QSharedPointer<HObject> hexec(HArgs args);
 
 private:
-	HFunction* iftrue;
-	HFunction* iffalse;
-	HBool* ifwhich;
+	QSharedPointer<HFunction> iftrue;
+	QSharedPointer<HFunction> iffalse;
+	QSharedPointer<HBool> ifwhich;
 };

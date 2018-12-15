@@ -152,8 +152,3 @@ QSharedPointer<HObject> HBuiltin::quit(HArgs args)
 	QApplication::quit();
 	return QSharedPointer<HObject>(new HVoid);
 }
-
-void HBuiltin::setDef(HLang* def)
-{
-	HDef = def;
-}
