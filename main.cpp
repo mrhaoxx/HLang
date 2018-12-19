@@ -2,6 +2,7 @@
 #include "HBuiltin.h"
 #include <iostream>
 #include <QDebug>
+#error Change Codeblocks to Class
 bool *iscolorful = new bool(true);
 bool *isdebug = new bool(true);
 bool *moremsg = new bool(false);
