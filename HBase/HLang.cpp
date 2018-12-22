@@ -1,9 +1,8 @@
 #include "HLang.h"
 #include <iostream>
-HLang::HLang(HLang* hl, HWeakPointer ptrths)
+HLang::HLang(HLang* hl)
 {
 	this->higherlevel = hl;
-	this->ptrthis = ptrths;
 }
 
 HLang::~HLang()
@@ -37,17 +36,18 @@ bool HLang::importclass(QString __name, HPointer __class)
 	classes.insert(__name, __class);
 	return true;
 }
-HPointer HLang::accessclass(QString __name)
+HWeakPointer HLang::accessclass(QString __name)
 {
-	if (__name == "this" && ptrthis)
-		return ptrthis.toStrongRef();
 	if (classes.contains(__name)) {
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Accessing [" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
-		return classes[__name];
+		if (classes[__name])
+			return classes[__name];
+		else
+			classes.remove(__name);
 	}
 	if (higherlevel == nullptr) {
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << REDCOLOR << "AccessingNotFound [" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
-		return HPointer(nullptr);
+		return HWeakPointer(nullptr);
 	}
 	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "AccessingRedirect[" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]->" << higherlevel;
 	return higherlevel->accessclass(__name);

@@ -40,6 +40,7 @@ HCommand HFunction::ResolveCommand(QString cmd)
 	QStringList t = f.split(")");
 	t.removeLast();
 	f = t.join(")");
+	c._pure_args = f;
 	f = f.replace("\\\"", "\u0001");
 	if (f.contains("\"")) {
 		t = f.split("\"");
@@ -59,7 +60,7 @@ HCommand HFunction::ResolveCommand(QString cmd)
 	return c;
 };
 
-void HFunction::CoutMsg(HError &e)
+void HFunction::CoutMsg(HError &e, QString c)
 {
 	QString LMSG;
 	switch (e.getELevel())
@@ -77,12 +78,12 @@ void HFunction::CoutMsg(HError &e)
 		LMSG = QString(REDCOLOR) + "ERROR" + QString(ColorClear);
 		break;
 	}
-	RT_DEBUG << QString("[" + LMSG + "]").toStdString().c_str() << BWCOLOR << e.getWhy() << ColorClear;
+	RT_DEBUG << (c + QString("[" + LMSG + "]") + BWCOLOR + e.getWhy() + ColorClear).toStdString().c_str();
 }
 
 void HFunction::runcode(HCommand cmd)
 {
-	HArgs waitdelete;
+	QString out = ((cmd._backvalue_name != "") ? (cmd._backvalue_name + "=") : QString("")) + (cmd._class + "->" + cmd._func) + ("(" + cmd._pure_args + ")");
 	if (thisdef == nullptr) {
 		thisdef = new HLang(upperdef);
 		thisdef->importclass("builtin", HPointer(new HBuiltin(thisdef)));
@@ -122,17 +123,19 @@ void HFunction::runcode(HCommand cmd)
 					}
 			}
 		HPointer aceobj = thisdef->accessclass(cmd._class);
-		if (!aceobj.isNull())
+		if (!aceobj.isNull()) {
 			if (!cmd._backvalue_name.isEmpty())
 				thisdef->importclass(cmd._backvalue_name, aceobj->exec(cmd._func, args));
 			else
 				aceobj->exec(cmd._func, args).clear();
+		}
 		else
 			throw HError(HError::RT_ERROR, "Object Class Not Found");
+		RT_DEBUG << (out + "[OK]").toStdString().c_str();
 	}
 	catch (HError& e)
 	{
-		CoutMsg(e);
+		CoutMsg(e, out);
 	}
 }
 
@@ -175,7 +178,6 @@ HPointer HFunction::run(HArgs args)
 	for (int i = 0; i < commands.length(); i++)
 	{
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "START" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
-		QString t = commands[i];
 		HCommand c = ResolveCommand(commands[i]);
 		IndentAdd;
 		if (c._func != "return")
@@ -186,8 +188,6 @@ HPointer HFunction::run(HArgs args)
 			return thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
 		}
 		IndentRem;
-		t += " [OK]";
-		RT_DEBUG << t.toStdString().c_str();
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "DONE" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
 	}
 	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Cleaning" << ColorClear;

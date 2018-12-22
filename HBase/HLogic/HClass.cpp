@@ -17,7 +17,7 @@ HPointer HClass::fromString(HArgs args)
 	QString w = (*HObjectHelper(args[0]).to<HString>());
 	QVector<std::tuple<QString, QStringList, QString>> l = FindDomain(w);
 	if (l.length() == 0)
-		throw HError(HError::RT_WARNING, "No Class Found");
+		throw HError(HError::RT_WARNING, "No Function Found");
 	RT_DEBUG << YELLOWCOLOR << "Functions:" << ColorClear;
 	for (int i = 0; i < l.length(); i++)
 		LoadToFunction(std::get<0>(l[i]), std::get<1>(l[i]), std::get<2>(l[i]));
@@ -33,7 +33,7 @@ HPointer HClass::run(HArgs args)
 	if (thisdef->accessclass(HObjectHelper(args[0]).to<HString>()->toQString()) != nullptr) {
 		RT_DEBUG << "{";
 		IndentAdd;
-		thisdef->accessclass(HObjectHelper(args[0]).to<HString>()->toQString())->exec("run", HArgs()).clear();
+		thisdef->accessclass(HObjectHelper(args[0]).to<HString>()->toQString()).toStrongRef()->exec("run", HArgs()).clear();
 		IndentRem;
 		RT_DEBUG << "}";
 	}

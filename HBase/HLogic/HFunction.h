@@ -10,6 +10,7 @@ struct HCommand {
 	QStringList _args;
 	QStringList _argstrs;
 	QString _backvalue_name;
+	QString _pure_args;
 };
 class HClass;
 class HFunction :
@@ -30,6 +31,6 @@ public:
 	HPointer fromString(HArgs args);
 	HPointer run(HArgs args);
 	HPointer copy(HArgs args);
-	static void CoutMsg(HError &e);
+	static void CoutMsg(HError &e, QString c = "");
 	~HFunction();
 };
