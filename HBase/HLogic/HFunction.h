@@ -31,6 +31,6 @@ public:
 	HPointer fromString(HArgs args);
 	HPointer run(HArgs args);
 	HPointer copy(HArgs args);
-	static void CoutMsg(HError &e, QString c = "");
+	static void CoutMsg(HError &e);
 	~HFunction();
 };

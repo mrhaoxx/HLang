@@ -28,6 +28,7 @@ extern bool *moremsg;
 extern QString *indent;
 #define IndentAdd indent->append("    ");
 #define IndentRem indent->chop(4);
+#define QCout QTextStream(stdout) << NOCOLOR << indent->toStdString().c_str()
 #define RT_DEBUG qDebug() << NOCOLOR << indent->toStdString().c_str()
 #define IS_DEBUG if(*isdebug)qDebug() << indent->toStdString().c_str() << SystemColor <<"[System]" << ColorClear
 #ifdef WIN32

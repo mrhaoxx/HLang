@@ -1,6 +1,5 @@
 #include "HBuiltin.h"
 #include <QMessageBox>
-#include <iostream>
 #include "HData/HVector.h"
 #include "HLogic/HWhile.h"
 HBuiltin::HBuiltin(HLang *def)

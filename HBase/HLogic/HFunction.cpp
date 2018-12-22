@@ -60,7 +60,7 @@ HCommand HFunction::ResolveCommand(QString cmd)
 	return c;
 };
 
-void HFunction::CoutMsg(HError &e, QString c)
+void HFunction::CoutMsg(HError &e)
 {
 	QString LMSG;
 	switch (e.getELevel())
@@ -78,12 +78,12 @@ void HFunction::CoutMsg(HError &e, QString c)
 		LMSG = QString(REDCOLOR) + "ERROR" + QString(ColorClear);
 		break;
 	}
-	RT_DEBUG << (c + QString("[" + LMSG + "]") + BWCOLOR + e.getWhy() + ColorClear).toStdString().c_str();
+	RT_DEBUG << (QString("\b\b\b\b\b\b\b[" + LMSG + "]") + BWCOLOR + e.getWhy() + ColorClear).toStdString().c_str();
 }
 
 void HFunction::runcode(HCommand cmd)
 {
-	QString out = ((cmd._backvalue_name != "") ? (cmd._backvalue_name + "=") : QString("")) + (cmd._class + "->" + cmd._func) + ("(" + cmd._pure_args + ")");
+	QCout << ((cmd._backvalue_name != "") ? (cmd._backvalue_name + "=") : QString("")) + (cmd._class + "->" + cmd._func) + ("(" + cmd._pure_args + ")") << "[EXEC] ";
 	if (thisdef == nullptr) {
 		thisdef = new HLang(upperdef);
 		thisdef->importclass("builtin", HPointer(new HBuiltin(thisdef)));
@@ -131,11 +131,11 @@ void HFunction::runcode(HCommand cmd)
 		}
 		else
 			throw HError(HError::RT_ERROR, "Object Class Not Found");
-		RT_DEBUG << (out + "[OK]").toStdString().c_str();
+		QTextStream(stdout) << "\b\b\b\b\b\b\b[OK]  \n";
 	}
 	catch (HError& e)
 	{
-		CoutMsg(e, out);
+		CoutMsg(e);
 	}
 }
 
@@ -179,15 +179,12 @@ HPointer HFunction::run(HArgs args)
 	{
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "START" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
 		HCommand c = ResolveCommand(commands[i]);
-		IndentAdd;
 		if (c._func != "return")
 			runcode(ResolveCommand(commands[i]));
 		else
 		{
-			IndentRem;
 			return thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
 		}
-		IndentRem;
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "DONE" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
 	}
 	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Cleaning" << ColorClear;
