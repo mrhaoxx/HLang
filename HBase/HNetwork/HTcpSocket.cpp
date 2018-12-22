@@ -18,38 +18,38 @@ HTcpSocket::HTcpSocket()
 	MDebug("Constructed");
 }
 
-QSharedPointer<HObject> HTcpSocket::hconnect(HArgs args)
+HPointer HTcpSocket::hconnect(HArgs args)
 {
 	CheckArgs(2);
 	CheckArgsType(0, HString);
 	CheckArgsType(1, HFunction);
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "connected") {
 		this->whenConnected = HObjectHelper(args[1]).to<HFunction>();
-		return QSharedPointer<HObject>(new HVoid);
+		return HPointer(new HVoid);
 	}
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "readyread") {
 		this->whenReadyRead = HObjectHelper(args[1]).to<HFunction>();
-		return QSharedPointer<HObject>(new HVoid);
+		return HPointer(new HVoid);
 	}
 	throw HError(HError::RT_ERROR, WhyConnectSlotError);
 }
 
-QSharedPointer<HObject> HTcpSocket::hdisconnect(HArgs args)
+HPointer HTcpSocket::hdisconnect(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "connected") {
 		this->whenConnected = nullptr;
-		return QSharedPointer<HObject>(new HVoid);
+		return HPointer(new HVoid);
 	}
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "readyread") {
 		this->whenReadyRead = nullptr;
-		return QSharedPointer<HObject>(new HVoid);
+		return HPointer(new HVoid);
 	}
 	throw HError(HError::RT_ERROR, WhyConnectSlotError);
 }
 
-QSharedPointer<HObject> HTcpSocket::hconnectToHost(HArgs args)
+HPointer HTcpSocket::hconnectToHost(HArgs args)
 {
 	CheckArgs(2);
 	CheckArgsType(0, HString);
@@ -61,25 +61,25 @@ QSharedPointer<HObject> HTcpSocket::hconnectToHost(HArgs args)
 	throw HError(HError::RT_WARNING, WhyConnectSlotError);
 }
 
-QSharedPointer<HObject> HTcpSocket::send(HArgs args)
+HPointer HTcpSocket::send(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	this->write(HObjectHelper(args[0]).to<HString>()->toQString().toLatin1());
 	this->flush();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HTcpSocket::hreadAll(HArgs args)
+HPointer HTcpSocket::hreadAll(HArgs args)
 {
 	CheckArgs(0);
-	return QSharedPointer<HObject>(new HString(this->readAll()));
+	return HPointer(new HString(this->readAll()));
 }
 
-QSharedPointer<HObject> HTcpSocket::hreadLine(HArgs args)
+HPointer HTcpSocket::hreadLine(HArgs args)
 {
 	CheckArgs(0);
-	return QSharedPointer<HObject>(new HString(this->readLine()));
+	return HPointer(new HString(this->readLine()));
 }
 HTcpSocket::~HTcpSocket()
 {

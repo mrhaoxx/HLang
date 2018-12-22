@@ -67,9 +67,6 @@
     <ClCompile Include="HBase\HData\HVoid.cpp">
       <Filter>HBase\HData</Filter>
     </ClCompile>
-    <ClCompile Include="HBase\HLogic\HCodes.cpp">
-      <Filter>HBase\HLogic</Filter>
-    </ClCompile>
     <ClCompile Include="HBase\HData\HFile.cpp">
       <Filter>HBase\HData</Filter>
     </ClCompile>
@@ -79,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="HBase\HData\HVector.cpp">
       <Filter>HBase\HData</Filter>
+    </ClCompile>
+    <ClCompile Include="HBase\HLogic\HClass.cpp">
+      <Filter>HBase\HLogic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +123,6 @@
     <ClInclude Include="HBase\HData\HVoid.h">
       <Filter>HBase\HData</Filter>
     </ClInclude>
-    <ClInclude Include="HBase\HLogic\HCodes.h">
-      <Filter>HBase\HLogic</Filter>
-    </ClInclude>
     <ClInclude Include="HBase\HData\HFile.h">
       <Filter>HBase\HData</Filter>
     </ClInclude>
@@ -133,6 +130,9 @@
       <Filter>HBase\HData</Filter>
     </ClInclude>
     <ClInclude Include="HBase\HLogic\HWhile.h">
+      <Filter>HBase\HLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="HBase\HLogic\HClass.h">
       <Filter>HBase\HLogic</Filter>
     </ClInclude>
   </ItemGroup>

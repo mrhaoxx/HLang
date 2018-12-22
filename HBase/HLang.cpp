@@ -1,13 +1,14 @@
 #include "HLang.h"
 #include <iostream>
-HLang::HLang(HLang* hl)
+HLang::HLang(HLang* hl, HWeakPointer ptrths)
 {
 	this->higherlevel = hl;
+	this->ptrthis = ptrths;
 }
 
 HLang::~HLang()
 {
-	QMapIterator<QString, QSharedPointer<HObject>> i(classes);
+	QMapIterator<QString, HPointer> i(classes);
 	QStringList namelist;
 	IS_DEBUG << REDCOLOR << "Destruction domain" << ColorClear << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<< {";
 	IndentAdd;
@@ -24,7 +25,7 @@ HLang::~HLang()
 	IS_DEBUG << "}" << BULECOLOR << "[OK]" << ColorClear;
 }
 
-bool HLang::importclass(QString __name, QSharedPointer<HObject> __class)
+bool HLang::importclass(QString __name, HPointer __class)
 {
 	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<< " << YELLOWCOLOR << "Importing[" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
 	if (classes.contains(__name))
@@ -36,15 +37,17 @@ bool HLang::importclass(QString __name, QSharedPointer<HObject> __class)
 	classes.insert(__name, __class);
 	return true;
 }
-QSharedPointer<HObject> HLang::accessclass(QString __name)
+HPointer HLang::accessclass(QString __name)
 {
+	if (__name == "this" && ptrthis)
+		return ptrthis.toStrongRef();
 	if (classes.contains(__name)) {
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Accessing [" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
 		return classes[__name];
 	}
 	if (higherlevel == nullptr) {
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << REDCOLOR << "AccessingNotFound [" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]";
-		return QSharedPointer<HObject>(nullptr);
+		return HPointer(nullptr);
 	}
 	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "AccessingRedirect[" << PURPLECOLOR << __name.toStdString().c_str() << ColorClear << "]->" << higherlevel;
 	return higherlevel->accessclass(__name);
@@ -59,4 +62,9 @@ void HLang::deleteclass(QString __name)
 		classes.remove(__name);
 		return;
 	}
+}
+
+QMap<QString, HPointer>* HLang::dr()
+{
+	return &classes;
 }

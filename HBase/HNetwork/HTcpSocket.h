@@ -12,12 +12,12 @@ class HTcpSocket :
 public:
 	HTcpSocket();
 	~HTcpSocket();
-	QSharedPointer<HObject> hconnect(HArgs args);
-	QSharedPointer<HObject> hdisconnect(HArgs args);
-	QSharedPointer<HObject> hconnectToHost(HArgs args);
-	QSharedPointer<HObject> send(HArgs args);
-	QSharedPointer<HObject> hreadAll(HArgs args);
-	QSharedPointer<HObject> hreadLine(HArgs args);
+	HPointer hconnect(HArgs args);
+	HPointer hdisconnect(HArgs args);
+	HPointer hconnectToHost(HArgs args);
+	HPointer send(HArgs args);
+	HPointer hreadAll(HArgs args);
+	HPointer hreadLine(HArgs args);
 private:
 	QSharedPointer<HFunction> whenReadyRead = nullptr;
 	QSharedPointer<HFunction> whenConnected = nullptr;

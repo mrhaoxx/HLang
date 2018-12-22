@@ -10,7 +10,7 @@
 #include "HData/HVoid.h"
 #include "HLogic/HFunction.h"
 #include "HLogic/HIf.h"
-#include "HLogic/HCodes.h"
+#include "HLogic/HClass.h"
 #include "HNetwork/HTcpSocket.h"
 #include <QThread>
 class HBuiltin :
@@ -19,17 +19,17 @@ class HBuiltin :
 	H_OBJECT(HBuiltin)
 public:
 	HBuiltin(HLang* def);
-	QSharedPointer<HObject> newclass(HArgs args);
-	QSharedPointer<HObject> deleteclass(HArgs args);
-	QSharedPointer<HObject> sleep(HArgs args);
-	QSharedPointer<HObject> system(HArgs args);
-	QSharedPointer<HObject> msg(HArgs args);
-	QSharedPointer<HObject> cout(HArgs args);
-	QSharedPointer<HObject> termimate(HArgs args);
-	QSharedPointer<HObject> keepexec(HArgs args);
-	QSharedPointer<HObject> quit(HArgs args);
-	QSharedPointer<HObject> ret(HArgs args);
-	QSharedPointer<HObject> setdebug(HArgs args);
-	QSharedPointer<HObject> aboutQt(HArgs args);
+	HPointer newclass(HArgs args);
+	HPointer deleteclass(HArgs args);
+	HPointer sleep(HArgs args);
+	HPointer system(HArgs args);
+	HPointer msg(HArgs args);
+	HPointer cout(HArgs args);
+	HPointer termimate(HArgs args);
+	HPointer keepexec(HArgs args);
+	HPointer quit(HArgs args);
+	HPointer ret(HArgs args);
+	HPointer setdebug(HArgs args);
+	HPointer aboutQt(HArgs args);
 	HLang* HDef;
 };

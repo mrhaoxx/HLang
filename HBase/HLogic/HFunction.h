@@ -11,23 +11,25 @@ struct HCommand {
 	QStringList _argstrs;
 	QString _backvalue_name;
 };
+class HClass;
 class HFunction :
 	public HObject
 {
+	friend HClass;
 	H_OBJECT(HFunction);
 	HLang *upperdef = nullptr;
 	HLang *thisdef = nullptr;
-	QStringList SplitCommands(QString cmds);
-	HCommand ResolveCommand(QString cmd);
+	static QStringList SplitCommands(QString cmds);
+	static HCommand ResolveCommand(QString cmd);
 	void runcode(HCommand cmd);
 	QStringList commands;
 	QStringList argnames;
 	void resetdef();
 public:
 	HFunction(HLang *upperdef = nullptr, QStringList argsname = QStringList());
-	QSharedPointer<HObject> fromString(HArgs args);
-	QSharedPointer<HObject> run(HArgs args);
-	QSharedPointer<HObject> copy(HArgs args);
+	HPointer fromString(HArgs args);
+	HPointer run(HArgs args);
+	HPointer copy(HArgs args);
 	static void CoutMsg(HError &e);
 	~HFunction();
 };

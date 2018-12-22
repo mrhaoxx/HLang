@@ -6,18 +6,18 @@ HVector::HVector()
 {
 	DefineMemberFunction(HVector, "get", &HVector::get);
 	DefineMemberFunction(HVector, "append", &HVector::append);
-	data = new QVector<QSharedPointer<HObject>>;
+	data = new QVector<HPointer>;
 }
 
-inline QSharedPointer<HObject> HVector::append(HArgs args)
+inline HPointer HVector::append(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HObject);
 	this->data->append(args[0]);
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-inline QSharedPointer<HObject> HVector::get(HArgs args)
+inline HPointer HVector::get(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HInt);

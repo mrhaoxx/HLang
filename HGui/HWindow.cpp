@@ -17,32 +17,32 @@ HWindow::~HWindow()
 	MDebug("Destructed");
 }
 
-QSharedPointer<HObject> HWindow::hsetTitle(HArgs args)
+HPointer HWindow::hsetTitle(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	this->setWindowTitle(HObjectHelper(args[0]).to<HString>()->toQString());
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HWindow::hadd(HArgs args)
+HPointer HWindow::hadd(HArgs args)
 {
 	CheckArgs(1);
 	if (args[0]->QGuiClassHandle == nullptr)
 		throw HError(HError::RT_ERROR, WhyHWindowAddWeightFailed);
 	ui.main->addWidget(args[0]->QGuiClassHandle);
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HWindow::hshow(HArgs args)
+HPointer HWindow::hshow(HArgs args)
 {
 	CheckArgs(0);
 	this->show();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
-QSharedPointer<HObject> HWindow::hhide(HArgs args)
+HPointer HWindow::hhide(HArgs args)
 {
 	CheckArgs(0);
 	this->hide();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }

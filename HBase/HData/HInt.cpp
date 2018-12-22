@@ -30,48 +30,48 @@ HInt::operator int()
 	return int(*data);
 }
 
-QSharedPointer<HObject> HInt::setStr(HArgs args)
+HPointer HInt::setStr(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	int i = HObjectHelper(args[0]).to<HString>()->toQString().toInt();
 	*data = i;
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
-QSharedPointer<HObject> HInt::setInt(HArgs args)
+HPointer HInt::setInt(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HInt);
 	int i = *HObjectHelper(args[0]).to<HInt>();
 	*data = i;
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HInt::plus(HArgs args)
+HPointer HInt::plus(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HInt);
 	*data = *data + HObjectHelper(args[0]).to<HInt>()->value();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HInt::minus(HArgs args)
+HPointer HInt::minus(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HInt);
 	*data = *data - HObjectHelper(args[0]).to<HInt>()->value();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HInt::toString(HArgs args)
+HPointer HInt::toString(HArgs args)
 {
 	CheckArgs(0);
-	return QSharedPointer<HObject>(new HString(QString::number(*data)));
+	return HPointer(new HString(QString::number(*data)));
 }
 
-QSharedPointer<HObject> HInt::getAndplusplus(HArgs args)
+HPointer HInt::getAndplusplus(HArgs args)
 {
 	CheckArgs(0);
 	*data = *data + 1;
-	return QSharedPointer<HObject>(this);
+	return HPointer(this);
 }

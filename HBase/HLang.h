@@ -3,20 +3,18 @@
 #include <QWidget>
 #include <QString>
 #include <QVector>
-#include "HData/HBool.h"
-#include "HData/HInt.h"
-#include "HData/HString.h"
-#include <memory>
 class HLang
 {
 public:
-	HLang(HLang* hl);
+	HLang(HLang* hl, HWeakPointer ptrthis = HWeakPointer());
 	~HLang();
-	bool importclass(QString __name, QSharedPointer<HObject> __class);
-	QSharedPointer<HObject> accessclass(QString __name);
+	bool importclass(QString __name, HPointer __class);
+	HPointer accessclass(QString __name);
 	void deleteclass(QString __name);
 	int tmpused = 0;
+	QMap<QString, HPointer>* dr();
 private:
+	HWeakPointer ptrthis;
 	HLang *higherlevel;
-	QMap<QString, QSharedPointer<HObject>> classes;
+	QMap<QString, HPointer> classes;
 };

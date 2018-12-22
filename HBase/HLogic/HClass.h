@@ -2,18 +2,19 @@
 #include "HObject.h"
 #include "HFunction.h"
 #include <tuple>
-class HCodes :
+class HClass :
 	public HObject
 {
-	H_OBJECT(HCodes);
+	H_OBJECT(HClass);
 	HLang* upperdef = nullptr;
 	HLang* thisdef = nullptr;
 	QVector<std::tuple<QString, QStringList, QString>> FindDomain(QString whole);
 	void LoadToFunction(QString name, QStringList argsn, QString cmds);
 public:
-	HCodes(HLang *uf = nullptr);
-	QSharedPointer<HObject> fromString(HArgs args);
-	QSharedPointer<HObject> run(HArgs args);
-	QSharedPointer<HObject> getFunction(HArgs args);
-	~HCodes();
+	HClass(HLang *uf = nullptr);
+	HPointer fromString(HArgs args);
+	HPointer run(HArgs args);
+	HPointer getFunction(HArgs args);
+	HPointer addVar(HArgs args);
+	~HClass();
 };

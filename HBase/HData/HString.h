@@ -13,7 +13,7 @@ public:
 	HString(QString str = "");
 	~HString();
 	QString& toQString();
-	QSharedPointer<HObject> set(HArgs args);
-	QSharedPointer<HObject> at(HArgs args);
-	QSharedPointer<HObject> append(HArgs args);
+	HPointer set(HArgs args);
+	HPointer at(HArgs args);
+	HPointer append(HArgs args);
 };

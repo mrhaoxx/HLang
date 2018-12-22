@@ -7,15 +7,15 @@ HWhile::HWhile()
 	DefineMemberFunction(HWhile, "set", &HWhile::setcond);
 }
 
-QSharedPointer<HObject> HWhile::setcond(HArgs args)
+HPointer HWhile::setcond(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HBool);
 	data = HObjectHelper(args[0]).to<HBool>();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HWhile::run(HArgs args)
+HPointer HWhile::run(HArgs args)
 {
 	if (data.isNull())
 		throw HError(HError::RT_ERROR, "While Not Setup");
@@ -23,5 +23,5 @@ QSharedPointer<HObject> HWhile::run(HArgs args)
 	{
 		return this->HFunction::run(args);
 	}
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }

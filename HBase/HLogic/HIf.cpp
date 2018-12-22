@@ -7,31 +7,31 @@ HIf::HIf()
 	DefineMemberFunction(HIf, "setfalse", &HIf::hfalse);
 	DefineMemberFunction(HIf, "run", &HIf::hexec);
 }
-QSharedPointer<HObject> HIf::which(HArgs args)
+HPointer HIf::which(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HBool);
 	this->ifwhich = HObjectHelper(args[0]).to<HBool>();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HIf::htrue(HArgs args)
+HPointer HIf::htrue(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HFunction);
 	this->iftrue = HObjectHelper(args[0]).to<HFunction>();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HIf::hfalse(HArgs args)
+HPointer HIf::hfalse(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HFunction);
 	this->iffalse = HObjectHelper(args[0]).to<HFunction>();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HIf::hexec(HArgs args)
+HPointer HIf::hexec(HArgs args)
 {
 	CheckArgs(0);
 	if (iftrue == nullptr || iffalse == nullptr || ifwhich == nullptr)
@@ -40,5 +40,5 @@ QSharedPointer<HObject> HIf::hexec(HArgs args)
 		iftrue->run(args);
 	else
 		iffalse->run(args);
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }

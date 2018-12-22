@@ -19,7 +19,7 @@ HBuiltin::HBuiltin(HLang *def)
 	this->HDef = def;
 }
 
-QSharedPointer<HObject> HBuiltin::setdebug(HArgs args)
+HPointer HBuiltin::setdebug(HArgs args)
 {
 	CheckArgs(2);
 	CheckArgsType(0, HBool);
@@ -27,53 +27,53 @@ QSharedPointer<HObject> HBuiltin::setdebug(HArgs args)
 	IS_DEBUG << "Setting debug message:" << "Debug?" << HObjectHelper(args[0]).to<HBool>()->value() << "Colorful?" << HObjectHelper(args[1]).to<HBool>()->value();
 	*isdebug = HObjectHelper(args[0]).to<HBool>()->value();
 	*iscolorful = HObjectHelper(args[1]).to<HBool>()->value();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HBuiltin::aboutQt(HArgs args)
+HPointer HBuiltin::aboutQt(HArgs args)
 {
 	CheckArgs(0);
 	QApplication::aboutQt();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HBuiltin::newclass(HArgs args)
+HPointer HBuiltin::newclass(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	IS_DEBUG << "Building new class";
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "window")
-		return QSharedPointer<HObject>((HObject*)new HWindow);
+		return HPointer((HObject*)new HWindow);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "pushbutton")
-		return QSharedPointer<HObject>((HObject*)new HPushButton(nullptr));
+		return HPointer((HObject*)new HPushButton(nullptr));
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "function")
-		return QSharedPointer<HObject>(new HFunction(HDef));
+		return HPointer(new HFunction(HDef));
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "bool")
-		return QSharedPointer<HObject>(new HBool);
+		return HPointer(new HBool);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "int")
-		return QSharedPointer<HObject>(new HInt);
+		return HPointer(new HInt);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "string")
-		return QSharedPointer<HObject>(new HString);
+		return HPointer(new HString);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "if")
-		return QSharedPointer<HObject>(new HIf);
+		return HPointer(new HIf);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "tcpsocket")
-		return QSharedPointer<HObject>(new HTcpSocket);
-	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "codes")
-		return QSharedPointer<HObject>(new HCodes(HDef));
+		return HPointer(new HTcpSocket);
+	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "class")
+		return HPointer(new HClass(HDef));
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "vector")
-		return QSharedPointer<HObject>(new HVector);
+		return HPointer(new HVector);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "while")
-		return QSharedPointer<HObject>(new HWhile);
+		return HPointer(new HWhile);
 	throw HError(HError::RT_ERROR, WhyBuiltinNewFailed);
 }
-QSharedPointer<HObject> HBuiltin::deleteclass(HArgs args)
+HPointer HBuiltin::deleteclass(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	HDef->deleteclass(HObjectHelper(args[0]).to<HString>()->toQString());
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
-QSharedPointer<HObject> HBuiltin::sleep(HArgs args)
+HPointer HBuiltin::sleep(HArgs args)
 {
 	CheckArgs(1);
 	int usecs;
@@ -82,15 +82,15 @@ QSharedPointer<HObject> HBuiltin::sleep(HArgs args)
 	else
 		usecs = HObjectHelper(args[0]).to<HString>()->toQString().toInt();
 	QThread::usleep(usecs);
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
-QSharedPointer<HObject> HBuiltin::system(HArgs args)
+HPointer HBuiltin::system(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
-	return QSharedPointer<HObject>(new HInt(std::system(*HObjectHelper(args[0]).to<HString>())));
+	return HPointer(new HInt(std::system(*HObjectHelper(args[0]).to<HString>())));
 }
-QSharedPointer<HObject> HBuiltin::msg(HArgs args)
+HPointer HBuiltin::msg(HArgs args)
 {
 	CheckArgs(1);
 	bool iss = false;
@@ -111,9 +111,9 @@ QSharedPointer<HObject> HBuiltin::msg(HArgs args)
 	}
 	if (!iss)
 		throw HError(HError::RT_ERROR, WhyBuiltinMsgFailed);
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
-QSharedPointer<HObject> HBuiltin::cout(HArgs args) {
+HPointer HBuiltin::cout(HArgs args) {
 	CheckArgs(1);
 	bool iss = false;
 	if (HObjectHelper(args[0]).to<HInt>() != nullptr)
@@ -132,26 +132,26 @@ QSharedPointer<HObject> HBuiltin::cout(HArgs args) {
 	}
 	if (!iss)
 		throw HError(HError::RT_ERROR, WhyBuiltinMsgFailed);
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 };
 
-QSharedPointer<HObject> HBuiltin::termimate(HArgs args)
+HPointer HBuiltin::termimate(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HInt);
 	exit(*HObjectHelper(args[0]).to<HInt>());
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HBuiltin::keepexec(HArgs args)
+HPointer HBuiltin::keepexec(HArgs args)
 {
 	CheckArgs(0);
-	return QSharedPointer<HObject>(new HInt(QApplication::exec()));
+	return HPointer(new HInt(QApplication::exec()));
 }
 
-QSharedPointer<HObject> HBuiltin::quit(HArgs args)
+HPointer HBuiltin::quit(HArgs args)
 {
 	CheckArgs(0);
 	QApplication::quit();
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }

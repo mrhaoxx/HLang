@@ -7,8 +7,8 @@ class HWhile :
 	H_OBJECT(HWhile);
 public:
 	HWhile();
-	QSharedPointer<HObject> setcond(HArgs args);
-	QSharedPointer<HObject> run(HArgs args);
+	HPointer setcond(HArgs args);
+	HPointer run(HArgs args);
 private:
 	QSharedPointer<HBool> data;
 };

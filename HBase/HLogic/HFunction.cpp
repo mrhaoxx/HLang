@@ -77,7 +77,7 @@ void HFunction::CoutMsg(HError &e)
 		LMSG = QString(REDCOLOR) + "ERROR" + QString(ColorClear);
 		break;
 	}
-	qDebug() << QString("[" + LMSG + "]").toStdString().c_str() << BWCOLOR << e.getWhy() << ColorClear;
+	RT_DEBUG << QString("[" + LMSG + "]").toStdString().c_str() << BWCOLOR << e.getWhy() << ColorClear;
 }
 
 void HFunction::runcode(HCommand cmd)
@@ -85,7 +85,7 @@ void HFunction::runcode(HCommand cmd)
 	HArgs waitdelete;
 	if (thisdef == nullptr) {
 		thisdef = new HLang(upperdef);
-		thisdef->importclass("builtin", QSharedPointer<HObject>(new HBuiltin(thisdef)));
+		thisdef->importclass("builtin", HPointer(new HBuiltin(thisdef)));
 	}
 	try {
 		HArgs args;
@@ -93,35 +93,35 @@ void HFunction::runcode(HCommand cmd)
 			if (cmd._args[x].contains("\u0002"))
 				for (int y = 0; y < cmd._argstrs.length(); y++)
 					if (cmd._args[x].contains("\u0002" + QString(y))) {
-						args.insert(x, QSharedPointer<HObject>(new HString(cmd._argstrs[y])));
+						args.insert(x, HPointer(new HString(cmd._argstrs[y])));
 					}
 					else;
 			else {
 				bool isit = false;
 				int  toit = cmd._args[x].toInt(&isit);
 				if (isit) {
-					args.insert(x, QSharedPointer<HObject>(new HInt(toit)));
+					args.insert(x, HPointer(new HInt(toit)));
 				}
 				else
 					if (cmd._args[x] == "true") {
-						args.insert(x, QSharedPointer<HObject>(new HBool(true)));
+						args.insert(x, HPointer(new HBool(true)));
 					}
 					else if (cmd._args[x] == "false") {
-						args.insert(x, QSharedPointer<HObject>(new HBool(false)));
+						args.insert(x, HPointer(new HBool(false)));
 					}
 					else if (cmd._args[x].isEmpty()) {
-						args.insert(x, QSharedPointer<HObject>(new HVoid));
+						args.insert(x, HPointer(new HVoid));
 					}
 					else
 					{
-						QSharedPointer<HObject> arg = thisdef->accessclass(cmd._args[x]);
+						HPointer arg = thisdef->accessclass(cmd._args[x]);
 						if (arg.isNull())
 							throw HError(HError::RT_ERROR, "Args Class Not Find");
 						else
 							args.insert(x, arg);
 					}
 			}
-		QSharedPointer<HObject> aceobj = thisdef->accessclass(cmd._class);
+		HPointer aceobj = thisdef->accessclass(cmd._class);
 		if (!aceobj.isNull())
 			if (!cmd._backvalue_name.isEmpty())
 				thisdef->importclass(cmd._backvalue_name, aceobj->exec(cmd._func, args));
@@ -154,27 +154,28 @@ HFunction::HFunction(HLang *upperdef, QStringList argsname)
 	MDebug("Constructed");
 }
 
-QSharedPointer<HObject> HFunction::fromString(HArgs args)
+HPointer HFunction::fromString(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	this->commands = SplitCommands(*HObjectHelper(args[0]).to<HString>());
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HFunction::run(HArgs args)
+HPointer HFunction::run(HArgs args)
 {
 	CheckArgs(argnames.length());
 	if (thisdef == nullptr) {
 		thisdef = new HLang(upperdef);
-		thisdef->importclass("builtin", QSharedPointer<HObject>(new HBuiltin(thisdef)));
+		thisdef->importclass("builtin", HPointer(new HBuiltin(thisdef)));
 	}
 	for (int i = 0; i < argnames.length(); i++)
 		thisdef->importclass(argnames[i], args[i]);
-	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Running" << ColorClear;
+	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Running" << ColorClear;
 	for (int i = 0; i < commands.length(); i++)
 	{
-		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "START" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
+		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "START" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
+		QString t = commands[i];
 		HCommand c = ResolveCommand(commands[i]);
 		IndentAdd;
 		if (c._func != "return")
@@ -185,19 +186,21 @@ QSharedPointer<HObject> HFunction::run(HArgs args)
 			return thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
 		}
 		IndentRem;
-		RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "DONE" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
+		t += " [OK]";
+		RT_DEBUG << t.toStdString().c_str();
+		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "DONE" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
 	}
-	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Cleaning" << ColorClear;
+	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Cleaning" << ColorClear;
 	this->resetdef();
-	RT_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Finished" << ColorClear;
-	return QSharedPointer<HObject>(new HVoid);
+	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Finished" << ColorClear;
+	return HPointer(new HVoid);
 }
 
-QSharedPointer<HObject> HFunction::copy(HArgs args)
+HPointer HFunction::copy(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HFunction);
 	this->argnames = (HObjectHelper(args[0]).to<HFunction>()->argnames);
 	this->commands = (HObjectHelper(args[0]).to<HFunction>()->commands);
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }

@@ -19,32 +19,32 @@ HPushButton::~HPushButton()
 	MDebug("Destructed");
 }
 
-QSharedPointer<HObject> HPushButton::hconnect(HArgs args)
+HPointer HPushButton::hconnect(HArgs args)
 {
 	CheckArgs(2);
 	CheckArgsType(0, HString);
 	CheckArgsType(1, HFunction);
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "clicked") {
 		this->whenClicked = HObjectHelper(args[1]).to<HFunction>();
-		return QSharedPointer<HObject>(new HVoid);
+		return HPointer(new HVoid);
 	}
 	throw HError(HError::RT_ERROR, WhyConnectSlotError);
 }
 
-QSharedPointer<HObject> HPushButton::hdisconnect(HArgs args)
+HPointer HPushButton::hdisconnect(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	if (HObjectHelper(args[0]).to<HString>()->toQString() == "clicked") {
 		this->whenClicked = nullptr;
-		return QSharedPointer<HObject>(new HVoid);
+		return HPointer(new HVoid);
 	}
 	throw HError(HError::RT_ERROR, WhyConnectSlotError);
 }
-QSharedPointer<HObject> HPushButton::hsetText(HArgs args)
+HPointer HPushButton::hsetText(HArgs args)
 {
 	CheckArgs(1);
 	CheckArgsType(0, HString);
 	this->setText(HObjectHelper(args[0]).to<HString>()->toQString());
-	return QSharedPointer<HObject>(new HVoid);
+	return HPointer(new HVoid);
 }

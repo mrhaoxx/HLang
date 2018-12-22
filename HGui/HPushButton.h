@@ -11,9 +11,9 @@ class HPushButton : private QPushButton, public HObject
 public:
 	HPushButton(QWidget *parent);
 	~HPushButton();
-	QSharedPointer<HObject> hconnect(HArgs args);
-	QSharedPointer<HObject> hdisconnect(HArgs args);
-	QSharedPointer<HObject> hsetText(HArgs args);
+	HPointer hconnect(HArgs args);
+	HPointer hdisconnect(HArgs args);
+	HPointer hsetText(HArgs args);
 private:
 	QSharedPointer<HFunction> whenClicked = nullptr;
 };

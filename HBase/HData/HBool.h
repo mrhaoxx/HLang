@@ -9,7 +9,7 @@ public:
 	~HBool();
 	bool &value();
 	operator bool();
-	QSharedPointer<HObject> set(HArgs args);
+	HPointer set(HArgs args);
 private:
 	bool data;
 };

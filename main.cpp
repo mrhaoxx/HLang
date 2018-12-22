@@ -2,16 +2,13 @@
 #include "HBuiltin.h"
 #include <iostream>
 #include <QDebug>
-#error Change Codeblocks to Class
 bool *iscolorful = new bool(true);
 bool *isdebug = new bool(true);
-bool *moremsg = new bool(false);
+bool *moremsg = new bool(true);
 QString *indent = new QString("");
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
-	HLang* HMain = new HLang(nullptr);
-	HMain->importclass("builtin", QSharedPointer<HObject>(new HBuiltin(HMain)));
 	if (argc == 2) {
 		qDebug() << "The Model isn't ready";
 		return 0;
@@ -21,21 +18,26 @@ int main(int argc, char *argv[])
 		while (true)
 		{
 			std::string in;
+			getline(std::cin, in);
+			RT_DEBUG << "\033c";
 			QString a;
 			while (in != "run") {
 				a.append(QString::fromStdString(in));
-				std::cin >> in;
+				getline(std::cin, in);
 			}
+			RT_DEBUG << "\033c" << YELLOWCOLOR << "Running" << ColorClear;
+			HClass *m = new HClass;
+			HPointer p(m);
 			try {
-				HCodes m(HMain);
-				QSharedPointer<HObject> s(new HString(a));
-				m.fromString(HArgs({ s })).clear();
-				s.clear();
-				m.run(HArgs());
+				m->setupthis();
+				m->fromString(HArgs({ HPointer(new HString(a)) })).clear();
+				m->run(HArgs({ HPointer(new HString("main")) }));
 			}
 			catch (HError &e) {
 				HFunction::CoutMsg(e);
 			}
+			p.clear();
+			RT_DEBUG << YELLOWCOLOR << "End" << ColorClear;
 		}
 	}
 	return app.exec();
