@@ -83,7 +83,7 @@ void HFunction::CoutMsg(HError &e)
 
 void HFunction::runcode(HCommand cmd)
 {
-	QCout << ((cmd._backvalue_name != "") ? (cmd._backvalue_name + "=") : QString("")) + (cmd._class + "->" + cmd._func) + ("(" + cmd._pure_args + ")") << "[EXEC] ";
+	QTextStream(stdout) << NOCOLOR << indent->toStdString().c_str() << ((cmd._backvalue_name != "") ? (cmd._backvalue_name + "=") : QString("")) + (cmd._class + "->" + cmd._func) + ("(" + cmd._pure_args + ")") << "[EXEC] ";
 	if (thisdef == nullptr) {
 		thisdef = new HLang(upperdef);
 		thisdef->importclass("builtin", HPointer(new HBuiltin(thisdef)));

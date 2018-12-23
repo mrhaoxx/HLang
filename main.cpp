@@ -2,9 +2,10 @@
 #include "HBuiltin.h"
 #include <iostream>
 #include <QDebug>
+#include <Windows.h>
 bool *iscolorful = new bool(true);
-bool *isdebug = new bool(true);
-int *couter = new int(0);
+bool *isdebug = new bool(false);
+//int *couter = new int(0);
 QString *indent = new QString("");
 int main(int argc, char *argv[])
 {
@@ -37,7 +38,6 @@ int main(int argc, char *argv[])
 				HFunction::CoutMsg(e);
 			}
 			p.clear();
-			qDebug() << *couter;
 			RT_DEBUG << (YELLOWCOLOR + QString("End") + ColorClear).toStdString().c_str();
 		}
 	}

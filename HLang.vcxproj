@@ -26,7 +26,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <IntermediateDirectory>debug\</IntermediateDirectory>
     <PrimaryOutput>HLang</PrimaryOutput>
-    <UseOfMfc>Static</UseOfMfc>
+    <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <PlatformToolset>v141</PlatformToolset>
@@ -67,9 +67,10 @@
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</IgnoreImportLibrary>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)HGui;$(ProjectDir)HBase;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtCore;debug;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)HGui;$(ProjectDir)HBase;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;E:\Qt\5.12.0\msvc_static\include;E:\Qt\5.12.0\msvc_static\include\QtMultimedia;E:\Qt\5.12.0\msvc_static\include\QtWidgets;E:\Qt\5.12.0\msvc_static\include\QtGui;E:\Qt\5.12.0\msvc_static\include\QtANGLE;E:\Qt\5.12.0\msvc_static\include\QtNetwork;E:\Qt\5.12.0\msvc_static\include\QtCore;debug;E:\Qt\5.12.0\msvc_static\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -77,8 +78,8 @@
       <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;GL_APICALL=;EGLAPI=;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Full</Optimization>
+      <PreprocessorDefinitions>QT_QML_DEBUG;_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;GL_APICALL=;EGLAPI=;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -87,12 +88,11 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QTDIR)\plugins\mediaservice\dsengined.lib;mf.lib;mfplat.lib;mfuuid.lib;dxva2.lib;evr.lib;$(QTDIR)\plugins\mediaservice\qtmedia_audioengined.lib;$(QTDIR)\plugins\mediaservice\wmfengined.lib;mfreadwrite.lib;wmcodecdspuuid.lib;dmoguids.lib;msdmo.lib;Mf.lib;Mfuuid.lib;Mfplat.lib;Propsys.lib;$(QTDIR)\plugins\audio\qtaudio_wasapid.lib;Mmdevapi.lib;runtimeobject.lib;$(QTDIR)\plugins\audio\qtaudio_windowsd.lib;strmiids.lib;$(QTDIR)\plugins\playlistformats\qtmultimedia_m3ud.lib;Qt5Multimediad.lib;$(QTDIR)\plugins\styles\qwindowsvistastyled.lib;Qt5Widgetsd.lib;uxtheme.lib;$(QTDIR)\plugins\platforms\qwindowsd.lib;dwmapi.lib;winspool.lib;imm32.lib;oleaut32.lib;shlwapi.lib;wtsapi32.lib;Qt5EventDispatcherSupportd.lib;Qt5FontDatabaseSupportd.lib;gdi32.lib;$(QTDIR)\lib\qtfreetyped.lib;Qt5ThemeSupportd.lib;Qt5AccessibilitySupportd.lib;Qt5WindowsUIAutomationSupportd.lib;$(QTDIR)\plugins\imageformats\qgifd.lib;$(QTDIR)\plugins\imageformats\qicnsd.lib;$(QTDIR)\plugins\imageformats\qicod.lib;$(QTDIR)\plugins\imageformats\qjpegd.lib;$(QTDIR)\plugins\imageformats\qtgad.lib;$(QTDIR)\plugins\imageformats\qtiffd.lib;$(QTDIR)\plugins\imageformats\qwbmpd.lib;$(QTDIR)\plugins\imageformats\qwebpd.lib;Qt5Guid.lib;libEGLd.lib;libGLESv2d.lib;$(QTDIR)\lib\qtlibpngd.lib;$(QTDIR)\lib\qtharfbuzzd.lib;$(QTDIR)\lib\libEGLd.lib;$(QTDIR)\lib\libGLESv2d.lib;comdlg32.lib;winmm.lib;ole32.lib;uuid.lib;advapi32.lib;d3d9.lib;dxguid.lib;$(QTDIR)\lib\translatord.lib;$(QTDIR)\lib\preprocessord.lib;$(QTDIR)\plugins\bearer\qgenericbearerd.lib;Qt5Networkd.lib;dnsapi.lib;iphlpapi.lib;ws2_32.lib;Qt5Cored.lib;mpr.lib;netapi32.lib;userenv.lib;version.lib;kernel32.lib;user32.lib;shell32.lib;$(QTDIR)\lib\qtpcre2d.lib;qtmaind.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;$(QTDIR)\plugins\mediaservice;$(QTDIR)\lib;$(QTDIR)\plugins\audio;$(QTDIR)\plugins\playlistformats;$(QTDIR)\plugins\styles;$(QTDIR)\plugins\platforms;$(QTDIR)\plugins\imageformats;$(QTDIR)\plugins\bearer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(QTDIR)\plugins\mediaservice\dsengined.lib;mf.lib;mfplat.lib;mfuuid.lib;dxva2.lib;evr.lib;$(QTDIR)\plugins\mediaservice\qtmedia_audioengined.lib;$(QTDIR)\plugins\mediaservice\wmfengined.lib;mfreadwrite.lib;wmcodecdspuuid.lib;dmoguids.lib;msdmo.lib;Mf.lib;Mfuuid.lib;Mfplat.lib;Propsys.lib;$(QTDIR)\plugins\audio\qtaudio_wasapid.lib;Mmdevapi.lib;runtimeobject.lib;$(QTDIR)\plugins\audio\qtaudio_windowsd.lib;strmiids.lib;$(QTDIR)\plugins\playlistformats\qtmultimedia_m3ud.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5Multimediad.lib;$(QTDIR)\plugins\styles\qwindowsvistastyled.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5Widgetsd.lib;uxtheme.lib;$(QTDIR)\plugins\platforms\qwindowsd.lib;dwmapi.lib;winspool.lib;imm32.lib;oleaut32.lib;shlwapi.lib;wtsapi32.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5EventDispatcherSupportd.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5FontDatabaseSupportd.lib;gdi32.lib;$(QTDIR)\lib\qtfreetyped.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5ThemeSupportd.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5AccessibilitySupportd.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5WindowsUIAutomationSupportd.lib;$(QTDIR)\plugins\imageformats\qgifd.lib;$(QTDIR)\plugins\imageformats\qicnsd.lib;$(QTDIR)\plugins\imageformats\qicod.lib;$(QTDIR)\plugins\imageformats\qjpegd.lib;$(QTDIR)\plugins\imageformats\qtgad.lib;$(QTDIR)\plugins\imageformats\qtiffd.lib;$(QTDIR)\plugins\imageformats\qwbmpd.lib;$(QTDIR)\plugins\imageformats\qwebpd.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5Guid.lib;libEGLd.lib;libGLESv2d.lib;$(QTDIR)\lib\qtlibpngd.lib;$(QTDIR)\lib\qtharfbuzzd.lib;$(QTDIR)\lib\libEGLd.lib;$(QTDIR)\lib\libGLESv2d.lib;comdlg32.lib;winmm.lib;ole32.lib;uuid.lib;advapi32.lib;d3d9.lib;dxguid.lib;$(QTDIR)\lib\translatord.lib;$(QTDIR)\lib\preprocessord.lib;$(QTDIR)\plugins\bearer\qgenericbearerd.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5Networkd.lib;dnsapi.lib;iphlpapi.lib;ws2_32.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5Cored.lib;mpr.lib;netapi32.lib;userenv.lib;version.lib;kernel32.lib;user32.lib;shell32.lib;$(QTDIR)\lib\qtpcre2d.lib;E:\Qt\5.12.0\msvc_static\lib\qtmaind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\Qt\5.12.0\msvc_static\lib;E:\Qt\5.12.0\msvc_static\plugins\mediaservice;E:\Qt\5.12.0\msvc_static\lib;E:\Qt\5.12.0\msvc_static\plugins\audio;E:\Qt\5.12.0\msvc_static\plugins\playlistformats;E:\Qt\5.12.0\msvc_static\plugins\styles;E:\Qt\5.12.0\msvc_static\plugins\platforms;E:\Qt\5.12.0\msvc_static\plugins\imageformats;E:\Qt\5.12.0\msvc_static\plugins\bearer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -101,7 +101,6 @@
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <ShowProgress>LinkVerboseCLR</ShowProgress>
       <Version>1.0</Version>
       <SetChecksum>true</SetChecksum>
     </Link>
@@ -114,18 +113,18 @@
       <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;GL_APICALL=;EGLAPI=;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <QtMoc>
-      <QTDIR>$(QTDIR)</QTDIR>
+      <QTDIR>E:\Qt\5.12.0\msvc_static</QTDIR>
       <InputFile>%(FullPath)</InputFile>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
-      <IncludePath>$(ProjectDir)HGui;$(ProjectDir)HBase;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtCore;debug;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</IncludePath>
-      <Define>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;GL_APICALL=;EGLAPI=</Define>
+      <IncludePath>$(ProjectDir)HGui;$(ProjectDir)HBase;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;E:\Qt\5.12.0\msvc_static\include;E:\Qt\5.12.0\msvc_static\include\QtMultimedia;E:\Qt\5.12.0\msvc_static\include\QtWidgets;E:\Qt\5.12.0\msvc_static\include\QtGui;E:\Qt\5.12.0\msvc_static\include\QtANGLE;E:\Qt\5.12.0\msvc_static\include\QtNetwork;E:\Qt\5.12.0\msvc_static\include\QtCore;debug;E:\Qt\5.12.0\msvc_static\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</IncludePath>
+      <Define>QT_QML_DEBUG;_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;GL_APICALL=;EGLAPI=;%(PreprocessorDefinitions)</Define>
       <CompilerFlavor>msvc</CompilerFlavor>
       <Include>./$(Configuration)/moc_predefs.h</Include>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
       <DynamicSource>output</DynamicSource>
     </QtMoc>
     <QtUic>
-      <QTDIR>$(QTDIR)</QTDIR>
+      <QTDIR>E:\Qt\5.12.0\msvc_static</QTDIR>
       <InputFile>%(FullPath)</InputFile>
       <OutputFile>.\GeneratedFiles\ui_%(Filename).h</OutputFile>
       <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
@@ -133,7 +132,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)HGui;$(ProjectDir)HBase;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtCore;release;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)HGui;$(ProjectDir)HBase;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;E:\Qt\5.12.0\msvc_static\include;E:\Qt\5.12.0\msvc_static\include\QtMultimedia;E:\Qt\5.12.0\msvc_static\include\QtWidgets;E:\Qt\5.12.0\msvc_static\include\QtGui;E:\Qt\5.12.0\msvc_static\include\QtANGLE;E:\Qt\5.12.0\msvc_static\include\QtNetwork;E:\Qt\5.12.0\msvc_static\include\QtCore;release;E:\Qt\5.12.0\msvc_static\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -152,8 +151,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QTDIR)\plugins\mediaservice\dsengine.lib;mf.lib;mfplat.lib;mfuuid.lib;dxva2.lib;evr.lib;$(QTDIR)\plugins\mediaservice\qtmedia_audioengine.lib;$(QTDIR)\plugins\mediaservice\wmfengine.lib;mfreadwrite.lib;wmcodecdspuuid.lib;dmoguids.lib;msdmo.lib;Mf.lib;Mfuuid.lib;Mfplat.lib;Propsys.lib;$(QTDIR)\plugins\audio\qtaudio_wasapi.lib;Mmdevapi.lib;runtimeobject.lib;$(QTDIR)\plugins\audio\qtaudio_windows.lib;strmiids.lib;$(QTDIR)\plugins\playlistformats\qtmultimedia_m3u.lib;Qt5Multimedia.lib;$(QTDIR)\plugins\styles\qwindowsvistastyle.lib;Qt5Widgets.lib;uxtheme.lib;$(QTDIR)\plugins\platforms\qwindows.lib;dwmapi.lib;winspool.lib;imm32.lib;oleaut32.lib;shlwapi.lib;wtsapi32.lib;Qt5EventDispatcherSupport.lib;Qt5FontDatabaseSupport.lib;gdi32.lib;$(QTDIR)\lib\qtfreetype.lib;Qt5ThemeSupport.lib;Qt5AccessibilitySupport.lib;Qt5WindowsUIAutomationSupport.lib;$(QTDIR)\plugins\imageformats\qgif.lib;$(QTDIR)\plugins\imageformats\qicns.lib;$(QTDIR)\plugins\imageformats\qico.lib;$(QTDIR)\plugins\imageformats\qjpeg.lib;$(QTDIR)\plugins\imageformats\qtga.lib;$(QTDIR)\plugins\imageformats\qtiff.lib;$(QTDIR)\plugins\imageformats\qwbmp.lib;$(QTDIR)\plugins\imageformats\qwebp.lib;Qt5Gui.lib;libEGL.lib;libGLESv2.lib;$(QTDIR)\lib\qtlibpng.lib;$(QTDIR)\lib\qtharfbuzz.lib;$(QTDIR)\lib\libEGL.lib;$(QTDIR)\lib\libGLESv2.lib;comdlg32.lib;winmm.lib;ole32.lib;uuid.lib;advapi32.lib;d3d9.lib;dxguid.lib;$(QTDIR)\lib\translator.lib;$(QTDIR)\lib\preprocessor.lib;$(QTDIR)\plugins\bearer\qgenericbearer.lib;Qt5Network.lib;dnsapi.lib;iphlpapi.lib;ws2_32.lib;Qt5Core.lib;mpr.lib;netapi32.lib;userenv.lib;version.lib;kernel32.lib;user32.lib;shell32.lib;$(QTDIR)\lib\qtpcre2.lib;qtmain.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;$(QTDIR)\plugins\mediaservice;$(QTDIR)\lib;$(QTDIR)\plugins\audio;$(QTDIR)\plugins\playlistformats;$(QTDIR)\plugins\styles;$(QTDIR)\plugins\platforms;$(QTDIR)\plugins\imageformats;$(QTDIR)\plugins\bearer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(QTDIR)\plugins\mediaservice\dsengine.lib;mf.lib;mfplat.lib;mfuuid.lib;dxva2.lib;evr.lib;$(QTDIR)\plugins\mediaservice\qtmedia_audioengine.lib;$(QTDIR)\plugins\mediaservice\wmfengine.lib;mfreadwrite.lib;wmcodecdspuuid.lib;dmoguids.lib;msdmo.lib;Mf.lib;Mfuuid.lib;Mfplat.lib;Propsys.lib;$(QTDIR)\plugins\audio\qtaudio_wasapi.lib;Mmdevapi.lib;runtimeobject.lib;$(QTDIR)\plugins\audio\qtaudio_windows.lib;strmiids.lib;$(QTDIR)\plugins\playlistformats\qtmultimedia_m3u.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5Multimedia.lib;$(QTDIR)\plugins\styles\qwindowsvistastyle.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5Widgets.lib;uxtheme.lib;$(QTDIR)\plugins\platforms\qwindows.lib;dwmapi.lib;winspool.lib;imm32.lib;oleaut32.lib;shlwapi.lib;wtsapi32.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5EventDispatcherSupport.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5FontDatabaseSupport.lib;gdi32.lib;$(QTDIR)\lib\qtfreetype.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5ThemeSupport.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5AccessibilitySupport.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5WindowsUIAutomationSupport.lib;$(QTDIR)\plugins\imageformats\qgif.lib;$(QTDIR)\plugins\imageformats\qicns.lib;$(QTDIR)\plugins\imageformats\qico.lib;$(QTDIR)\plugins\imageformats\qjpeg.lib;$(QTDIR)\plugins\imageformats\qtga.lib;$(QTDIR)\plugins\imageformats\qtiff.lib;$(QTDIR)\plugins\imageformats\qwbmp.lib;$(QTDIR)\plugins\imageformats\qwebp.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5Gui.lib;libEGL.lib;libGLESv2.lib;$(QTDIR)\lib\qtlibpng.lib;$(QTDIR)\lib\qtharfbuzz.lib;$(QTDIR)\lib\libEGL.lib;$(QTDIR)\lib\libGLESv2.lib;comdlg32.lib;winmm.lib;ole32.lib;uuid.lib;advapi32.lib;d3d9.lib;dxguid.lib;$(QTDIR)\lib\translator.lib;$(QTDIR)\lib\preprocessor.lib;$(QTDIR)\plugins\bearer\qgenericbearer.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5Network.lib;dnsapi.lib;iphlpapi.lib;ws2_32.lib;E:\Qt\5.12.0\msvc_static\lib\Qt5Core.lib;mpr.lib;netapi32.lib;userenv.lib;version.lib;kernel32.lib;user32.lib;shell32.lib;$(QTDIR)\lib\qtpcre2.lib;E:\Qt\5.12.0\msvc_static\lib\qtmain.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\Qt\5.12.0\msvc_static\lib;E:\Qt\5.12.0\msvc_static\plugins\mediaservice;E:\Qt\5.12.0\msvc_static\lib;E:\Qt\5.12.0\msvc_static\plugins\audio;E:\Qt\5.12.0\msvc_static\plugins\playlistformats;E:\Qt\5.12.0\msvc_static\plugins\styles;E:\Qt\5.12.0\msvc_static\plugins\platforms;E:\Qt\5.12.0\msvc_static\plugins\imageformats;E:\Qt\5.12.0\msvc_static\plugins\bearer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -173,18 +172,18 @@
       <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;GL_APICALL=;EGLAPI=;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <QtMoc>
-      <QTDIR>$(QTDIR)</QTDIR>
+      <QTDIR>E:\Qt\5.12.0\msvc_static</QTDIR>
       <InputFile>%(FullPath)</InputFile>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
-      <IncludePath>$(ProjectDir)HGui;$(ProjectDir)HBase;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtCore;release;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</IncludePath>
-      <Define>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;GL_APICALL=;EGLAPI=</Define>
+      <IncludePath>$(ProjectDir)HGui;$(ProjectDir)HBase;.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;E:\Qt\5.12.0\msvc_static\include;E:\Qt\5.12.0\msvc_static\include\QtMultimedia;E:\Qt\5.12.0\msvc_static\include\QtWidgets;E:\Qt\5.12.0\msvc_static\include\QtGui;E:\Qt\5.12.0\msvc_static\include\QtANGLE;E:\Qt\5.12.0\msvc_static\include\QtNetwork;E:\Qt\5.12.0\msvc_static\include\QtCore;release;E:\Qt\5.12.0\msvc_static\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</IncludePath>
+      <Define>_WINDOWS;UNICODE;_UNICODE;WIN32;WIN64;_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;GL_APICALL=;EGLAPI=;NDEBUG;%(PreprocessorDefinitions)</Define>
       <CompilerFlavor>msvc</CompilerFlavor>
       <Include>./$(Configuration)/moc_predefs.h</Include>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
       <DynamicSource>output</DynamicSource>
     </QtMoc>
     <QtUic>
-      <QTDIR>$(QTDIR)</QTDIR>
+      <QTDIR>E:\Qt\5.12.0\msvc_static</QTDIR>
       <InputFile>%(FullPath)</InputFile>
       <OutputFile>.\GeneratedFiles\ui_%(Filename).h</OutputFile>
       <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
@@ -212,8 +211,8 @@
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MTd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;debug\moc_predefs.h</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\Qt\5.12.0\msvc_static\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"E:\Qt\5.12.0\msvc_static\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MTd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E E:\Qt\5.12.0\msvc_static\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;debug\moc_predefs.h</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_predefs.h;%(Outputs)</Outputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -228,8 +227,8 @@
     <CustomBuild Include="release\moc_predefs.h.cbt">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -MT -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;release\moc_predefs.h</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\Qt\5.12.0\msvc_static\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"E:\Qt\5.12.0\msvc_static\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -MT -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E E:\Qt\5.12.0\msvc_static\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;release\moc_predefs.h</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_predefs.h;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -270,7 +269,7 @@
   <ImportGroup Label="ExtensionTargets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" Qt5Version_x0020_x64="$(DefaultQtVersion)" />
+      <UserProperties UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

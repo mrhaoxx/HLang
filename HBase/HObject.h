@@ -24,11 +24,10 @@
 #define HWHITECOLOR ((*iscolorful)?std::string("\033[37;1m").c_str():std::string("").c_str())
 extern bool *isdebug;
 extern bool *iscolorful;
-extern int *couter;
+//extern int *couter;
 extern QString *indent;
 #define IndentAdd indent->append("    ");
 #define IndentRem indent->chop(4);
-#define QCout QTextStream(stdout)<< NOCOLOR << indent->toStdString().c_str()
 #define RT_DEBUG qDebug() << NOCOLOR << indent->toStdString().c_str()
 #define IS_DEBUG if(*isdebug)qDebug() << indent->toStdString().c_str() << SystemColor <<"[System]" << ColorClear
 #ifdef WIN32
@@ -67,12 +66,12 @@ class HObject
 {
 public:
 	HObject() {
-		(*couter)++;
-		RT_DEBUG << (long long)this << "Construction";
+		//(*couter)++;
+		//RT_DEBUG << (long long)this << "Construction";
 	};
 	virtual ~HObject() {
-		(*couter)--;
-		RT_DEBUG << (long long)this << "Destruction";
+		//(*couter)--;
+		//RT_DEBUG << (long long)this << "Destruction";
 	};
 	virtual HPointer exec(QString __name, HArgs args) = 0;
 	QWidget* QGuiClassHandle = nullptr;
