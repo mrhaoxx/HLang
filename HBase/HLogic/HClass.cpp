@@ -7,7 +7,6 @@ HClass::HClass(HLang *uf)
 	DefineMemberFunction(HClass, "addvar", &HClass::addVar);
 	this->upperdef = uf;
 	this->thisdef = new HLang(upperdef);
-	MDebug("Constructed");
 }
 
 HPointer HClass::fromString(HArgs args)
@@ -39,7 +38,7 @@ HPointer HClass::run(HArgs args)
 	}
 	else
 		throw HError(HError::RT_NOTICE, "No " + HObjectHelper(args[0]).to<HString>()->toQString() + " Function Found");
-	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Finished" << ColorClear;
+	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Class Finished" << ColorClear;
 	return HPointer(new HVoid);
 }
 
@@ -52,12 +51,16 @@ HPointer HClass::addVar(HArgs args)
 	return HPointer(new HVoid);
 }
 
+void HClass::setupthis(HPointer ptrtothis)
+{
+	thisdef->importclass("this", ptrtothis, false);
+}
+
 HClass::~HClass()
 {
-	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Cleaning" << ColorClear;
+	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Class Cleaning" << ColorClear;
 	delete thisdef;
-	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "CodeBlocks Destructed" << ColorClear;
-	MDebug("Destructed");
+	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Class Destructed" << ColorClear;
 }
 
 QVector<std::tuple<QString, QStringList, QString>> HClass::FindDomain(QString whole)

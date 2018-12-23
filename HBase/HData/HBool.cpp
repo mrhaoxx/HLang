@@ -5,12 +5,10 @@ HBool::HBool(bool par)
 {
 	data = par;
 	DefineMemberFunction(HBool, "set", &HBool::set);
-	MDebug("Constructed");
 }
 
 HBool::~HBool()
 {
-	MDebug("Destructed");
 }
 
 bool& HBool::value()

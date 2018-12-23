@@ -17,7 +17,6 @@ HString::HString(QString str)
 	DefineMemberFunction(HString, "set", &HString::set);
 	DefineMemberFunction(HString, "at", &HString::at);
 	DefineMemberFunction(HString, "append", &HString::append);
-	MDebug("Constructed");
 	data = new QString;
 	*this->data = str;
 }
@@ -54,6 +53,5 @@ HString::operator std::string()
 	return data->toStdString();
 }
 HString::~HString() {
-	MDebug("Destructed");
 	delete data;
 }

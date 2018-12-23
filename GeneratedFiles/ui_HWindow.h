@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'HWindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.11.2
+** Created by: Qt User Interface Compiler version 5.12.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -25,15 +25,15 @@ public:
     void setupUi(QWidget *HWindow)
     {
         if (HWindow->objectName().isEmpty())
-            HWindow->setObjectName(QStringLiteral("HWindow"));
+            HWindow->setObjectName(QString::fromUtf8("HWindow"));
         HWindow->resize(400, 300);
         gridLayout_2 = new QGridLayout(HWindow);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
-        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         main = new QGridLayout();
         main->setSpacing(6);
-        main->setObjectName(QStringLiteral("main"));
+        main->setObjectName(QString::fromUtf8("main"));
 
         gridLayout_2->addLayout(main, 0, 0, 1, 1);
 

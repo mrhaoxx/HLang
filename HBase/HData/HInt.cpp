@@ -11,13 +11,11 @@ HInt::HInt(int i)
 	DefineMemberFunction(HInt, "set", &HInt::setInt);
 	DefineMemberFunction(HInt, "+", &HInt::plus);
 	DefineMemberFunction(HInt, "-", &HInt::minus);
-	MDebug("Constructed");
 }
 
 HInt::~HInt()
 {
 	delete data;
-	MDebug("Destructed");
 }
 
 int HInt::value()
@@ -73,5 +71,5 @@ HPointer HInt::getAndplusplus(HArgs args)
 {
 	CheckArgs(0);
 	*data = *data + 1;
-	return HPointer(this);
+	return HPointer(new HInt(*this));
 }

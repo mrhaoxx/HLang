@@ -24,11 +24,11 @@
 #define HWHITECOLOR ((*iscolorful)?std::string("\033[37;1m").c_str():std::string("").c_str())
 extern bool *isdebug;
 extern bool *iscolorful;
-extern bool *moremsg;
+extern int *couter;
 extern QString *indent;
 #define IndentAdd indent->append("    ");
 #define IndentRem indent->chop(4);
-#define QCout QTextStream(stdout) << NOCOLOR << indent->toStdString().c_str()
+#define QCout QTextStream(stdout)<< NOCOLOR << indent->toStdString().c_str()
 #define RT_DEBUG qDebug() << NOCOLOR << indent->toStdString().c_str()
 #define IS_DEBUG if(*isdebug)qDebug() << indent->toStdString().c_str() << SystemColor <<"[System]" << ColorClear
 #ifdef WIN32
@@ -36,8 +36,6 @@ extern QString *indent;
 #else
 #define __FILENAME__ (strrchr(__FILE__, '/') ? QString(strrchr(__FILE__, '\\') + 1).split(".")[0].toStdString().c_str() :QString(__FILE__).split(".")[0].toStdString().c_str())
 #endif
-
-#define MDebug(msg) if(isdebug&&*moremsg)if(QString(msg).contains("D"))IndentRem else IndentAdd;if(*isdebug&&*moremsg)qDebug()<< indent->toStdString().c_str() <<"["<< (QString(YELLOWCOLOR) + QString(__FILENAME__) + QString(ColorClear)).toStdString().c_str() << "]" << HWHITECOLOR << msg << ColorClear;
 
 #define needQWeight "Only Accept QGuiClass"
 #define WhyBuiltinNewFailed "Class Not Find"
@@ -68,11 +66,18 @@ typedef QVector<HPointer> HArgs;
 class HObject
 {
 public:
-	HObject() {};
-	virtual ~HObject() {};
+	HObject() {
+		(*couter)++;
+		RT_DEBUG << (long long)this << "Construction";
+	};
+	virtual ~HObject() {
+		(*couter)--;
+		RT_DEBUG << (long long)this << "Destruction";
+	};
 	virtual HPointer exec(QString __name, HArgs args) = 0;
 	QWidget* QGuiClassHandle = nullptr;
 };
+
 class HObjectHelper {
 public:
 	HObjectHelper(HPointer obj)

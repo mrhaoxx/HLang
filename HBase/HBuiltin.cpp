@@ -57,8 +57,12 @@ HPointer HBuiltin::newclass(HArgs args)
 		return HPointer(new HIf);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "tcpsocket")
 		return HPointer(new HTcpSocket);
-	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "class")
-		return HPointer(new HClass(HDef));
+	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "class") {
+		HClass* p = new HClass(HDef);
+		HPointer sp(p);
+		p->setupthis(sp);
+		return sp;
+	}
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "vector")
 		return HPointer(new HVector);
 	else if (HObjectHelper(args[0]).to<HString>()->toQString() == "while")

@@ -16,5 +16,6 @@ public:
 	HPointer run(HArgs args);
 	HPointer getFunction(HArgs args);
 	HPointer addVar(HArgs args);
+	void setupthis(HPointer ptrtothis);
 	~HClass();
 };

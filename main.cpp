@@ -3,8 +3,8 @@
 #include <iostream>
 #include <QDebug>
 bool *iscolorful = new bool(true);
-bool *isdebug = new bool(false);
-bool *moremsg = new bool(false);
+bool *isdebug = new bool(true);
+int *couter = new int(0);
 QString *indent = new QString("");
 int main(int argc, char *argv[])
 {
@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
 			RT_DEBUG << ("\033c" + QString(YELLOWCOLOR) + "Running" + ColorClear).toStdString().c_str();
 			HClass *m = new HClass;
 			HPointer p(m);
+			m->setupthis(p);
 			try {
 				m->fromString(HArgs({ HPointer(new HString(a)) })).clear();
 				m->run(HArgs({ HPointer(new HString("main")) }));
@@ -36,6 +37,7 @@ int main(int argc, char *argv[])
 				HFunction::CoutMsg(e);
 			}
 			p.clear();
+			qDebug() << *couter;
 			RT_DEBUG << (YELLOWCOLOR + QString("End") + ColorClear).toStdString().c_str();
 		}
 	}

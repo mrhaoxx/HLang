@@ -26,7 +26,7 @@ QStringList HFunction::SplitCommands(QString cmds)
 }
 
 HFunction::~HFunction() {
-	MDebug("Destructed");
+	this->resetdef();
 }
 HCommand HFunction::ResolveCommand(QString cmd)
 {
@@ -154,7 +154,6 @@ HFunction::HFunction(HLang *upperdef, QStringList argsname)
 	DefineMemberFunction(HFunction, "run", &HFunction::run);
 	this->upperdef = upperdef;
 	this->argnames = argsname;
-	MDebug("Constructed");
 }
 
 HPointer HFunction::fromString(HArgs args)
@@ -183,12 +182,13 @@ HPointer HFunction::run(HArgs args)
 			runcode(ResolveCommand(commands[i]));
 		else
 		{
-			return thisdef->accessclass((c._args.length() > 0) ? c._args[0] : "");
+			HPointer p(thisdef->accessclass((c._args.length() > 0) ? c._args[0] : ""));
+			this->resetdef();
+			return p;
 		}
 		IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<[" << BULECOLOR << "DONE" << ColorClear << "]{" << SKYBLUECOLOR << commands[i] << ColorClear << "}";
 	}
 	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Cleaning" << ColorClear;
-	this->resetdef();
 	IS_DEBUG << ">>" << HWHITECOLOR << (void*)this << ColorClear << "<<" << YELLOWCOLOR << "Function Finished" << ColorClear;
 	return HPointer(new HVoid);
 }
