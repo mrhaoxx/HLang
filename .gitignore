@@ -1,0 +1,12 @@
+
+.vs/HLang/v15/.suo
+.vs/HLang/v15/Browse.VC.db
+.vs/HLang/v16/.suo
+*.db
+*.opendb
+*.ipch
+*.json
+HLang.vcxproj.user
+/Debug/HLang.tlog
+/Debug
+/x64/Debug

@@ -15,16 +15,43 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HByte.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HInt.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HBool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HVoid.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HVector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HLang.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+    <ClInclude Include="HObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HByte.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HInt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HBool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HVoid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HVector.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
