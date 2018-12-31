@@ -158,6 +158,7 @@
     <ClCompile Include="HBool.cpp" />
     <ClCompile Include="HByte.cpp" />
     <ClCompile Include="HInt.cpp" />
+    <ClCompile Include="HString.cpp" />
     <ClCompile Include="HVector.cpp" />
     <ClCompile Include="HVoid.cpp" />
     <ClCompile Include="main.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="HByte.h" />
     <ClInclude Include="HInt.h" />
     <ClInclude Include="HObject.h" />
+    <ClInclude Include="HString.h" />
     <ClInclude Include="HVector.h" />
     <ClInclude Include="HVoid.h" />
   </ItemGroup>

@@ -6,13 +6,18 @@ class HByte :
 {
 	HLANG_OBJECT(HByte);
 	HLANG_INIT_START
-		HLANG_IMPORT_FUNCTION(HByte, toInt, &HLang::HByte::toInt);
+		HLANG_IMPORT_FUNCTION(HByte, toInt, HLANG_ARGSPILT(""), &HLang::HByte::toInt);
+	HLANG_IMPORT_FUNCTION(HByte, equals, HLANG_ARGSPILT("HByte"), &HLang::HByte::equals);
+	HLANG_IMPORT_FUNCTION(HByte, set, HLANG_ARGSPILT("HInt"), &HLang::HByte::set);
+	HLANG_IMPORT_FUNCTION(HByte, init, HLANG_ARGSPILT("HInt"), &HLang::HByte::init_int);
 	HLANG_INIT_END
 public:
 	HPointer toInt(HArgs args);
-	HByte(int i =0 );
-	HPointer fromInt(HArgs args);
+	HByte(int i = 0);
+	HPointer set(HArgs args);
 	HPointer equals(HArgs args);
+	HPointer init_int(HArgs args);
+	char value() const;
 private:
 	char data;
 };
