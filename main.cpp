@@ -1,6 +1,8 @@
 ﻿#include <iostream>
-
+#include "HExecutor.h"
 int main()
 {
-	std::cout << "Hello World!\n";
+	HLang::HExecutor test;
+	test._new_("i", "int", HArgs());
+	test._run_("i", "", HArgs);
 }

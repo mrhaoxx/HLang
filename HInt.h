@@ -1,5 +1,6 @@
 #pragma once
 #include "HObject.h"
+#error SomeMoreFunction: set
 HLANG_NAMESPACE_START
 class HInt :
 	public HLang::HObject

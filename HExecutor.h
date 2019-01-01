@@ -20,7 +20,7 @@ class HExecutor :
 public:
 	HExecutor(HDomain* def = new HDomain) : define(def) {};
 	HPointer _run_(std::string __class__, std::string __function__, HArgs args);
-	bool _new_(std::string __class__, HArgs args);
+	bool _new_(std::string __save_As__, std::string __class__, HArgs args);
 	void _delete_(std::string __class__);
 private:
 	HDomain* define;

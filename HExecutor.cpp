@@ -12,10 +12,10 @@ void HLang::HExecutor::_delete_(std::string __class__)
 	this->define->_delete_(__class__);
 }
 
-bool HLang::HExecutor::_new_(std::string __class__, HArgs args)
+bool HLang::HExecutor::_new_(std::string __save_As__, std::string __class__, HArgs args)
 {
 	if (registeredclasses.count(__class__) != 0)
-		this->define->_import_(__class__, registeredclasses[__class__](args));
+		this->define->_import_(__save_As__, registeredclasses[__class__](args));
 	else
 		return false;
 	return true;
