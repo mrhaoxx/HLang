@@ -157,7 +157,11 @@
   <ItemGroup>
     <ClCompile Include="HBool.cpp" />
     <ClCompile Include="HByte.cpp" />
+    <ClCompile Include="HDomain.cpp" />
+    <ClCompile Include="HExecutor.cpp" />
+    <ClCompile Include="HFunction.cpp" />
     <ClCompile Include="HInt.cpp" />
+    <ClCompile Include="HMap.cpp" />
     <ClCompile Include="HString.cpp" />
     <ClCompile Include="HVector.cpp" />
     <ClCompile Include="HVoid.cpp" />
@@ -166,7 +170,11 @@
   <ItemGroup>
     <ClInclude Include="HBool.h" />
     <ClInclude Include="HByte.h" />
+    <ClInclude Include="HDomain.h" />
+    <ClInclude Include="HExecutor.h" />
+    <ClInclude Include="HFunction.h" />
     <ClInclude Include="HInt.h" />
+    <ClInclude Include="HMap.h" />
     <ClInclude Include="HObject.h" />
     <ClInclude Include="HString.h" />
     <ClInclude Include="HVector.h" />

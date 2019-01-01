@@ -27,6 +27,12 @@
     <Filter Include="源文件\std">
       <UniqueIdentifier>{7b793a0c-2dcd-42e5-b748-70349a674b39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\logic">
+      <UniqueIdentifier>{cd65e5f3-ab5e-4368-863c-b034cae2fe3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\logic">
+      <UniqueIdentifier>{e2f150c6-4dc3-4a75-9d14-c3af2051e59c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,6 +56,18 @@
     <ClCompile Include="HString.cpp">
       <Filter>源文件\std</Filter>
     </ClCompile>
+    <ClCompile Include="HFunction.cpp">
+      <Filter>源文件\logic</Filter>
+    </ClCompile>
+    <ClCompile Include="HMap.cpp">
+      <Filter>源文件\container</Filter>
+    </ClCompile>
+    <ClCompile Include="HExecutor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HDomain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HInt.h">
@@ -72,6 +90,18 @@
     </ClInclude>
     <ClInclude Include="HString.h">
       <Filter>头文件\std</Filter>
+    </ClInclude>
+    <ClInclude Include="HFunction.h">
+      <Filter>头文件\logic</Filter>
+    </ClInclude>
+    <ClInclude Include="HMap.h">
+      <Filter>头文件\container</Filter>
+    </ClInclude>
+    <ClInclude Include="HExecutor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HDomain.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
