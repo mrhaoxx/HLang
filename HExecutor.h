@@ -1,8 +1,17 @@
 #pragma once
 #include "HObject.h"
 #include "HDomain.h"
+#include "HInt.h"
+#include "HBool.h"
+#include "HByte.h"
+#include "HVoid.h"
 HLANG_NAMESPACE_START
-std::map < std::string, HPointer(*)(HArgs)> registeredclasses;
+std::map < std::string, HPointer(*)(HArgs)> registeredclasses({
+			std::make_pair("int",&HLang::HInt::__new__),
+			std::make_pair("bool",&HLang::HBool::__new__),
+			std::make_pair("byte",&HLang::HByte::__new__),
+			std::make_pair("void",&HLang::HVoid::__new__)
+	});
 class HExecutor :
 	public HObject
 {
