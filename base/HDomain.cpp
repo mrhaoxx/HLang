@@ -1,4 +1,5 @@
 #include "HDomain.h"
+#include "HVoid.h"
 
 HLang::HDomain::HDomain(HDomain *upper /*= nullptr*/)
 {
@@ -41,11 +42,11 @@ HPointer HLang::HDomain::_access_(std::string __name__, bool __access_upper__ /*
 HPointer HLang::HDomain::init_has_upper(HArgs args)
 {
 	this->upper = args[0]->to<HDomain>();
-	return HPointer(nullptr);
+	return HPointer(new HVoid);
 }
 
 HPointer HLang::HDomain::init_has_not_upper(HArgs args)
 {
 	this->upper = nullptr;
-	return HPointer(nullptr);
+	return HPointer(new HVoid);
 }

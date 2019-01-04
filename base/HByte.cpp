@@ -27,7 +27,7 @@ HPointer HLang::HByte::equals(HArgs args)
 HPointer HLang::HByte::init_int(HArgs args)
 {
 	this->data = (char)args[0]->to<HInt>()->value();
-	return HPointer();
+	return HPointer(new HVoid);
 }
 
 char HLang::HByte::value() const

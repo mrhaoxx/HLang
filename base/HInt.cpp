@@ -1,5 +1,6 @@
 #include "HInt.h"
 #include "HBool.h"
+#include "HVoid.h"
 
 HLang::HInt::HInt(int d)
 {
@@ -29,5 +30,11 @@ int HLang::HInt::value()
 HPointer HLang::HInt::init_int(HArgs args)
 {
 	this->data = args[0]->to<HInt>()->data;
-	return HPointer();
+	return HPointer(new HVoid);
+}
+
+HPointer HLang::HInt::set(HArgs args)
+{
+	this->data = args[0]->to<HInt>()->data;
+	return HPointer(new HVoid);
 }

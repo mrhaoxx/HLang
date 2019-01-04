@@ -1,6 +1,5 @@
 #pragma once
 #include "HVector.h"
-#error SomeMore: toInt,toBool
 HLANG_NAMESPACE_START
 class HString :
 	protected HLang::HVector

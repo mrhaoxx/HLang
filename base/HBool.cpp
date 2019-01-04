@@ -20,5 +20,5 @@ HPointer HLang::HBool::set(HArgs args)
 HPointer HLang::HBool::init_bool(HArgs args)
 {
 	this->data = args[0]->to<HBool>()->value();
-	return HPointer();
+	return HPointer(new HVoid);
 }
