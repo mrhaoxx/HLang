@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <map>
-extern std::vector<std::string> split(std::string str, std::string pat);
 namespace HLang {
 	class HObject;
 }
@@ -12,12 +11,14 @@ typedef HLang::HObject* HPointer;
 typedef std::vector<HPointer> HArgs;
 #define HLANG_NAMESPACE_START namespace HLang {
 #define HLANG_NAMESPACE_END }
+#define HLANG_EXPORT __declspec(dllexport)
+HLANG_EXPORT extern std::vector<std::string> split(std::string str, std::string pat);
 #define HLANG_OBJECT(__class__)\
 public:\
-	static HPointer __new__(HArgs args){\
+	 HLANG_EXPORT static HPointer __new__(HArgs args){\
 			return (new __class__)->__init__(args); \
 	}\
-	HPointer __do__(std::string function, HArgs args) \
+	HLANG_EXPORT HPointer __do__(std::string function, HArgs args) \
 	{\
 	std::vector<std::string> argclasses; \
 	for (int i = 0; i < args.size(); i++)\
@@ -26,10 +27,10 @@ public:\
 				return (this->*__##__class__##FunctionSAddress__.at(std::make_pair(function,argclasses)))(args); \
 		return nullptr;\
 	}\
-	std::string __type__(){\
+	HLANG_EXPORT std::string __type__(){\
 		return std::string(#__class__);\
 	}\
-	std::vector<std::pair<std::string,std::vector<std::string>>>__list__() {\
+	HLANG_EXPORT std::vector<std::pair<std::string,std::vector<std::string>>>__list__() {\
 		std::vector<std::pair<std::string,std::vector<std::string>>> v;\
 		for (std::map<std::pair<std::string,std::vector<std::string>>, HPointer(__class__::*)(HArgs)>::iterator it = __##__class__##FunctionSAddress__.begin(); it != __##__class__##FunctionSAddress__.end(); ++it)\
 			v.push_back(it->first); \

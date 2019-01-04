@@ -13,11 +13,11 @@ class HByte :
 	HLANG_INIT_END
 public:
 	HPointer toInt(HArgs args);
-	HByte(int i = 0);
+	HLANG_EXPORT HByte(int i = 0);
 	HPointer set(HArgs args);
 	HPointer equals(HArgs args);
 	HPointer init_int(HArgs args);
-	char value() const;
+	HLANG_EXPORT char value() const;
 private:
 	char data;
 };

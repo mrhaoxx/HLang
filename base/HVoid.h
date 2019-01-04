@@ -7,6 +7,6 @@ class HVoid :
 	HLANG_OBJECT(HVoid);
 	HLANG_INIT_START HLANG_INIT_END
 public:
-	HVoid();
+	HLANG_EXPORT HVoid();
 };
 HLANG_NAMESPACE_END

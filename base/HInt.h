@@ -13,13 +13,13 @@ class HInt :
 	HLANG_IMPORT_FUNCTION(HInt, init, HLANG_ARGSPILT("HInt"), &HLang::HInt::init_int);
 	HLANG_INIT_END
 public:
-	HInt(int d = 0);
+	HLANG_EXPORT HInt(int d = 0);
 	HPointer equals(HArgs args);
 	HPointer greater(HArgs args);
 	HPointer less(HArgs args);
 	HPointer init_int(HArgs args);
 	HPointer set(HArgs args);
-	int value();
+	HLANG_EXPORT int value();
 private:
 	int data;
 };

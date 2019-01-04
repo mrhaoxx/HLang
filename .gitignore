@@ -10,3 +10,6 @@ HLang.vcxproj.user
 /Debug/HLang.tlog
 /Debug
 /x64/Debug
+/.vs/HLang/v15
+/base/x64
+/std/x64

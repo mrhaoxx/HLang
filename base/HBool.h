@@ -10,8 +10,8 @@ class HBool :
 	HLANG_IMPORT_FUNCTION(HBool, init, HLANG_ARGSPILT("HBool"), &HLang::HBool::init_bool);
 	HLANG_INIT_END;
 public:
-	HBool(bool __data__ = false);
-	bool value();
+	HLANG_EXPORT HBool(bool __data__ = false);
+	HLANG_EXPORT bool value();
 	HPointer set(HArgs args);
 	HPointer init_bool(HArgs args);
 private:
