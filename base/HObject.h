@@ -48,6 +48,7 @@ std::vector<std::pair<std::string,std::vector<std::string>>> list = __from__::__
 for (int i = 0; i < (int)list.size(); i++)\
 	HLANG_IMPORT_FUNCTION(__this__, list[i].first,list[i].second, __##__from__##FunctionSAddress__[list[i]]);\
 }
+#define HLANG_DLLPACKAGES extern "C" HLANG_EXPORT std::map < std::string, HFunctionAddress>* HLang_Package()
 HLANG_NAMESPACE_START
 class HLANG_EXPORT HObject
 {

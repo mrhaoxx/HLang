@@ -1,7 +1,6 @@
 #include "HInt.h"
 #include "HBool.h"
 #include "HVoid.h"
-#include <iostream>
 
 HPointer HLang::HInt::equals(HArgs args)
 {
@@ -32,12 +31,6 @@ HPointer HLang::HInt::init_int(HArgs args)
 HPointer HLang::HInt::set(HArgs args)
 {
 	this->data = args[0]->to<HInt>()->data;
-	return HPointer(new HVoid);
-}
-
-HPointer HLang::HInt::hw(HArgs args)
-{
-	std::cout << args[0]->to<HInt>()->value();
 	return HPointer(new HVoid);
 }
 

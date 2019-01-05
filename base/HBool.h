@@ -12,8 +12,8 @@ class HBool :
 public:
 	HLANG_EXPORT HBool* setvalue(bool __data__ = false);
 	HLANG_EXPORT bool value() const;
-	HPointer set(HArgs args);
-	HPointer init_bool(HArgs args);
+	HLANG_EXPORT HPointer set(HArgs args);
+	HLANG_EXPORT HPointer init_bool(HArgs args);
 private:
 	bool data;
 };

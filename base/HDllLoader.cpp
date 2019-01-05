@@ -22,11 +22,12 @@ bool HDllLoader::load()
 	if (!dll)
 		return false;
 	else {
-		HPackageHandle t = (HPackageHandle)GetProcAddress(dll, "HLang-Package");
+		HPackageHandle t = (HPackageHandle)GetProcAddress(dll, "HLang_Package");
 		if (!t)
 			return false;
-		else
-			classes = t();
+		else {
+			classes = *t();
+		}
 	}
 	return true;
 }

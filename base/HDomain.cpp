@@ -127,3 +127,8 @@ HLang::HDomain* HLang::HDomain::setupper(HDomain *upper /*= nullptr*/)
 	this->upper = upper;
 	return this;
 }
+
+HPointer HLang::HDomain::Execute(std::string __class__, std::string __function__, HArgs args)
+{
+	return (this->Access(__class__)) ? this->Access(__class__)->__do__(__function__, args) : nullptr;
+}

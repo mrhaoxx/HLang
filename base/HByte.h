@@ -1,7 +1,7 @@
 #pragma once
 #include "HObject.h"
 HLANG_NAMESPACE_START
-class HByte :
+class  HByte :
 	public HLang::HObject
 {
 	HLANG_OBJECT(HByte);
@@ -15,10 +15,10 @@ public:
 	HLANG_EXPORT HByte* setvalue(int i = 0);
 	HLANG_EXPORT HByte* setvalue(char c = 0);
 	HLANG_EXPORT char value() const;
-	HPointer toInt(HArgs args);
-	HPointer set(HArgs args);
-	HPointer equals(HArgs args);
-	HPointer init_int(HArgs args);
+	HLANG_EXPORT HPointer toInt(HArgs args);
+	HLANG_EXPORT HPointer set(HArgs args);
+	HLANG_EXPORT HPointer equals(HArgs args);
+	HLANG_EXPORT HPointer init_int(HArgs args);
 private:
 	char data;
 };

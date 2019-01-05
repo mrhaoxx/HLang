@@ -95,7 +95,7 @@ int HLang::HVector::length()
 
 HPointer HLang::HVector::length(HArgs args)
 {
-	return HPointer(new HInt(this->length()));
+	return HPointer(HInt::__new__(HArgs())->to<HInt>()->setvalue(this->length()));
 }
 
 void HLang::HVector::clear()

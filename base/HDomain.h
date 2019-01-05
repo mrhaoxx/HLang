@@ -20,6 +20,7 @@ public:
 	bool Import(std::string __name__, HPointer __ptr__);
 	void Delete(std::string __name__, bool __do_delete__ = true);
 	HPointer Access(std::string __name__, bool __access_upper__ = true);
+	HPointer Execute(std::string __class__, std::string __function__, HArgs args);
 	bool RegisterClass(std::string package, std::string __name__, HFunctionAddress __handle__);
 	HFunctionAddress getRegisteredClass(std::string __name__);
 	bool LoadDll(std::string package);
