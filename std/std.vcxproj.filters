@@ -11,24 +11,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HString.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="HVector.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="std.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HString.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HVector.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

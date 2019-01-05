@@ -163,6 +163,8 @@
     <ClCompile Include="HDomain.cpp" />
     <ClCompile Include="HFunction.cpp" />
     <ClCompile Include="HInt.cpp" />
+    <ClCompile Include="HString.cpp" />
+    <ClCompile Include="HVector.cpp" />
     <ClCompile Include="HVoid.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -174,6 +176,8 @@
     <ClInclude Include="HFunction.h" />
     <ClInclude Include="HInt.h" />
     <ClInclude Include="HObject.h" />
+    <ClInclude Include="HString.h" />
+    <ClInclude Include="HVector.h" />
     <ClInclude Include="HVoid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
