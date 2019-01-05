@@ -12,8 +12,8 @@ class HByte :
 	HLANG_IMPORT_FUNCTION(HByte, init, HLANG_ARGSPILT("HInt"), &HLang::HByte::init_int);
 	HLANG_INIT_END
 public:
-	HPointer toInt(HArgs args);
 	HLANG_EXPORT HByte(int i = 0);
+	HPointer toInt(HArgs args);
 	HPointer set(HArgs args);
 	HPointer equals(HArgs args);
 	HPointer init_int(HArgs args);

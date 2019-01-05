@@ -14,9 +14,6 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="HExecutor.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="HDomain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -35,12 +32,12 @@
     <ClCompile Include="HVoid.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="HDllLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="HExecutor.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HDomain.h">
@@ -59,6 +56,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HVoid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HDllLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

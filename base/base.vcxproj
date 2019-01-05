@@ -159,8 +159,8 @@
   <ItemGroup>
     <ClCompile Include="HBool.cpp" />
     <ClCompile Include="HByte.cpp" />
+    <ClCompile Include="HDllLoader.cpp" />
     <ClCompile Include="HDomain.cpp" />
-    <ClCompile Include="HExecutor.cpp" />
     <ClCompile Include="HFunction.cpp" />
     <ClCompile Include="HInt.cpp" />
     <ClCompile Include="HVoid.cpp" />
@@ -169,8 +169,8 @@
   <ItemGroup>
     <ClInclude Include="HBool.h" />
     <ClInclude Include="HByte.h" />
+    <ClInclude Include="HDllLoader.h" />
     <ClInclude Include="HDomain.h" />
-    <ClInclude Include="HExecutor.h" />
     <ClInclude Include="HFunction.h" />
     <ClInclude Include="HInt.h" />
     <ClInclude Include="HObject.h" />

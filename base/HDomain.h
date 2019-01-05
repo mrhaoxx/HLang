@@ -1,5 +1,6 @@
 #pragma once
 #include "HObject.h"
+#include "HDllLoader.h"
 HLANG_NAMESPACE_START
 class HDomain :
 	public HObject
@@ -17,10 +18,13 @@ public:
 	bool Import(std::string __name__, HPointer __ptr__);
 	void Delete(std::string __name__, bool __do_delete__ = true);
 	HPointer Access(std::string __name__, bool __access_upper__ = true);
-	bool RegisterClass(std::string __name__, HPointer(*__handle__)(HArgs));
-	HPointer(*getRegisteredClass(std::string __name__))(HArgs);
+	bool RegisterClass(std::string package, std::string __name__, HFunctionAddress __handle__);
+	HFunctionAddress getRegisteredClass(std::string __name__);
+	bool LoadDll(std::string package);
+	void FreeDll(std::string package);
 private:
-	std::map < std::string, HPointer(*)(HArgs)> registeredclasses;
+	std::map<std::string, std::map<std::string, HFunctionAddress>> registeredclasses;
+	std::map<std::string, HDllLoader*> dlls;
 	std::map<std::string, HPointer> classes;
 	HDomain* upper;
 };

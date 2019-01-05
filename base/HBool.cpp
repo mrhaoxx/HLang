@@ -6,7 +6,7 @@ HLang::HBool::HBool(bool __data__)
 	data = __data__;
 }
 
-bool HLang::HBool::value()
+bool HLang::HBool::value() const
 {
 	return data;
 }

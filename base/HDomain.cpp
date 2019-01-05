@@ -58,20 +58,44 @@ HPointer HLang::HDomain::init_has_not_upper(HArgs args)
 	return HPointer(new HVoid);
 }
 
-bool HLang::HDomain::RegisterClass(std::string __name__, HPointer(*__handle__)(HArgs))
+bool HLang::HDomain::RegisterClass(std::string package, std::string __name__, HFunctionAddress __handle__)
 {
-	if (registeredclasses.count(__name__) == 0)
+	if (registeredclasses.count(package) == 0)
 	{
-		registeredclasses[__name__] = __handle__;
+		registeredclasses[package][__name__] = __handle__;
 		return true;
 	}
 	else return false;
 }
-HPointer(*HLang::HDomain::getRegisteredClass(std::string __name__))(HArgs) {
-	if (registeredclasses.count(__name__) == 0)
-		if (upper == nullptr)
-			return nullptr;
-		else
-			return upper->getRegisteredClass(__name__);
-	return registeredclasses[__name__];
+HFunctionAddress HLang::HDomain::getRegisteredClass(std::string __name__) {
+	for (std::map<std::string, std::map<std::string, HFunctionAddress>>::iterator it = registeredclasses.begin(); it != registeredclasses.end(); ++it)
+		if (it->second.count(__name__) != 0)
+			return it->second[__name__];
+	if (upper == nullptr)
+		return nullptr;
+	else
+		return upper->getRegisteredClass(__name__);
+}
+
+bool HLang::HDomain::LoadDll(std::string package)
+{
+	HDllLoader* dll = new HDllLoader(package);
+	if (dll->load())
+	{
+		if (this->dlls.count(package) != 0)
+			delete dlls[package];
+		this->dlls[package] = dll;
+		this->registeredclasses[package] = dll->get();
+		return true;
+	}
+	else
+		return false;
+}
+
+void HLang::HDomain::FreeDll(std::string package)
+{
+	this->registeredclasses[package].clear();
+	this->registeredclasses.erase(package);
+	if (dlls.count(package) != 0)
+		delete this->dlls.at(package);
 }

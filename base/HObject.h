@@ -9,16 +9,17 @@ namespace HLang {
 }
 typedef HLang::HObject* HPointer;
 typedef std::vector<HPointer> HArgs;
+typedef HPointer(*HFunctionAddress)(HArgs);
 #define HLANG_NAMESPACE_START namespace HLang {
 #define HLANG_NAMESPACE_END }
 #define HLANG_EXPORT __declspec(dllexport)
 HLANG_EXPORT extern std::vector<std::string> split(std::string str, std::string pat);
 #define HLANG_OBJECT(__class__)\
 public:\
-	 HLANG_EXPORT static HPointer __new__(HArgs args){\
+	HLANG_EXPORT static HPointer __new__(HArgs args){\
 			return (new __class__)->__init__(args); \
 	}\
-	HLANG_EXPORT HPointer __do__(std::string function, HArgs args) \
+	HPointer __do__(std::string function, HArgs args) \
 	{\
 	std::vector<std::string> argclasses; \
 	for (int i = 0; i < args.size(); i++)\
@@ -27,10 +28,10 @@ public:\
 				return (this->*__##__class__##FunctionSAddress__.at(std::make_pair(function,argclasses)))(args); \
 		return nullptr;\
 	}\
-	HLANG_EXPORT std::string __type__(){\
+	std::string __type__(){\
 		return std::string(#__class__);\
 	}\
-	HLANG_EXPORT std::vector<std::pair<std::string,std::vector<std::string>>>__list__() {\
+	std::vector<std::pair<std::string,std::vector<std::string>>>__list__() {\
 		std::vector<std::pair<std::string,std::vector<std::string>>> v;\
 		for (std::map<std::pair<std::string,std::vector<std::string>>, HPointer(__class__::*)(HArgs)>::iterator it = __##__class__##FunctionSAddress__.begin(); it != __##__class__##FunctionSAddress__.end(); ++it)\
 			v.push_back(it->first); \
@@ -48,7 +49,7 @@ for (int i = 0; i < (int)list.size(); i++)\
 	HLANG_IMPORT_FUNCTION(__this__, list[i].first,list[i].second, __##__from__##FunctionSAddress__[list[i]]);\
 }
 HLANG_NAMESPACE_START
-class HObject
+class HLANG_EXPORT HObject
 {
 public:
 	HObject() {};
@@ -58,37 +59,27 @@ public:
 	virtual  std::string __type__() = 0;
 	virtual  HPointer __init__(HArgs args) = 0;
 	template<typename _Target>
-	_Target* to()
+	HLANG_EXPORT _Target* to()
 	{
 		return dynamic_cast<_Target*>(this);
 	}
 };
 class HError {
 public:
-	enum ErrorLevel
+	enum HLANG_EXPORT  ErrorLevel
 	{
 		NONE,
 		RT_NOTICE,
 		RT_WARNING,
 		RT_ERROR
 	};
-	HError(HError::ErrorLevel _elevel = NONE, std::string  _why = "", HPointer _ret = nullptr) {
-		this->elevel = _elevel;
-		this->why = _why;
-		this->ret = _ret;
-	};
-	HError::ErrorLevel getELevel() const {
-		return elevel;
-	}
-	std::string getWhy() const {
-		return why;
-	}
-	HPointer getObject() const {
-		return ret;
-	}
+	HError(HError::ErrorLevel _elevel = NONE, std::string  _why = "", HPointer _ret = nullptr) : elevel(_elevel), ret(_ret), why(_why) {};
+	HError::ErrorLevel getELevel() const { return elevel; }
+	std::string getWhy() const { return why; }
+	HPointer getObject() const { return ret; }
 private:
 	ErrorLevel elevel = NONE;
 	HPointer ret = nullptr;
-	std::string why = "";
+	std::string  why = "";
 };
 HLANG_NAMESPACE_END
