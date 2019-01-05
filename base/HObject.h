@@ -24,7 +24,7 @@ public:\
 	std::vector<std::string> argclasses; \
 	for (int i = 0; i < args.size(); i++)\
 		argclasses.push_back(args[i]->__type__()); \
-	if (__##__class__##FunctionSAddress__.count(std::make_pair(function, argclasses)) > 0)\
+	if (__##__class__##FunctionSAddress__.count(std::make_pair(function, argclasses)) != 0)\
 				return (this->*__##__class__##FunctionSAddress__.at(std::make_pair(function,argclasses)))(args); \
 		return nullptr;\
 	}\
@@ -63,23 +63,5 @@ public:
 	{
 		return dynamic_cast<_Target*>(this);
 	}
-};
-class HError {
-public:
-	enum HLANG_EXPORT  ErrorLevel
-	{
-		NONE,
-		RT_NOTICE,
-		RT_WARNING,
-		RT_ERROR
-	};
-	HError(HError::ErrorLevel _elevel = NONE, std::string  _why = "", HPointer _ret = nullptr) : elevel(_elevel), ret(_ret), why(_why) {};
-	HError::ErrorLevel getELevel() const { return elevel; }
-	std::string getWhy() const { return why; }
-	HPointer getObject() const { return ret; }
-private:
-	ErrorLevel elevel = NONE;
-	HPointer ret = nullptr;
-	std::string  why = "";
 };
 HLANG_NAMESPACE_END

@@ -1,25 +1,21 @@
 #include "HInt.h"
 #include "HBool.h"
 #include "HVoid.h"
-
-HLang::HInt::HInt(int d)
-{
-	data = d;
-}
+#include <iostream>
 
 HPointer HLang::HInt::equals(HArgs args)
 {
-	return HPointer(new HBool(data == args[0]->to<HInt>()->value()));
+	return HPointer(HBool::__new__(HArgs())->to<HInt>()->setvalue(data == args[0]->to<HInt>()->value()));
 }
 
 HPointer HLang::HInt::greater(HArgs args)
 {
-	return HPointer(new HBool(data > args[0]->to<HInt>()->value()));
+	return HPointer(HBool::__new__(HArgs())->to<HBool>()->setvalue(data > args[0]->to<HInt>()->value()));
 }
 
 HPointer HLang::HInt::less(HArgs args)
 {
-	return HPointer(new HBool(data < args[0]->to<HInt>()->value()));
+	return HPointer(HBool::__new__(HArgs())->to<HBool>()->setvalue(data < args[0]->to<HInt>()->value()));
 }
 
 int HLang::HInt::value()
@@ -37,4 +33,16 @@ HPointer HLang::HInt::set(HArgs args)
 {
 	this->data = args[0]->to<HInt>()->data;
 	return HPointer(new HVoid);
+}
+
+HPointer HLang::HInt::hw(HArgs args)
+{
+	std::cout << args[0]->to<HInt>()->value();
+	return HPointer(new HVoid);
+}
+
+HLang::HInt* HLang::HInt::setvalue(int i)
+{
+	this->data = i;
+	return this;
 }

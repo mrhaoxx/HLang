@@ -1,11 +1,6 @@
 #include "HDomain.h"
 #include "HVoid.h"
 
-HLang::HDomain::HDomain(HDomain *upper /*= nullptr*/)
-{
-	this->upper = upper;
-}
-
 bool HLang::HDomain::Import(std::string __name__, HPointer __ptr__)
 {
 	if (this->classes.count(__name__) != 0)
@@ -46,6 +41,7 @@ bool HLang::HDomain::New(std::string __save_As__, std::string __class__, HArgs a
 		return false;
 	return true;
 }
+
 HPointer HLang::HDomain::init_has_upper(HArgs args)
 {
 	this->upper = args[0]->to<HDomain>();
@@ -98,4 +94,36 @@ void HLang::HDomain::FreeDll(std::string package)
 	this->registeredclasses.erase(package);
 	if (dlls.count(package) != 0)
 		delete this->dlls.at(package);
+}
+
+HLang::HDomain::~HDomain()
+{
+	clear(All);
+}
+
+void HLang::HDomain::clear(ClearType t /*= All*/)
+{
+	switch (t)
+	{
+	case HLang::HDomain::All:
+	case HLang::HDomain::Classes:
+		for (std::map<std::string, HPointer>::iterator it = classes.begin(); it != classes.end(); ++it)
+			delete it->second;
+		classes.clear();
+		if (t != All)
+			break;
+	case HLang::HDomain::Dlls:
+		for (std::map<std::string, HDllLoader*>::iterator it = dlls.begin(); it != dlls.end(); ++it)
+			delete it->second;
+		dlls.clear();
+		break;
+	default:
+		break;
+	}
+}
+
+HLang::HDomain* HLang::HDomain::setupper(HDomain *upper /*= nullptr*/)
+{
+	this->upper = upper;
+	return this;
 }

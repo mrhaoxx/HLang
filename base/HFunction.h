@@ -5,8 +5,7 @@ class HFunction :
 	public HLang::HObject
 {
 	HLANG_OBJECT(HFunction);
-	HLANG_INIT_START
-		HLANG_INIT_END
+	HLANG_INIT_START HLANG_INIT_END
 public:
 	HFunction();
 	~HFunction();

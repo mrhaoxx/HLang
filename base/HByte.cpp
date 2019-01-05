@@ -3,14 +3,9 @@
 #include "HVoid.h"
 #include "HBool.h"
 
-HLang::HByte::HByte(int i)
-{
-	this->data = (char)i;
-}
-
 HPointer HLang::HByte::toInt(HArgs args)
 {
-	return HPointer(new HInt((int)this->data));
+	return HPointer(HInt::__new__(HArgs())->to<HInt>()->setvalue(this->data));
 }
 
 HPointer HLang::HByte::set(HArgs args)
@@ -21,7 +16,7 @@ HPointer HLang::HByte::set(HArgs args)
 
 HPointer HLang::HByte::equals(HArgs args)
 {
-	return HPointer(new HBool(data == args[0]->to<HInt>()->value()));
+	return HPointer(HBool::__new__(HArgs())->to<HBool>()->setvalue(data == args[0]->to<HInt>()->value()));
 }
 
 HPointer HLang::HByte::init_int(HArgs args)
@@ -33,4 +28,16 @@ HPointer HLang::HByte::init_int(HArgs args)
 char HLang::HByte::value() const
 {
 	return data;
+}
+
+HLang::HByte* HLang::HByte::setvalue(char c)
+{
+	this->data = c;
+	return this;
+}
+
+HLang::HByte* HLang::HByte::setvalue(int i /*= 0*/)
+{
+	this->data = i;
+	return this;
 }

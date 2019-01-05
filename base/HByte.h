@@ -12,12 +12,13 @@ class HByte :
 	HLANG_IMPORT_FUNCTION(HByte, init, HLANG_ARGSPILT("HInt"), &HLang::HByte::init_int);
 	HLANG_INIT_END
 public:
-	HLANG_EXPORT HByte(int i = 0);
+	HLANG_EXPORT HByte* setvalue(int i = 0);
+	HLANG_EXPORT HByte* setvalue(char c = 0);
+	HLANG_EXPORT char value() const;
 	HPointer toInt(HArgs args);
 	HPointer set(HArgs args);
 	HPointer equals(HArgs args);
 	HPointer init_int(HArgs args);
-	HLANG_EXPORT char value() const;
 private:
 	char data;
 };

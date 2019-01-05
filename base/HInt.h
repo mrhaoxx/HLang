@@ -10,16 +10,18 @@ class HInt :
 	HLANG_IMPORT_FUNCTION(HInt, set, HLANG_ARGSPILT("HInt"), &HLang::HInt::set);
 	HLANG_IMPORT_FUNCTION(HInt, greater, HLANG_ARGSPILT("HInt"), &HLang::HInt::greater);
 	HLANG_IMPORT_FUNCTION(HInt, less, HLANG_ARGSPILT("HInt"), &HLang::HInt::less);
+	HLANG_IMPORT_FUNCTION(HInt, hw, HLANG_ARGSPILT("HInt"), &HLang::HInt::hw);
 	HLANG_IMPORT_FUNCTION(HInt, init, HLANG_ARGSPILT("HInt"), &HLang::HInt::init_int);
 	HLANG_INIT_END
 public:
-	HLANG_EXPORT HInt(int d = 0);
+	HLANG_EXPORT int value();
+	HLANG_EXPORT HInt* setvalue(int i = 0);
 	HPointer equals(HArgs args);
 	HPointer greater(HArgs args);
 	HPointer less(HArgs args);
 	HPointer init_int(HArgs args);
 	HPointer set(HArgs args);
-	HLANG_EXPORT int value();
+	HPointer hw(HArgs args);
 private:
 	int data;
 };

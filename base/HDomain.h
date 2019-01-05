@@ -11,9 +11,11 @@ class HDomain :
 	HLANG_IMPORT_FUNCTION(HDomain, init, HLANG_ARGSPILT(""), &HLang::HDomain::init_has_not_upper);
 	HLANG_INIT_END
 public:
-	HDomain(HDomain *upper = nullptr);
+	HDomain* setupper(HDomain *upper = nullptr);
+	~HDomain();
 	HPointer init_has_upper(HArgs args);
 	HPointer init_has_not_upper(HArgs args);
+
 	bool New(std::string __save_As__, std::string __class__, HArgs args);
 	bool Import(std::string __name__, HPointer __ptr__);
 	void Delete(std::string __name__, bool __do_delete__ = true);
@@ -22,6 +24,14 @@ public:
 	HFunctionAddress getRegisteredClass(std::string __name__);
 	bool LoadDll(std::string package);
 	void FreeDll(std::string package);
+	enum ClearType
+	{
+		Classes,
+		Dlls,
+		All
+	};
+	void clear(ClearType t = All);
+
 private:
 	std::map<std::string, std::map<std::string, HFunctionAddress>> registeredclasses;
 	std::map<std::string, HDllLoader*> dlls;
