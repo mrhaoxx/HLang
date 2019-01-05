@@ -5,15 +5,14 @@ class HString :
 	protected HLang::HVector
 {
 	HLANG_OBJECT(HString);
-	HString();
 	HLANG_INIT_START
 		HLANG_INHERITS(HString, HVector);
 	HLANG_INIT_END
 
 public:
-	HString(std::string str) : HVector("HByte") {}
-	~HString();
+	HString(std::string str = "");
 	std::string toStdString();
+	HString* setvalue(std::string str);
 };
 
 HLANG_NAMESPACE_END

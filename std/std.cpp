@@ -3,8 +3,8 @@
 
 #include "HObject.h"
 #include "HString.h"
-#include "HHelloWorld.h"
+
 HLANG_DLLPACKAGES
 {
-	return new std::map<std::string,HFunctionAddress>({std::make_pair("t",&HLang::HHelloWorld::__new__)});
+	return new std::map<std::string,HFunctionAddress>({std::make_pair("string",&HLang::HString::__new__)});
 }

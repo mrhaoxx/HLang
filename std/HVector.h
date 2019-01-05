@@ -23,7 +23,7 @@ class HVector :
 		HPointer data;
 		bool issaved = false;
 	}*head = nullptr;
-	std::string type;
+	std::string type = "";
 public:
 	HVector(std::string type = "");
 	HPointer insert_int_data(HArgs args);

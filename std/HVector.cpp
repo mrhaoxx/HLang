@@ -100,7 +100,7 @@ HPointer HLang::HVector::length(HArgs args)
 
 void HLang::HVector::clear()
 {
-	if (length() != 0)
+	while (length() != 0)
 		removeAt(length());
 }
 

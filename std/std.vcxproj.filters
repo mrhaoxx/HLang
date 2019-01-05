@@ -14,13 +14,7 @@
     <ClInclude Include="HString.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="HMap.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="HVector.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="HHelloWorld.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -34,13 +28,7 @@
     <ClCompile Include="HString.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="HMap.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="HVector.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HHelloWorld.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

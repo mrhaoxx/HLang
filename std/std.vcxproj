@@ -150,15 +150,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="HHelloWorld.h" />
-    <ClInclude Include="HMap.h" />
     <ClInclude Include="HString.h" />
     <ClInclude Include="HVector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="HHelloWorld.cpp" />
-    <ClCompile Include="HMap.cpp" />
     <ClCompile Include="HString.cpp" />
     <ClCompile Include="HVector.cpp" />
     <ClCompile Include="std.cpp" />
