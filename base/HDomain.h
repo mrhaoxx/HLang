@@ -7,8 +7,8 @@ class HDomain :
 {
 	HLANG_OBJECT(HDomain);
 	HLANG_INIT_START
-		HLANG_IMPORT_FUNCTION(HDomain, init, HLANG_ARGSPILT("HDomain"), &HLang::HDomain::init_has_upper);
-	HLANG_IMPORT_FUNCTION(HDomain, init, HLANG_ARGSPILT(""), &HLang::HDomain::init_has_not_upper);
+		HLANG_IMPORT_FUNCTION(HDomain, "init", HLANG_ARGSPILT("HDomain"), &HLang::HDomain::init_has_upper);
+	HLANG_IMPORT_FUNCTION(HDomain, "init", HLANG_ARGSPILT(""), &HLang::HDomain::init_has_not_upper);
 	HLANG_INIT_END
 public:
 	HDomain* setupper(HDomain *upper = nullptr);

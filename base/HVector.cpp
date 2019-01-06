@@ -6,25 +6,35 @@ void HLang::HVector::insert(HPointer d, int w)
 {
 	Node *t = head;
 	Node *l = head;
-	for (int i = 0; i <= w; i++)
+	for (int i = 0; i <= w || w == -1; i++)
 		if (i != w)
 			if (t->next != nullptr) {
 				l = t;
 				t = t->next;
 			}
 			else
-				if (i != -1)
+				if (w != -1)
 					return;
 				else
 				{
-					Node* n = new Node;
-					n->data = d;
-					t->next = n;
+					if (t->issaved)
+					{
+						Node* n = new Node;
+						n->data = d;
+						n->issaved = true;
+						t->next = n;
+					}
+					else {
+						t->issaved = true;
+						t->data = d;
+					}
+					return;
 				}
 		else
 		{
 			Node* n = new Node;
 			n->data = d;
+			n->issaved = true;
 			l->next = n;
 			n->next = t;
 		}
@@ -82,6 +92,7 @@ HPointer HLang::HVector::removeAt(HArgs args)
 int HLang::HVector::length()
 {
 	Node* t = head;
+	if (t == nullptr)return 0;
 	int l = 0;
 	while (t->issaved)
 	{

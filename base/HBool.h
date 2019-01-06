@@ -6,8 +6,8 @@ class HBool :
 {
 	HLANG_OBJECT(HBool);
 	HLANG_INIT_START
-		HLANG_IMPORT_FUNCTION(HBool, set, HLANG_ARGSPILT("HBool"), &HLang::HBool::set);
-	HLANG_IMPORT_FUNCTION(HBool, init, HLANG_ARGSPILT("HBool"), &HLang::HBool::init_bool);
+		HLANG_IMPORT_FUNCTION(HBool, "set", HLANG_ARGSPILT("HBool"), &HLang::HBool::set);
+	HLANG_IMPORT_FUNCTION(HBool, "init", HLANG_ARGSPILT("HBool"), &HLang::HBool::init_bool);
 	HLANG_INIT_END;
 public:
 	HLANG_EXPORT HBool* setvalue(bool __data__ = false);

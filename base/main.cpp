@@ -2,12 +2,15 @@
 #include "HDomain.h"
 #include "HInt.h"
 #include "HByte.h"
+#include "HString.h"
+using namespace HLang;
 int main()
 {
 	//Next Step String
 	HLang::HDomain dm;
-	dm.LoadDll("std");
-	dm.New("test", "string", HArgs());
-	dm.Execute("test", "insert", HArgs({ HLang::HByte::__new__(HArgs())->to <HLang::HByte>()->setvalue('t') }));
-	dm;
+	dm.RegisterClass("base", "string", &HLang::HString::__new__);
+	dm.New("t", "string", HArgs());
+	dm.Access("t")->to<HLang::HVector>()->to<HLang::HString>()->setvalue("Hello World");
+	std::cout << dm.Access("t")->to<HLang::HVector>()->to<HLang::HString>()->toStdString();
+	return 0;
 }

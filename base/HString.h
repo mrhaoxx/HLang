@@ -2,7 +2,7 @@
 #include "HVector.h"
 HLANG_NAMESPACE_START
 class HString :
-	protected HLang::HVector
+	public HVector
 {
 	HLANG_OBJECT(HString);
 	HLANG_INIT_START
@@ -10,9 +10,9 @@ class HString :
 	HLANG_INIT_END
 
 public:
-	HString(std::string str = "");
-	std::string toStdString();
-	HString* setvalue(std::string str);
+	HLANG_EXPORT HString(std::string str = "");
+	HLANG_EXPORT std::string toStdString();
+	HLANG_EXPORT HString* setvalue(std::string str);
 };
 
 HLANG_NAMESPACE_END

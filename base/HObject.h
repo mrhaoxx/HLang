@@ -41,7 +41,7 @@ protected:\
 	std::map<std::pair<std::string,std::vector<std::string>>, HPointer(__class__::*)(HArgs)> __##__class__##FunctionSAddress__;
 #define HLANG_INIT_START HPointer __init__(HArgs args){
 #define HLANG_INIT_END delete this->__do__("init",args);return this;}
-#define HLANG_IMPORT_FUNCTION(__class__,__name__,__args__,__function_address__)__##__class__##FunctionSAddress__.insert(std::pair<std::pair<std::string,std::vector<std::string>>, HPointer(__class__::*)(HArgs)>(std::make_pair(std::string(#__name__),__args__),__function_address__))
+#define HLANG_IMPORT_FUNCTION(__class__,__name__,__args__,__function_address__)__##__class__##FunctionSAddress__.insert(std::pair<std::pair<std::string,std::vector<std::string>>, HPointer(__class__::*)(HArgs)>(std::make_pair(std::string(__name__),__args__),__function_address__))
 #define HLANG_ARGSPILT(str) split(std::string(str),std::string(","))
 #define HLANG_INHERITS(__this__,__from__) {\
 __from__::__init__(args);\

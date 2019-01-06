@@ -6,10 +6,10 @@ class  HByte :
 {
 	HLANG_OBJECT(HByte);
 	HLANG_INIT_START
-		HLANG_IMPORT_FUNCTION(HByte, toInt, HLANG_ARGSPILT(""), &HLang::HByte::toInt);
-	HLANG_IMPORT_FUNCTION(HByte, equals, HLANG_ARGSPILT("HByte"), &HLang::HByte::equals);
-	HLANG_IMPORT_FUNCTION(HByte, set, HLANG_ARGSPILT("HInt"), &HLang::HByte::set);
-	HLANG_IMPORT_FUNCTION(HByte, init, HLANG_ARGSPILT("HInt"), &HLang::HByte::init_int);
+		HLANG_IMPORT_FUNCTION(HByte, "toInt", HLANG_ARGSPILT(""), &HLang::HByte::toInt);
+	HLANG_IMPORT_FUNCTION(HByte, "equals", HLANG_ARGSPILT("HByte"), &HLang::HByte::equals);
+	HLANG_IMPORT_FUNCTION(HByte, "set", HLANG_ARGSPILT("HInt"), &HLang::HByte::set);
+	HLANG_IMPORT_FUNCTION(HByte, "init", HLANG_ARGSPILT("HInt"), &HLang::HByte::init_int);
 	HLANG_INIT_END
 public:
 	HLANG_EXPORT HByte* setvalue(int i = 0);
