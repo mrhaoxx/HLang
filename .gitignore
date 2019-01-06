@@ -13,3 +13,7 @@ HLang.vcxproj.user
 /.vs/HLang/v15
 /base/x64
 /std/x64
+/qt/debug
+/qt/release
+/qt/x64/Debug
+/qt/.qmake.stash

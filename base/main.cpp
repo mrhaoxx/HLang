@@ -12,5 +12,8 @@ int main()
 	dm.New("t", "string", HArgs());
 	dm.Access("t")->to<HLang::HVector>()->to<HLang::HString>()->setvalue("Hello World");
 	std::cout << dm.Access("t")->to<HLang::HVector>()->to<HLang::HString>()->toStdString();
+	dm.LoadDll("qt");
+	dm.New("q", "qt", HArgs());
+	dm.Execute("q", "aboutQt", HArgs());
 	return 0;
 }

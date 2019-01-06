@@ -1,4 +1,5 @@
 #include "HDllLoader.h"
+#include <iostream>
 std::wstring s2ws(const std::string& s)
 {
 	int len;
@@ -19,14 +20,19 @@ bool HDllLoader::load()
 	if (dll)
 		FreeLibrary(dll);
 	dll = LoadLibrary(s2ws(dll_name).c_str());
-	if (!dll)
+
+	if (!dll) {
+		std::cout << "[" << GetLastError() << "]";
+
 		return false;
+	}
 	else {
 		HPackageHandle t = (HPackageHandle)GetProcAddress(dll, "HLang_Package");
-		if (!t)
+		if (!t) {
 			return false;
+		}
 		else {
-			classes = *t();
+			classes = t();
 		}
 	}
 	return true;
@@ -38,9 +44,9 @@ bool HDllLoader::load(std::string filename)
 	return this->load();
 }
 
-std::map<std::string, HFunctionAddress> HDllLoader::get()
+HLANG_DLLEXPORT_MAP HDllLoader::get()
 {
-	return classes;
+	return *classes;
 }
 
 HDllLoader::~HDllLoader()

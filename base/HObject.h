@@ -50,6 +50,7 @@ for (int i = 0; i < (int)list.size(); i++)\
 	HLANG_IMPORT_FUNCTION(__this__, list[i].first,list[i].second, __##__from__##FunctionSAddress__[list[i]]);\
 }
 #define HLANG_DLLPACKAGES extern "C" HLANG_EXPORT std::map < std::string, HFunctionAddress>* HLang_Package()
+#define HLANG_DLLEXPORT_MAP std::map < std::string, HFunctionAddress>
 HLANG_NAMESPACE_START
 class HLANG_EXPORT HObject
 {

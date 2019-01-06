@@ -13,6 +13,6 @@ public:
 private:
 	std::string dll_name;
 	typedef std::map < std::string, HFunctionAddress>*(*HPackageHandle)();
-	std::map < std::string, HFunctionAddress> classes;
+	HLANG_DLLEXPORT_MAP* classes;
 	HINSTANCE dll;
 };
