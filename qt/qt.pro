@@ -8,6 +8,7 @@ QT       += widgets network xml multimedia
 
 TARGET = qt
 TEMPLATE = lib
+CONFIG += static
 
 DEFINES += QT_LIBRARY
 
@@ -23,11 +24,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        qt.cpp
+        qt.cpp \
+        HQHelloWorld.cpp
 
 HEADERS += \
         qt.h \
-        qt_global.h 
+        qt_global.h \
+        HQHelloWorld.h
 
 unix {
     target.path = /usr/lib

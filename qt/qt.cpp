@@ -19,5 +19,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	return TRUE;
 }
 HLANG_DLLPACKAGES{
+	char** arg = {};
+	int i = 0;
+	app = new QApplication(i, arg);
 	return new HLANG_DLLEXPORT_MAP({std::make_pair("qt",&HLang::HQHelloWorld::__new__)});
 }

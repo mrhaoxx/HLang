@@ -17,3 +17,6 @@ HLang.vcxproj.user
 /qt/release
 /qt/x64/Debug
 /qt/.qmake.stash
+/qt/Makefile
+/qt/Makefile.Release
+/qt/Makefile.Debug

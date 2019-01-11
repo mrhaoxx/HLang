@@ -27,21 +27,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="qt.cpp">
+    <ClCompile Include="HQHelloWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HQHelloWorld.cpp">
+    <ClCompile Include="qt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HQHelloWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="qt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qt_global.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HQHelloWorld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
