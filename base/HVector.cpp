@@ -86,7 +86,7 @@ void HLang::HVector::removeAt(int i)
 HPointer HLang::HVector::removeAt(HArgs args)
 {
 	this->removeAt(args[0]->to<HInt>()->value());
-	return HPointer(new HVoid);
+	return HPointer(HVoid::__new__(HArgs()));
 }
 
 int HLang::HVector::length()
@@ -118,19 +118,19 @@ void HLang::HVector::clear()
 HPointer HLang::HVector::clear(HArgs args)
 {
 	this->clear();
-	return HPointer(new HVoid);
+	return HPointer(HVoid::__new__(HArgs()));
 }
 
 HPointer HLang::HVector::insert_int_data(HArgs args)
 {
 	this->insert(args[1], args[0]->to<HInt>()->value());
-	return HPointer(new HVoid);
+	return HPointer(HVoid::__new__(HArgs()));
 }
 
 HPointer HLang::HVector::insert_data(HArgs args)
 {
 	this->insert(args[0], -1);
-	return HPointer(new HVoid);
+	return HPointer(HVoid::__new__(HArgs()));
 }
 
 HPointer HLang::HVector::init_string(HArgs args)

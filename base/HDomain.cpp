@@ -45,13 +45,13 @@ bool HLang::HDomain::New(std::string __save_As__, std::string __class__, HArgs a
 HPointer HLang::HDomain::init_has_upper(HArgs args)
 {
 	this->upper = args[0]->to<HDomain>();
-	return HPointer(new HVoid);
+	return HPointer(HVoid::__new__(HArgs()));
 }
 
 HPointer HLang::HDomain::init_has_not_upper(HArgs args)
 {
 	this->upper = nullptr;
-	return HPointer(new HVoid);
+	return HPointer(HVoid::__new__(HArgs()));
 }
 
 bool HLang::HDomain::RegisterClass(std::string package, std::string __name__, HFunctionAddress __handle__)

@@ -9,13 +9,13 @@ bool HLang::HBool::value() const
 HPointer HLang::HBool::set(HArgs args)
 {
 	this->data = args[0]->to<HBool>()->value();
-	return HPointer(new HVoid);
+	return HPointer(HVoid::__new__(HArgs()));
 }
 
 HPointer HLang::HBool::init_bool(HArgs args)
 {
 	this->data = args[0]->to<HBool>()->value();
-	return HPointer(new HVoid);
+	return HPointer(HVoid::__new__(HArgs()));
 }
 HLang::HBool* HLang::HBool::setvalue(bool __data__ /*= false*/)
 {

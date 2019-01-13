@@ -25,13 +25,13 @@ int HLang::HInt::value()
 HPointer HLang::HInt::init_int(HArgs args)
 {
 	this->data = args[0]->to<HInt>()->data;
-	return HPointer(new HVoid);
+	return HPointer(HVoid::__new__(HArgs()));
 }
 
 HPointer HLang::HInt::set(HArgs args)
 {
 	this->data = args[0]->to<HInt>()->data;
-	return HPointer(new HVoid);
+	return HPointer(HVoid::__new__(HArgs()));
 }
 
 HLang::HInt* HLang::HInt::setvalue(int i)
