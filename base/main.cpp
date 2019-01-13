@@ -15,5 +15,6 @@ int main()
 	dm.LoadDll("qt");
 	dm.New("q", "qt", HArgs());
 	dm.Execute("q", "aboutQt", HArgs());
+	dm.Execute("q", "info", HArgs({ dm.Access("t") }));
 	return 0;
 }
