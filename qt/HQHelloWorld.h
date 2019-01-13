@@ -1,6 +1,6 @@
 #pragma once
 #include "HObject.h"
-#include <QApplication>
+#include "QApplication"
 HLANG_NAMESPACE_START
 class HQHelloWorld : HObject
 {

@@ -1,7 +1,7 @@
 #ifndef QT_GLOBAL_H
 #define QT_GLOBAL_H
 #include "HObject.h"
-#include <QtCore/qglobal.h>
+#include "QtCore/qglobal.h"
 #include "QApplication"
 
 #if defined(QT_LIBRARY)

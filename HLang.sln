@@ -4,11 +4,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "base", "base\base.vcxproj", "{1C850FFA-671A-4A5C-85A4-3A2DB5559A71}"
-	ProjectSection(ProjectDependencies) = postProject
-		{5460B583-AFFF-3672-88E1-795FB3E54045} = {5460B583-AFFF-3672-88E1-795FB3E54045}
-	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qt", "qt\qt.vcxproj", "{5460B583-AFFF-3672-88E1-795FB3E54045}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qt", "qt\qt.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,18 +23,18 @@ Global
 		{1C850FFA-671A-4A5C-85A4-3A2DB5559A71}.Release|x64.Build.0 = Release|x64
 		{1C850FFA-671A-4A5C-85A4-3A2DB5559A71}.Release|x86.ActiveCfg = Release|Win32
 		{1C850FFA-671A-4A5C-85A4-3A2DB5559A71}.Release|x86.Build.0 = Release|Win32
-		{5460B583-AFFF-3672-88E1-795FB3E54045}.Debug|x64.ActiveCfg = Debug|x64
-		{5460B583-AFFF-3672-88E1-795FB3E54045}.Debug|x64.Build.0 = Debug|x64
-		{5460B583-AFFF-3672-88E1-795FB3E54045}.Debug|x86.ActiveCfg = Debug|x64
-		{5460B583-AFFF-3672-88E1-795FB3E54045}.Release|x64.ActiveCfg = Release|x64
-		{5460B583-AFFF-3672-88E1-795FB3E54045}.Release|x64.Build.0 = Release|x64
-		{5460B583-AFFF-3672-88E1-795FB3E54045}.Release|x86.ActiveCfg = Release|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x64.ActiveCfg = Debug|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x64.Build.0 = Debug|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x86.ActiveCfg = Debug|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x64.ActiveCfg = Release|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x64.Build.0 = Release|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		Qt5Version = msvc_static
 		SolutionGuid = {360F8F01-FE91-4594-A7ED-100E91F058D6}
+		Qt5Version = $(DefaultQtVersion)
 	EndGlobalSection
 EndGlobal
