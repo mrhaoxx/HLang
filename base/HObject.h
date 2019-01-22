@@ -6,17 +6,18 @@
 #include <map>
 namespace HLang {
 	class HObject;
+	class HPointer;
+    typedef std::vector<HPointer> HArgs;
+    typedef HPointer (*HFunctionAddress)(HArgs);
 }
-typedef HLang::HObject* HPointer;
-typedef std::vector<HPointer> HArgs;
-typedef HPointer(*HFunctionAddress)(HArgs);
+
 #define HLANG_NAMESPACE_START namespace HLang {
 #define HLANG_NAMESPACE_END }
 #define HLANG_EXPORT __declspec(dllexport)
 HLANG_EXPORT extern std::vector<std::string> split(std::string str, std::string pat);
 #define HLANG_OBJECT(__class__)\
 public:\
-	HLANG_EXPORT static HPointer __new__(HArgs args){\
+	HLANG_EXPORT static HLang::HPointer __new__(HArgs args){\
 			return (new __class__)->__init__(args); \
 	}\
 	HPointer __do__(std::string function, HArgs args) \
@@ -66,5 +67,30 @@ public:
 	{
 		return dynamic_cast<_Target*>(this);
 	}
+};
+class HPointer {
+public:
+  HPointer(HObject* p = nullptr) : ptr(p) {
+    if (ptr != nullptr) isvaild = false;
+  };
+  void Delete() { 
+	  if(!isvaild) delete ptr;
+    ptr = nullptr;
+  }
+  void Setup(HObject* p ,bool DoDelete = true) {
+    if (!isvaild&&DoDelete) Delete();
+    this->ptr = p;
+    if (ptr != nullptr) isvaild = false;
+  }
+  HObject* operator*() {
+    if (!isvaild) return ptr;
+    return nullptr;
+  }
+  HObject* operator->() {
+    if (!isvaild) return ptr;
+    return nullptr;
+  }
+  HObject* ptr=nullptr;
+  bool isvaild=true;
 };
 HLANG_NAMESPACE_END

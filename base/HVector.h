@@ -7,7 +7,7 @@ class HVector :
 	public HLang::HObject
 {
 	HLANG_OBJECT(HVector);
-	HLANG_INIT_START
+  HLANG_INIT_START
 		HLANG_IMPORT_FUNCTION(HVector, "insert", HLANG_ARGSPILT(this->type), &HLang::HVector::insert_data);
 	HLANG_IMPORT_FUNCTION(HVector, "insert", HLANG_ARGSPILT("HInt," + this->type), &HLang::HVector::insert_int_data);
 	HLANG_IMPORT_FUNCTION(HVector, "at", HLANG_ARGSPILT(""), &HLang::HVector::at);
@@ -25,7 +25,7 @@ class HVector :
 	}*head = nullptr;
 	std::string type = "";
 public:
-	HLANG_EXPORT	HVector(std::string type = "");
+	HLANG_EXPORT HVector(std::string type = "");
 	HPointer insert_int_data(HArgs args);
 	HPointer insert_data(HArgs args);
 	HPointer at(HArgs args);
