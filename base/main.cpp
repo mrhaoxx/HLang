@@ -10,7 +10,7 @@ int main()
 	HLang::HDomain dm;
 	dm.RegisterClass("base", "string", &HLang::HString::__new__);
 	dm.New("t", "string", HArgs());
-	dm.Access("t")->to<HLang::HVector>()->to<HLang::HString>()->setvalue("Hello World");
+	dm.Access("t")->to<HLang::HVector>()->to<HLang::HString>()->setvalue("你好");
 	std::cout << dm.Access("t")->to<HLang::HVector>()->to<HLang::HString>()->toStdString();
 	dm.LoadDll("qt");
 	dm.New("q", "qt", HArgs());

@@ -13,13 +13,13 @@ class  HByte :
 	HLANG_INIT_END
 public:
 	HLANG_EXPORT HByte* setvalue(int i = 0);
-	HLANG_EXPORT HByte* setvalue(char c = 0);
-	HLANG_EXPORT char value() const;
+	HLANG_EXPORT HByte* setvalue(wchar_t c = 0);
+	HLANG_EXPORT wchar_t value() const;
 	HLANG_EXPORT HPointer toInt(HArgs args);
 	HLANG_EXPORT HPointer set(HArgs args);
 	HLANG_EXPORT HPointer equals(HArgs args);
 	HLANG_EXPORT HPointer init_int(HArgs args);
 private:
-	char data;
+	wchar_t data;
 };
 HLANG_NAMESPACE_END

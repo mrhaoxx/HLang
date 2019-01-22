@@ -71,7 +71,7 @@
       <IncludePath>$(SolutionDir)base;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtLocation;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\QtMultimediaWidgets;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWebSockets;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtXmlPatterns;%(AdditionalIncludeDirectories)</IncludePath>
     </QtMoc>
     <PostBuildEvent>
-      <Command>$(QTDIR)\bin\windeployqt $(Outdir)$(TargetFileName) --no-translations</Command>
+      <Command>set VCINSTALLDIR=$(VCInstallDir)&amp;&amp;$(QTDIR)\bin\windeployqt $(Outdir)$(TargetFileName) --no-translations</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

@@ -10,7 +10,7 @@ HPointer HLang::HByte::toInt(HArgs args)
 
 HPointer HLang::HByte::set(HArgs args)
 {
-	this->data = (char)args[0]->to<HInt>()->value();
+	this->data = (wchar_t)args[0]->to<HInt>()->value();
 	return HPointer(HVoid::__new__(HArgs()));
 }
 
@@ -25,12 +25,12 @@ HPointer HLang::HByte::init_int(HArgs args)
 	return HPointer(HVoid::__new__(HArgs()));
 }
 
-char HLang::HByte::value() const
+wchar_t HLang::HByte::value() const
 {
 	return data;
 }
 
-HLang::HByte* HLang::HByte::setvalue(char c)
+HLang::HByte* HLang::HByte::setvalue(wchar_t c)
 {
 	this->data = c;
 	return this;
