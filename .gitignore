@@ -20,3 +20,7 @@ HLang.vcxproj.user
 /qt/Makefile
 /qt/Makefile.Release
 /qt/Makefile.Debug
+/.vs
+/Analyst/Debug/Analyst.tlog
+/Analyst/Debug
+/Main/Debug
