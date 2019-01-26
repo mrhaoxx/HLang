@@ -24,9 +24,21 @@
     <ClCompile Include="HObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="memorystack.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HClass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="memorystack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HClass.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
