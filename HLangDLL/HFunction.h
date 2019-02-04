@@ -7,7 +7,8 @@ namespace HLang {
 			bool is_function_or_class; // false:class;true:function
 			std::string class_or_function_name_in_stack;
 			std::string member_function_name;
-			std::vector<std::string> args;
+			std::vector<HLANG_DATA> args;
+			std::string returnd_value_save_as;
 		};
 		void ExecOneLine(OneLine ol, memorystack* stk);
 	public:

@@ -1,8 +1,10 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <variant>
 #define HLANG_EXPORT __declspec(dllexport)
 namespace HLang {
+	typedef std::variant<int, bool, std::string, char> HLANG_DATA;
 	class HLANG_EXPORT HObject {
 	public:
 		HObject() {}
